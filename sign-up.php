@@ -2,32 +2,43 @@
 
 
 	# checking to see whether the user is a patient or a physician
-	$type_filter = ['Patient', 'Medical'];
+	$type_filter = array(
+			'Patient' => 'Patient',
+			'Medical' => 'Medical');
+
 	$type = '';
 
 	if (!empty($_GET['type'])) {
-		if (in_array( $_GET['type'], $type_filter)){
+
+		#echo $_GET['type'];
+
+		if (in_array($_GET['type'], $type_filter)){
+
 			$type = $_GET['type'];
 
 
+			if ($type_filter['Patient'] == $type) {
+
+				
+				# perform patient sign in
 
 
 
+			} else if ($type_filter['Medical'] == $type){
 
+				# perform medical sign in
 
+			}
 
 		}
 	}
-
-
-
-
 
 
  ?>
 
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta http-equiv="Content Type" content="text/html"; charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -154,7 +165,6 @@
 
 	</head>
 
-
 	<body>
 	<div class="container">
 		<div class="container">
@@ -165,9 +175,14 @@
 				<img src="img/logo.png" class="img-responsive" alt="logo" width="60px" height="60px">
 				<br>
 				<p class="text-center">
-					<h4 class="header-caption">SIGN IN</h4>
-					Hello there, sign in and start managing your <a href="sign-up.php?type=<?php echo $type_filter[0]; ?>">Patient</a>
-					or <a href="sign-up.php?type=<?php echo $type_filter[1]; ?>">Physicain</a>
+					<h4 class="header-caption">SIGN IN
+						<?php
+							# Choosing what to print beside the sign in
+							echo in_array($_GET['type'], $type_filter) ? " AS A ".strtoupper($type === $type_filter['Medical'] ? 'Pyhsician' : $type) : " ";
+						?>
+						 </h4>
+					Hello there, sign in and start managing your <a href="sign-up.php?type=<?php echo $type_filter['Patient']; ?>">Patient</a>
+					or <a href="sign-up.php?type=<?php echo $type_filter['Medical']; ?>">Physicain</a>
 				</p>
 			</center>
 
