@@ -37,7 +37,7 @@
 						<div class="row">
 						<div class="col-xs-6">
 							<div class="form-group">
-								<input type="password" class="form-control" id="pwd" name="password" placeholder="Password" required>
+								<input type="password" class="form-control" id="dav" name="password" placeholder="Password" required>
 							</div>
 						</div>
 						</div>
