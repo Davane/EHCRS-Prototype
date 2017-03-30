@@ -1,6 +1,9 @@
 <?php
 
 
+	#var_dump($_POST);
+	#var_dump($_GET);
+	
 	# checking to see whether the user is a patient or a physician
 	$type_filter = array(
 			'Patient' => 'Patient',
@@ -10,26 +13,30 @@
 
 	if (!empty($_GET['type'])) {
 
-		#echo $_GET['type'];
-
 		if (in_array($_GET['type'], $type_filter)){
 
 			$type = $_GET['type'];
 
 
-			if ($type_filter['Patient'] == $type) {
 
-				
-				# perform patient sign in
+			if (isset($_POST) && !empty($_POST)) {
+
+				echo "Form Submitted";
+
+				if ($type_filter['Patient'] == $type) {
+
+
+					# perform patient sign in
 
 
 
-			} else if ($type_filter['Medical'] == $type){
+				} else if ($type_filter['Medical'] == $type){
 
-				# perform medical sign in
+					# perform medical sign in
+
+				}
 
 			}
-
 		}
 	}
 
@@ -178,7 +185,10 @@
 					<h4 class="header-caption">SIGN IN
 						<?php
 							# Choosing what to print beside the sign in
-							echo in_array($_GET['type'], $type_filter) ? " AS A ".strtoupper($type === $type_filter['Medical'] ? 'Pyhsician' : $type) : " ";
+							//var_dump($_GET);
+							if (!empty($_GET)){
+								echo in_array($_GET['type'], $type_filter) ? " AS A ".strtoupper($type === $type_filter['Medical'] ? 'Pyhsician' : $type) : " ";
+							}
 						?>
 						 </h4>
 					Hello there, sign in and start managing your <a href="sign-up.php?type=<?php echo $type_filter['Patient']; ?>">Patient</a>
@@ -190,7 +200,7 @@
 			if ($type !== '') {
 		?>
 			<!-- sign up form -->
-			<form action="" method="POST">
+			<form action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
 
 				<div class="row">
 					<div class="col-md-12">
@@ -210,7 +220,7 @@
 			  	</div>
 			  	<div class="row">
 			  		<div class="col-md-12 col-xs-offset-0">
-			  			<button type="button" name="submit" value="submit" class="btn btn-send btn-block">Sign In Now  <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+			  			<button type="submit" name="submit" value="submit" class="btn btn-send btn-block">Sign In Now  <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
 			  		</div>
 			  		<br><br><br>
 			  		<center>
