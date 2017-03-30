@@ -22,4 +22,9 @@ if (!$connect) {
     #echo 'connect';
 }
 
+
+function closeConnection(){
+    $connect->close();
+}
+
 ?>

@@ -23,8 +23,6 @@ function gen_validate_inputs($inputs) {
     global $ERRORS;
 
     # removing all existing values from the error list
-
-
     foreach ($inputs as $key => $value) {
 
         $key_elelments = explode("-", $key);
@@ -72,12 +70,19 @@ function gen_validate_inputs($inputs) {
                     break;
             }
         }
-        
+
     }
 
     return $ERRORS;
 
 }
 
+function output_error($error){
+    return "<small class=\"text-danger\">". $error ."</small>";
+}
 
+function refill_input_fields($key){
+    #isset($_POST['medical_id']) ? $_POST['medical_id'] : ''
+    return isset($_POST[$key]) ? $_POST[$key] : '';
+}
 ?>
