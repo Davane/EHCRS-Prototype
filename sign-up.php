@@ -3,7 +3,7 @@
 
 	#var_dump($_POST);
 	#var_dump($_GET);
-	
+
 	# checking to see whether the user is a patient or a physician
 	$type_filter = array(
 			'Patient' => 'Patient',
@@ -11,24 +11,71 @@
 
 	$type = '';
 
+	# checking if the type of login was set
 	if (!empty($_GET['type'])) {
 
+		# checking if the type is appropriate
 		if (in_array($_GET['type'], $type_filter)){
 
 			$type = $_GET['type'];
 
-
-
 			if (isset($_POST) && !empty($_POST)) {
-
-				echo "Form Submitted";
 
 				if ($type_filter['Patient'] == $type) {
 
+					include_once 'core/patient/patient.inc.php';
 
 					# perform patient sign in
 
+					# 1. validate inputs (check if empty and if correct values)
+					$items = array(
+							'INT-medical_id-2147483648' => $_POST['medical_id'],
+							'EMAIL-email-64'            => $_POST['email'],
+							'PASSWORD-password-255'     => $_POST['password'] );
 
+					$error = gen_validate_inputs($items);
+
+
+					#var_dump($error);
+
+					if (empty($error)){
+						echo 'validate';
+
+						# 2. sanitize string (remove for database)
+						$password = gen_sanitize_for_datebase($_POST['password']);
+						$email = gen_sanitize_for_datebase($_POST['email']);
+
+						# 3. check if user exist
+						if (is_member_exist($_POST['medical_id'])){
+
+							# is user active
+							if (is_member_active($_POST['medical_id'])) {
+
+								# 4. sign in user
+
+
+
+								# 5. create seesions with encrypted id
+
+
+							} else {
+								
+									# Account isnt Active
+
+
+							}
+
+
+						} else {
+
+							# Account doesnt Exist
+
+
+						}
+
+					} else {
+						#var_dump($error);
+					}
 
 				} else if ($type_filter['Medical'] == $type){
 
