@@ -19,14 +19,13 @@
         }
 
     } else if (isset($_GET['send'])) {
+        
             # send email again
             echo 'send again';
             unset($_GET['send']);
 
-            if(generate_and_send_verification_code_by_email('303'))
-            {
+            if(generate_and_send_verification_code_by_email('303')) {
                 echo 'sent';
-
             }
 
     } else {
