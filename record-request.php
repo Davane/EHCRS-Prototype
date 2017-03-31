@@ -15,7 +15,9 @@
 
 			<h2><b>Patient Record Request</b></h2>
 					<br><br>
-					<p>To request <b class="thicker">Fenise Hamilton</b>'s record from <b>X</b> please enter the following information.</p>
+					<p>To request
+						 <b class="thicker">Fenise Hamilton's
+						 </b> record from <b>X</b> please enter the following information.</p>
 					<br>
 
 
