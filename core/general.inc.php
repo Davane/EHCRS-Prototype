@@ -1,5 +1,13 @@
 <?php
 
+function gen_send_mail($to, $subject, $message){
+
+    // In case any of our lines are larger than 70 characters, we should use wordwrap()
+    $message = wordwrap($message, 70, "\r\n");
+
+    mail($to, $subject, $message /*, $headers*/);
+}
+
 # this is escaping quotes, double qustes
 # \n , \r, \t , null
 function gen_sanitize_for_datebase($str){

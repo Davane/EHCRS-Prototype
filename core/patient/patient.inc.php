@@ -32,6 +32,21 @@ function sign_in_patient($id, $email, $password) {
 
 }
 
+function get_patient_vitals(){
+
+    
+}
+
+function get_patient_condtition(){
+
+
+}
+
+function get_patient_medication(){
+
+
+}
+
 
 
 

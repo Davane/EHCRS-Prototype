@@ -43,7 +43,24 @@
 								# 4. sign in user and log
 								if(sign_in_patient($_POST['medical_id'], $_POST['email'], $_POST['password'])){
 
-									# 5. create seesions with encrypted id
+									// $code = generate_verification_code();
+									//
+									// var_dump($code);
+									//
+									// if(update_verification_code($_POST['medical_id'], $code)){
+									// 	gen_send_mail('dlen366@gmail.com', 'Hello' ,
+									//  	'PLease Verify your account by entering the following code on the verfication page of our site: ' .$code );
+									//
+									//
+									//
+									// }
+
+									if(generate_and_send_verification_code_by_email('303'))
+							        {
+										header('Location: login_verification.php');
+										# 5. create seesions with encrypted id
+							        }
+
 
 								} else {
 									$error['sign_failed'] = 'Incorrect Credentials';
