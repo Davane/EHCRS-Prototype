@@ -21,8 +21,6 @@
 <body>
 <div class="container-fluid">
  <!-- Begin Navigation Container -->
-    <div class="container-fluid">
-        <!-- Begin Navigation Menu -->
         <nav class="navbar navbar-greyscale navbar-fixed-top">
             <div class="container" style="margin-top: 25px;">
                 <div class="navbar-header">
@@ -46,15 +44,15 @@
                             <div class="form-group">
                             <div class="row">
                             <div class="col-xs-12">
-                              <div class="input-group">
-                                <input type="text" class="form-control" class="rounded" placeholder="Search for Patient..." name="q">
-                              </div>
+                              
+                                <input type="text" class="form-control" class="form-control" placeholder="Search for Patient..." name="q">
+                              
                             </div>
                             </div>
                             </div>
                             </form>
                         </li>
-                        <li style="margin-top:12px; letter-spacing: 0.5px;">
+                        <li class="avatar">
                             <div class="circle">
                                 <img class="img-cirlce" src="img/avatar.png" alt="user-avatar" height="30px" width="32px">
                             </div>
