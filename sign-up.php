@@ -1,39 +1,94 @@
 <?php
 
-
-	#var_dump($_POST);
-	#var_dump($_GET);
-	
 	# checking to see whether the user is a patient or a physician
 	$type_filter = array(
 			'Patient' => 'Patient',
 			'Medical' => 'Medical');
 
 	$type = '';
+	$error = array();
 
+	# checking if the type of login was set
 	if (!empty($_GET['type'])) {
 
+		# checking if the type is appropriate
 		if (in_array($_GET['type'], $type_filter)){
 
 			$type = $_GET['type'];
 
-
-
 			if (isset($_POST) && !empty($_POST)) {
-
-				echo "Form Submitted";
 
 				if ($type_filter['Patient'] == $type) {
 
+					include_once 'core/patient/patient.inc.php';
 
 					# perform patient sign in
 
+					# 1. validate inputs (check if empty and if correct values)
+					$items = array(
+							'INT-medical_id-2147483648' => $_POST['medical_id'],
+							'EMAIL-email-64'            => $_POST['email'],
+							'PASSWORD-password-255'     => $_POST['password'] );
+
+					$error = gen_validate_inputs($items);
 
 
-				} else if ($type_filter['Medical'] == $type){
+					if (empty($error)){
 
+						# 2. check if user exist
+						if (is_member_exist($_POST['medical_id'])){
+							# 3. is user active
+							if (is_member_active($_POST['medical_id'])) {
+
+								# 4. sign in user and log
+								if(sign_in_patient($_POST['medical_id'], $_POST['email'], $_POST['password'])){
+
+									// $code = generate_verification_code();
+									//
+									// var_dump($code);
+									//
+									// if(update_verification_code($_POST['medical_id'], $code)){
+									// 	gen_send_mail('dlen366@gmail.com', 'Hello' ,
+									//  	'PLease Verify your account by entering the following code on the verfication page of our site: ' .$code );
+									//
+									//
+									//
+									// }
+
+									if(generate_and_send_verification_code_by_email('303'))
+							        {
+										header('Location: login_verification.php');
+										# 5. create seesions with encrypted id
+							        }
+
+
+								} else {
+									$error['sign_failed'] = 'Incorrect Credentials';
+								}
+
+							} else {
+
+									# Account isnt Active
+									$error['account_status'] = 'Your account is not active,
+																please contact adminsitrator';
+							}
+
+
+						} else {
+
+							# Account doesnt Exist
+							$error['account_exist'] = 'Your account wasn\'t found,
+							 						  please contact adminsitrator';
+
+						}
+
+					} else {
+						#var_dump($error);
+						#Errors
+					}
+
+				} else if ($type_filter['Medical'] == $type) {
 					# perform medical sign in
-
 				}
 
 			}
@@ -204,17 +259,56 @@
 
 				<div class="row">
 					<div class="col-md-12">
-						<small class="login-fade">login</small><br>
-						<input type="text" name="medical_id" id="medical_id" placeholder="<?php echo $type ?> ID" class="form-control" required>
+
+						<?php
+
+							# printing if the account is not active error
+							if(array_key_exists('account_status',$error)){
+								echo output_error($error['account_status']);
+								echo '<br>';
+							}
+
+							# printing if the account exist error
+							if(array_key_exists('account_exist',$error)){
+								echo output_error($error['account_exist']);
+								echo '<br>';
+							}
+
+							# printing if the account exist error
+							if(array_key_exists('sign_failed',$error)){
+								echo output_error($error['sign_failed']);
+								echo '<br>';
+							}
+
+						?>
+
+						<small class="login-fade">login</small>
+							<?php
+								if(array_key_exists('medical_id',$error)){
+									echo output_error($error['medical_id']);
+								}
+							?><br>
+						<input type="text" name="medical_id" id="medical_id" value="<?php echo isset($_POST['medical_id']) ? $_POST['medical_id'] : ''; ?>" placeholder="<?php echo $type ?> ID" class="form-control" required>
+
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-			  			<input type="email" name="email" id="email" placeholder="Enter email" class="form-control" required>
+						<?php
+							if(array_key_exists('email',$error)){
+								echo output_error($error['email']);
+							}
+						?>
+			  			<input type="email" name="email" id="email"  value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>" placeholder="Enter email" class="form-control" required>
 			  		</div>
 			  	</div>
 			  	<div class="row">
 			  		<div class="col-md-12">
+						<?php
+							if(array_key_exists('password', $error)){
+								echo output_error($error['password']);
+							}
+						?>
 			  			<input type="password" name="password" placeholder="Enter your password" class="form-control" required>
 			  		</div>
 			  	</div>

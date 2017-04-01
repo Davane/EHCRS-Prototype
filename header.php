@@ -22,15 +22,17 @@
 <div class="container-fluid">
  <!-- Begin Navigation Container -->
         <nav class="navbar navbar-greyscale navbar-fixed-top">
-            <div class="container" style="margin-top: 25px;">
+            <div class="container" style="margin-top: 0px;">
                 <div class="navbar-header">
+
                     <div onclick="navX(this)">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-bar-mobile-menu">
                             <span class="sr-only"></span>
-                                <span class="icon-bar bar1"></span>
-                                <span class="icon-bar bar3"></span>
+                            <span class="icon-bar bar1"></span>
+                            <span class="icon-bar bar3"></span>
                         </button>
                     </div>
+
                     <!--Logo-->
                     <div class="navbar-brand-logo">
                         <a class="navbar-brand" href="#"><span>Health<b>Wise</b></span></a>
@@ -41,20 +43,26 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <form class="navbar-form" role="search">
-                            <div class="form-group">
-                            <div class="row">
-                            <div class="col-md-5">
-                              
-                                <input type="text" class="form-control" class="form-control" placeholder="Search for Patient..." name="q">
-                              
-                            </div>
-                            </div>
-                            </div>
+
+                            	<div class="form-group">
+                            		<div class="row">
+                            			<div class="col-xs-12">
+
+                                			<input type="text" class="form-control"
+											placeholder="Search for Patient..." name="q">
+
+                            			</div>
+                            		</div>
+                            	</div>
+
                             </form>
                         </li>
                         <li class="avatar">
                             <div class="circle">
+
+                           
                                 <img class="img-cirlce" src="img/detta.svg" alt="user-avatar" height="30px" width="32px">
+
                             </div>
                             <span>&nbsp; &nbsp;<b>Dr Davis &nbsp; &#x25BC;</b></span>
                         </li>
