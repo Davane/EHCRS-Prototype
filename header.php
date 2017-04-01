@@ -43,7 +43,7 @@
                             <form class="navbar-form" role="search">
                             <div class="form-group">
                             <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-md-5">
                               
                                 <input type="text" class="form-control" class="form-control" placeholder="Search for Patient..." name="q">
                               
@@ -54,7 +54,7 @@
                         </li>
                         <li class="avatar">
                             <div class="circle">
-                                <img class="img-cirlce" src="img/avatar.png" alt="user-avatar" height="30px" width="32px">
+                                <img class="img-cirlce" src="img/detta.svg" alt="user-avatar" height="30px" width="32px">
                             </div>
                             <span>&nbsp; &nbsp;<b>Dr Davis &nbsp; &#x25BC;</b></span>
                         </li>
