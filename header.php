@@ -43,6 +43,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <form class="navbar-form" role="search">
+
                             	<div class="form-group">
                             		<div class="row">
                             			<div class="col-xs-12">
@@ -53,11 +54,15 @@
                             			</div>
                             		</div>
                             	</div>
+
                             </form>
                         </li>
                         <li class="avatar">
                             <div class="circle">
-                                <img class="img-cirlce" src="img/avatar.png" alt="user-avatar" height="30px" width="30px">
+
+                           
+                                <img class="img-cirlce" src="img/detta.svg" alt="user-avatar" height="30px" width="32px">
+
                             </div>
                             <span>&nbsp; &nbsp;<b>Dr Davis &nbsp; &#x25BC;</b></span>
                         </li>

@@ -1,4 +1,4 @@
-<? include 'header.php' ?>
+<?php include './header.php' ?>
 	
 <div id="wrapper">
 	<div class="sidebar-wrapper">
@@ -9,7 +9,7 @@
 		</div>
 	</div>
 
-	<div class="main-content-wrapper-registration">
+	<div class="main-content-wrapper">
 		<div class="main-content">
 
 			<div class="panel panel-default">
@@ -241,4 +241,4 @@
 	</div>
 </div>
 
-<? include 'footer.php' ?>
+<?php include 'footer.php' ?>
