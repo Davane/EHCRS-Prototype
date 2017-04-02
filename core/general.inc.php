@@ -1,12 +1,47 @@
 <?php
 
+# SESSION
+
+function get_user_id_from_session(){
+    is_session_started();
+    return isset($_SESSION[USER_KEY]) ? $_SESSION[USER_KEY] : null;
+}
+
+
+function get_current_user_type() {
+    is_session_started();
+    return isset($_SESSION[USER_TYPE]) ? $_SESSION[USER_TYPE] : null;
+}
+
+
+
+function is_session_started(){
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+}
+function set_session($key, $value){
+    is_session_started();
+    $_SESSION[$key] = $value;
+}
+
+function destroy_session(){
+    is_session_started();
+    session_unset();
+    session_destroy();
+}
+
+
+# MAIL
+
 function gen_send_mail($to, $subject, $message){
 
     // In case any of our lines are larger than 70 characters, we should use wordwrap()
     $message = wordwrap($message, 70, "\r\n");
-
     mail($to, $subject, $message /*, $headers*/);
 }
+
+# VALIDATION
 
 # this is escaping quotes, double qustes
 # \n , \r, \t , null
@@ -40,8 +75,12 @@ function gen_validate_inputs($inputs) {
         # Third element of '$key_elelments' is the max length of field
 
         #check if value is Empty
-        if (empty($value)){
-            $ERRORS[$key_elelments[1]] = "Field cannot be empty";
+        if (empty($value)) {
+            if (count($key_elelments) > 3) {
+                if ($key_elelments[3] === 'required') {
+                    $ERRORS[$key_elelments[1]] = "field cannot be empty";
+                }
+            }
         } else if (strlen($value) > (int) $key_elelments[2]){
             $ERRORS[$key_elelments[1]] = "Text too long";
         } else {
@@ -88,6 +127,20 @@ function gen_validate_inputs($inputs) {
 function output_error($error){
     return "<small class=\"text-danger\">". $error ."</small>";
 }
+
+function output_error_by_key($key, $error){
+
+    if(array_key_exists($key, $error)){
+        return "<small class=\"text-danger\">". $error[$key] ."</small> <br>";
+        #echo output_error($error[$key]);
+        #echo '<br>';
+    }
+
+
+}
+
+
+
 
 function refill_input_fields($key){
     #isset($_POST['medical_id']) ? $_POST['medical_id'] : ''

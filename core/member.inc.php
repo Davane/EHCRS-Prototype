@@ -1,13 +1,31 @@
 <?php
 
+function add_new_member(&$connect, $address_id, $firstName, $lasttName, $middleName,
+                        $maidenName, $email, $trn, $password = '', $gender,
+                        $dob = '0000-00-00', $tel_no, $age = 0){
+    if($connect == null) {
+        echo "pateint.inc.php : global connect member";
+        global $connect;
+    }
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_enter_new_member (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("isssssssssss", $address_id, $firstName, $lasttName, $middleName, $maidenName, $email, $trn, $password, $gender, $dob, $tel_no, $age);
+
+    $member_insert = $stmt->execute();
+
+    return $member_insert;
+}
+
 function generate_and_send_verification_code_by_email($id) {
 
     $code = generate_verification_code();
 
     if(update_verification_code($id, $code))
     {
-        gen_send_mail('dlen366@gmail.com', 'Hello' ,
-        'PLease Verify your account by entering the following code on the verfication page of our site: ' .$code );
+        gen_send_mail('dlen366@gmail.com', 'Hello' , 'PLease Verify your account by entering the following code on the verfication page of our site: ' .$code );
         return true;
     }
 

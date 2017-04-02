@@ -18,7 +18,7 @@ function executeAndGetRowsFromSelectPreparedStatement($statements) {
  	#var_dump($statements->error);
 
 	// checking is the query was executed successfully
-	if (!$select) { /* Handle error */ echo "Select == False" ; }
+	if (!$select) { /* Handle error */ echo "Select == False"; }
 
 	// getting the results that were selected from the prepered statement
 	$result = $statements->get_result();
@@ -35,5 +35,16 @@ function executeAndGetRowsFromSelectPreparedStatement($statements) {
 
 }
 
+function getLastInsertedId($connect){
+
+    # '$stmt_insert_msg->insert_id' returns zero when called
+    # with store procedures so we have to run the query manually
+    # from the database to get the results
+    $res = $connect->query("SELECT LAST_INSERT_ID() as LastInsertedId");
+    $row = $res->fetch_assoc();
+
+    return $row['LastInsertedId']."\n";
+
+}
 
 ?>

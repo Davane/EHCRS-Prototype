@@ -22,7 +22,7 @@
 <div class="container-fluid">
  <!-- Begin Navigation Container -->
         <nav class="navbar navbar-greyscale navbar-fixed-top">
-            <div class="container" style="margin-top: 0px;">
+            <div class="container" style="margin-top: 25px;">
                 <div class="navbar-header">
 
                     <div onclick="navX(this)">
@@ -60,7 +60,7 @@
                         <li class="avatar">
                             <div class="circle">
 
-                           
+
                                 <img class="img-cirlce" src="img/detta.svg" alt="user-avatar" height="30px" width="32px">
 
                             </div>

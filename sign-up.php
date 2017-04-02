@@ -43,23 +43,15 @@
 								# 4. sign in user and log
 								if(sign_in_patient($_POST['medical_id'], $_POST['email'], $_POST['password'])){
 
-									// $code = generate_verification_code();
-									//
-									// var_dump($code);
-									//
-									// if(update_verification_code($_POST['medical_id'], $code)){
-									// 	gen_send_mail('dlen366@gmail.com', 'Hello' ,
-									//  	'PLease Verify your account by entering the following code on the verfication page of our site: ' .$code );
-									//
-									//
-									//
-									// }
 
-									if(generate_and_send_verification_code_by_email('303'))
+									if(generate_and_send_verification_code_by_email($_POST['medical_id']))
 							        {
-										header('Location: login_verification.php');
 										# 5. create seesions with encrypted id
-							        }
+										set_session(USER_KEY, $_POST['medical_id']);
+										set_session(USER_TYPE, $type);
+
+										header('Location: login-verification.php');
+									}
 
 
 								} else {
