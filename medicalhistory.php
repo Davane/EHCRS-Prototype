@@ -35,10 +35,10 @@
 				  		<div class="row">
 				  			<form>
 				  				<div class="form-group">
-						  			<div class="col-md-2">
+						  			<div class="col-md-1">
 						  				<label for="condi"><h5>Condition:</h5></label>
 						  			</div>
-						  			<div class="col-md-2">
+						  			<div class="col-md-3">
 						  				<input type="text" class="form-control" id="condi" placeholder="Broken Leg, Flu">
 						  			</div>
 						  			<div class="col-md-4 col-md-offset-4">
