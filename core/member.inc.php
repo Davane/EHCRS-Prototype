@@ -2,19 +2,37 @@
 
 function add_new_member(&$connect, $address_id, $firstName, $lasttName, $middleName,
                         $maidenName, $email, $trn, $password = '', $gender,
-                        $dob = '0000-00-00', $tel_no, $age = 0){
+                        $dob = '0000-01-01', $tel_no, $age = '0'){
     if($connect == null) {
         echo "pateint.inc.php : global connect member";
         global $connect;
     }
 
+
+    if (empty(trim($dob))) {
+        # set default value
+        $dob = '0000-01-01';
+    }
+
+    if (empty(trim($age))) {
+        # set default value
+        $age = '0';
+    }
+
+    if (empty(trim($gender))) {
+        # set default value
+        $gender = null;
+    }
     // the prepare for update
     $stmt = $connect->prepare("CALL proc_enter_new_member (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?);");
 
     // bind string datatype to varaibles
-    $stmt->bind_param("isssssssssss", $address_id, $firstName, $lasttName, $middleName, $maidenName, $email, $trn, $password, $gender, $dob, $tel_no, $age);
+    $stmt->bind_param("isssssssssss", $address_id, $firstName, $lasttName, $middleName,
+                            $maidenName, $email, $trn, $password, $gender, $dob, $tel_no, $age);
 
     $member_insert = $stmt->execute();
+
+    echo $connect->error;
 
     return $member_insert;
 }

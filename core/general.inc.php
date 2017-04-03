@@ -43,6 +43,26 @@ function gen_send_mail($to, $subject, $message){
 
 # VALIDATION
 
+
+function is_empty_set_default($value, $default){
+    if(empty(trim($value))) {
+        $value = $default;
+    }
+
+    return $value;
+}
+
+function is_all_empty(){
+    foreach(func_get_args() as $arg) {
+      if (!empty(trim($arg))) {
+          return false;
+      }
+   }
+
+   return true;
+}
+
+
 # this is escaping quotes, double qustes
 # \n , \r, \t , null
 function gen_sanitize_for_datebase($str){

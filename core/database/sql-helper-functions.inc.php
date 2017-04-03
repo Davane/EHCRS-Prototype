@@ -43,7 +43,7 @@ function getLastInsertedId($connect){
     $res = $connect->query("SELECT LAST_INSERT_ID() as LastInsertedId");
     $row = $res->fetch_assoc();
 
-    return $row['LastInsertedId']."\n";
+    return empty(trim($row['LastInsertedId'])) ? null : $row['LastInsertedId'];
 
 }
 

@@ -1,6 +1,10 @@
 
 <?php
 
+#echo $_POST['street_name'];
+#echo $_POST['parish'];
+
+
 	require_once 'core/init.php';
 
 	# Check if user has been logged in and verfied
@@ -50,7 +54,7 @@
 
 		$error = gen_validate_inputs($items);
 
-		var_dump($error);
+		#var_dump($error);
 
 		if (empty($error)) {
 
@@ -60,11 +64,11 @@
 			pateint_registration_process($_POST['firstName'], $_POST['middleName'], $_POST['lastName'],
 									  	 $_POST['maidenName'],$_POST['email'], $_POST['trn'], 'password',
 										 $_POST['gender'], $_POST['dob'], $_POST['telephone'], $_POST['age'], $_POST['street_name'],
-										 $_POST['parish'], 'country', 'insurance_id', $_POST['employer_name'], $_POST['occupation'],
-										 $_POST['emp_tel'], 'policy', $_POST['emp_address'], $_POST['emp_parish'],
-										 'employer_country', $_POST['petName'], $_POST['kin'], $_POST['relationship'], $_POST['religion'],
-										 $_POST['father_name'],	$_POST['mother_name'], 'birth_place', 'birth_parish', 'single',
-										 $_POST['height'], $_POST['weight'], $_POST['temp'], $_POST['pulse'],$_POST['resp'],
+										 $_POST['parish'], ''/*country*/, '0'/*insurance_id*/, $_POST['employer_name'], $_POST['occupation'],
+										 $_POST['emp_tel'], '' /*Policy*/, $_POST['emp_address'], $_POST['emp_parish'],
+										  ''/*employer_country*/, $_POST['petName'], $_POST['kin'], $_POST['relationship'], $_POST['religion'],
+										 $_POST['father_name'],	$_POST['mother_name'], ''/*birth_place*/, ''/*birth_parish*/, $_POST['union'],
+										 $_POST['height'], $_POST['weight'], $_POST['temp'], $_POST['pulse'],$_POST['resp'], $_POST['bp'],
 										 $_POST['urinalysis'], $_POST['condition']);
 		}
 
@@ -146,6 +150,9 @@
 					<div class="form-group">
 						<div class="col-md-6 col-xs-12">
 							<input type="email" class="form-control" name="email" placeholder="Email">
+							<?php if (!empty($error)) {
+							  echo output_error_by_key('email', $error).'<br>';
+							} ?>
 						</div>
 						<div class="col-md-6 col-xs-12">
 							<input type="text" class="form-control" name="trn" placeholder="TRN" required>
@@ -277,7 +284,7 @@
 
 					<div class="form-group">
 					    <div class="col-md-12 col-xs-12">
-					    	<input type="tel" class="form-control" name="condition" placeholder="Condition">
+					    	<input type="tel" class="form-control" name="condition" placeholder="Condition" required>
 					    </div>
 					</div>
 
