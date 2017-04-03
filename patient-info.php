@@ -40,9 +40,33 @@
 						        </h4>
 						      </div>
 						      <div id="collapse1" class="panel-collapse collapse in">
-						        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-						        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+						        <div class="panel-body">
+						        	<div class="table-responsive">          
+									  <table class="table">
+									    <thead>
+									      <tr>
+									        <th>#</th>
+									        <th>Firstname</th>
+									        <th>Lastname</th>
+									        <th>Age</th>
+									        <th>City</th>
+									        <th>Country</th>
+									      </tr>
+									    </thead>
+									    <tbody>
+									      <tr>
+									        <td>1</td>
+									        <td>Anna</td>
+									        <td>Pitt</td>
+									        <td>35</td>
+									        <td>New York</td>
+									        <td>USA</td>
+									      </tr>
+									    </tbody>
+									  </table>
+									</div>
+									<!-- However I think the smarter thing for you to do is to write a script for each of these and include the script here -->
+						        </div>
 						      </div>
 						    </div>
 						    <div class="panel panel-default">
@@ -52,9 +76,9 @@
 						        </h4>
 						      </div>
 						      <div id="collapse2" class="panel-collapse collapse">
-						        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-						        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+						        <div class="panel-body">
+						        	
+						        </div>
 						      </div>
 						    </div>
 						    <div class="panel panel-default">
@@ -64,9 +88,9 @@
 						        </h4>
 						      </div>
 						      <div id="collapse3" class="panel-collapse collapse">
-						        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-						        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+						        <div class="panel-body">
+						        	
+						        </div>
 						      </div>
 						    </div>
 						    <div class="panel panel-default">
@@ -76,9 +100,9 @@
 						        </h4>
 						      </div>
 						      <div id="collapse4" class="panel-collapse collapse">
-						        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-						        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+						        <div class="panel-body">
+						        	
+						        </div>
 						      </div>
 						    </div>
 						  </div> 
