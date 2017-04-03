@@ -10,7 +10,6 @@ $user_id = null;
 if(get_user_id_from_session() !== null && get_current_user_type() !== null && get_current_user_type() === 'Patient') {
 	$user_id = get_user_id_from_session();
 } else {
-
 	echo "Session not set: logout user";
 }
 
