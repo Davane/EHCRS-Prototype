@@ -242,3 +242,8 @@ input {
     width:160px;
     height:140px;
 }
+
+#pad-panel {
+    margin: 10px;
+    padding: 0 10px;
+}
