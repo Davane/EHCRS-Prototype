@@ -388,27 +388,117 @@ function enter_new_address(&$connect = null, $street_name = '', $parish = '', $c
 
 function get_patient_general_info($patient_id){
 
-        // the prepare for update
-        //$stmt = $connect->prepare("CALL proc_sign_in_user (?, ?, ?);");
+    global $connect;
 
-        // bind string datatype to varaibles
-        //$stmt->bind_param("s", $id);
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_pateint_profile_info (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $patient_id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        echo 'Not selected';
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet == null) {
+		/* Handle error */
+		echo "ResultSet == null" ;
+
+	 }
+    # var_dump($connect->error);
+     return  $resultSet->fetch_assoc();;
 
 
 }
 
-function get_patient_vitals(){
+function get_patient_condtition_and_treatment($id) {
 
+    global $connect;
 
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_condition_treatment_medication (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        echo 'Not selected';
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet == null) {
+		/* Handle error */
+		echo "ResultSet == null" ;
+
+	 }
+
+     return $resultSet;
 }
 
-function get_patient_condtition(){
+function get_patient_vitals($id){
 
+    global $connect;
 
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_patient_vitals (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        echo 'Not selected';
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet == null) {
+        /* Handle error */
+        echo "ResultSet == null" ;
+
+     }
+
+     return $resultSet;
 }
 
-function get_patient_medication(){
 
+function get_patient_medication($id){
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_patient_medication (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        echo 'Not selected';
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet == null) {
+        /* Handle error */
+        echo "ResultSet == null" ;
+
+     }
+
+     return $resultSet;
 
 }
 

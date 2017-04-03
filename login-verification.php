@@ -24,7 +24,7 @@
                     #check if patient of physician
                     if(get_current_user_type() != null && get_current_user_type() == 'Patient') {
                         echo "Patient";
-                        header('Location: patient-registration.php');
+                        header('Location: patient-info.php');
                     } else if (get_current_user_type() != null && get_current_user_type() == 'Medical') {
                         header('Location: patient-registration.php');
                     } else {

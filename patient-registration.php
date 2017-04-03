@@ -24,7 +24,7 @@
 				'TEXT-maidenName-26-required' => $_POST['maidenName'],
 				'TEXT-middleName-26' => $_POST['middleName'],
 				'TEXT-petName-26'    => $_POST['petName'],
-				'EMAIL-email-64'     => $_POST['email'],
+				'EMAIL-email-64-required'     => $_POST['email'],
 				'TEXT-trn-15'        => $_POST['trn'],
 				'TEXT-dob-26'        => $_POST['dob'],
 				'INT-age-26'         => $_POST['age'],
