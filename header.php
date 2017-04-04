@@ -19,6 +19,7 @@
         <!-- Calendar -->
         <link rel='stylesheet' href='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.css' />
 	</head>
+
 <body>
 <div class="container-fluid">
  <!-- Begin Navigation Container -->
@@ -63,7 +64,7 @@
 
 
 =======
-                           
+
 >>>>>>> thegarfieldgray/master
                                 <img class="img-cirlce" src="img/detta.svg" alt="user-avatar" height="30px" width="32px">
 

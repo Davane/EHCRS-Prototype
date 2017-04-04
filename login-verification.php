@@ -19,13 +19,16 @@
                 # read from session to get ID;
 
                 if(confirm_verification('303', $code)) {
-                    #echo 'confirmed';
-
+                    
                     #check if patient of physician
                     if(get_current_user_type() != null && get_current_user_type() == 'Patient') {
-                        echo "Patient";
+                        #echo "Patient";
                         header('Location: patient-info.php');
                     } else if (get_current_user_type() != null && get_current_user_type() == 'Medical') {
+
+                        # check if clerk of doctor or nurse and
+                        # present them with a different page if necesaary
+
                         header('Location: patient-registration.php');
                     } else {
                         $error['unknown-error'] = "An unknown-error Occured";
