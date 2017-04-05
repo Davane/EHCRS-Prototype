@@ -3,6 +3,8 @@
 
     require_once 'core/patient/patient.inc.php';
 
+    require_once 'session-validation.php';
+
 	$error = array();
     $info = array();
     # Starting session
@@ -11,15 +13,16 @@
     # check if patient seesion was set
     if(get_user_id_from_session() != null) {
         #echo 'Session set';
-
+        $user_id = get_user_id_from_session() ;
         if (isset($_POST['code'])) {
+
             if(!empty($_POST['code'])){
 
-                $code = $_POST['code'];
+                $code = trim($_POST['code']);
                 # read from session to get ID;
 
-                if(confirm_verification('303', $code)) {
-                    
+                if(confirm_verification($user_id, $code)) {
+
                     #check if patient of physician
                     if(get_current_user_type() != null && get_current_user_type() == 'Patient') {
                         #echo "Patient";
@@ -60,7 +63,7 @@
 
     } else {
         echo " Session Not Set";
-        header('Location: sign-up.php');
+        #header('Location: sign-up.php');
     }
     # 5. create seesions with encrypted id
 

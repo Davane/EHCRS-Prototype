@@ -1,3 +1,4 @@
+
 <?php
 
 # SESSION
@@ -25,12 +26,24 @@ function set_session($key, $value){
     $_SESSION[$key] = $value;
 }
 
+function get_value_from_session($key){
+    is_session_started();
+    return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
+}
+
 function destroy_session(){
     is_session_started();
     session_unset();
     session_destroy();
 }
 
+function set_sign_in_session($id, $type, $time) {
+    is_session_started();
+    $_SESSION['session-id'] = "genrate-random id with time and encoded";
+    $_SESSION['user-id'] = $id;
+    $_SESSION['user-type'] = $type;
+    $_SESSION['user-time'] = $time;
+}
 
 # MAIL
 

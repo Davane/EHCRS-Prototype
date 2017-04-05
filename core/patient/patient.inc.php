@@ -5,6 +5,36 @@ require_once(dirname(__FILE__) . '/../init.php');
 require_once(dirname(__FILE__) . '/../member.inc.php');
 
 
+function get_patient_general_info($patient_id){
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_pateint_profile_info (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $patient_id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        echo 'Not selected';
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet == null) {
+		/* Handle error */
+		echo "ResultSet == null" ;
+
+	 }
+    # var_dump($connect->error);
+     return  $resultSet->fetch_assoc();;
+
+
+}
+
 function sign_in_patient($id, $email, $password) {
 
     global $connect;
@@ -32,7 +62,7 @@ function sign_in_patient($id, $email, $password) {
 
 }
 
-function pateint_registration_process($firstName, $middleName ='', $lasttName,
+function pateint_registration_process($firstname, $middleName ='', $lastname,
                         $maidenName, $email, $trn, $password, $gender = '',
                         $dob, $tel_no, $age, $street_name, $parish, $country,
                         $insurance_id, $emp_name,$occupation, $emp_tel_no, $policy,
@@ -87,7 +117,7 @@ function pateint_registration_process($firstName, $middleName ='', $lasttName,
 
         #die();
 
-        if(add_new_member($connect, $address_id, $firstName, $lasttName, $middleName,
+        if(add_new_member($connect, $address_id, $firstname, $lastname, $middleName,
                                 $maidenName, $email, $trn, $password, $gender,
                                 $dob, $tel_no, $age)) {
 
@@ -141,8 +171,12 @@ function pateint_registration_process($firstName, $middleName ='', $lasttName,
 
                                     if(enter_new_conditions($connect, $condition, $medical_history_id)) {
 
-                                        echo "REGISTERED";
-                                        $connect->commit();
+                                        if(generate_activation_code_and_email($connect, $member_id, $email, $firstname, $lastname)){
+                                            echo "REGISTERED";
+                                            $connect->commit();
+                                        } else {
+                                            echo 'activation code not Sent';
+                                        }
 
                                     } else {
                                         echo "create new condition error:" . $connect->error;
@@ -186,6 +220,41 @@ function pateint_registration_process($firstName, $middleName ='', $lasttName,
 
 }
 
+function generate_activation_code($key){
+    return md5((string)$key + (string)microtime());
+}
+
+function generate_activation_code_and_email(&$connect = null, $member_id, $email, $firstname, $lastname) {
+
+    if($connect == null) {
+        echo "pateint.inc.php : global connect patient";
+        global $connect;
+    }
+
+    $activation_code = generate_activation_code($email);
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_update_activation_code (?, ?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("ss", $member_id, $activation_code);
+
+    $activation_code_inserted = $stmt->execute();
+
+    echo $connect->error;
+
+    if ($activation_code_inserted) {
+
+        gen_send_mail($email,
+                      "Account Activation",
+                      "Hello ". $firstname ." ". $lastname .",\n\nclick the link below to activate your account \n\nhttp://localhost/~davanedavis/EHCRS-Prototype/activate_account.php?x=". $email ."&code=". $activation_code ."
+                        \n\n\t- Healthwise Interconnected Health Record System");
+        return true;
+    } else {
+        return $error = 'insert_error';
+    }
+
+}
 
 function enter_new_pateint(&$connect = null,$member_id, $emp_info_id, $pet_name,
                             $kin, $relationship, $religion, $father_name,
@@ -216,7 +285,6 @@ function enter_new_pateint(&$connect = null,$member_id, $emp_info_id, $pet_name,
     return $patient_insert;
 }
 
-
 function register_pateint(&$connect = null, $pateint_id, $clerk_id, $hospital_id, $physician_id) {
 
     if($connect == null) {
@@ -237,15 +305,12 @@ function register_pateint(&$connect = null, $pateint_id, $clerk_id, $hospital_id
     return $register_insert;
 }
 
-
 function create_new_medical_record(&$connect = null, $pateint_id, $hospital_id, $clerk_id) {
 
     if($connect == null) {
         echo "pateint.inc.php : global connect medical_history";
         global $connect;
     }
-
-
 
     // the prepare for update
     $stmt = $connect->prepare("CALL proc_create_new_medical_record (?, ?, ?);");
@@ -259,7 +324,6 @@ function create_new_medical_record(&$connect = null, $pateint_id, $hospital_id, 
 
     return $medical_insert;
 }
-
 
 function enter_new_vitals(&$connect = null, $medical_id, $who_recorded, $height = '', $weight = '', $temp  = '',
                             $pulse = '', $resp = '', $bp = '', $urinalysis = '') {
@@ -292,7 +356,6 @@ function enter_new_vitals(&$connect = null, $medical_id, $who_recorded, $height 
 
 }
 
-
 function enter_new_conditions(&$connect = null, $condition, $medical_id) {
 
     if(!is_all_empty($condition)) {
@@ -318,7 +381,6 @@ function enter_new_conditions(&$connect = null, $condition, $medical_id) {
     }
 
 }
-
 
 function enter_new_employee_info(&$connect = null, $address_id = null, $insurance_id = null, $emp_name, $occupation, $tel_no, $policy) {
 
@@ -386,35 +448,6 @@ function enter_new_address(&$connect = null, $street_name = '', $parish = '', $c
 }
 
 
-function get_patient_general_info($patient_id){
-
-    global $connect;
-
-    // the prepare for update
-    $stmt = $connect->prepare("CALL proc_get_pateint_profile_info (?);");
-
-    // bind string datatype to varaibles
-    $stmt->bind_param("s", $patient_id);
-
-    #executing and fetching he rows
-    $select = $stmt->execute();
-
-    if (!$select) {
-        echo 'Not selected';
-    }
-
-    $resultSet = $stmt->get_result();
-
-    if ($resultSet == null) {
-		/* Handle error */
-		echo "ResultSet == null" ;
-
-	 }
-    # var_dump($connect->error);
-     return  $resultSet->fetch_assoc();;
-
-
-}
 
 function get_patient_condtition_and_treatment($id) {
 
@@ -471,7 +504,6 @@ function get_patient_vitals($id){
 
      return $resultSet;
 }
-
 
 function get_patient_medication($id){
 

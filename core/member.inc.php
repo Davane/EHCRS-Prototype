@@ -121,6 +121,51 @@ function is_member_exist($id) {
         return (bool) $row['exist'];
 }
 
+function is_member_exist_by_email($email) {
+
+        global $connect;
+
+        // the prepare for update
+    	$stmt = $connect->prepare("CALL proc_check_if_member_exist_by_email (?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("s", $email);
+
+
+        #executing and fetching he rows
+        $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
+
+        #var_dump($row);
+
+        $stmt->close();
+        #$connect->close();
+
+        return (bool) $row['exist'];
+}
+
+function is_code_and_user_valid($email, $code) {
+
+        global $connect;
+
+        // the prepare for update
+    	$stmt = $connect->prepare("CALL proc_validate_email_and_activation_code (?, ?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("ss", $email, $code);
+
+
+        #executing and fetching he rows
+        $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
+
+        #var_dump($row);
+
+        $stmt->close();
+        #$connect->close();
+
+        return (bool) $row['exist'];
+}
+
+
 function is_member_active($id) {
 
     global $connect;
@@ -143,6 +188,21 @@ function is_member_active($id) {
 }
 
 
+function active_account_by_email($email)
+{
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_activae_user_account (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $email);
+
+    $activated = $stmt->execute();
+
+    return $activated;
+
+}
 
 
 

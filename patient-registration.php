@@ -149,7 +149,7 @@
 				<div class="row">
 					<div class="form-group">
 						<div class="col-md-6 col-xs-12">
-							<input type="email" class="form-control" name="email" placeholder="Email">
+							<input type="email" class="form-control" name="email" placeholder="Email (Required) ">
 							<?php if (!empty($error)) {
 							  echo output_error_by_key('email', $error).'<br>';
 							} ?>

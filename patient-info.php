@@ -1,10 +1,9 @@
 <?php
 include_once 'core/patient/patient.inc.php';
-include 'header.php';
+include_once 'patient-header.php';
 
+require_once 'session-validation.php';
 
-# var_dump($_SESSION);
-#var_dump(get_user_id_from_session());
 $user_id = null;
 
 if(get_user_id_from_session() !== null && get_current_user_type() !== null && get_current_user_type() === 'Patient') {
@@ -16,13 +15,13 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 ?>
 
 <div id="wrapper">
-	<div class="sidebar-wrapper">
+	<!-- <div class="sidebar-wrapper">
 		<div class="sidebar">
 			<ul>
 				<li></li>
 			</ul>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="main-content-wrapper" id="p-info">
 		<div class="main-content">
@@ -31,9 +30,9 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 				<div class="row">
 					<?php
 
-						$patientInfo = get_patient_general_info('387');
-
-
+						if($user_id !== null){
+							$patientInfo = get_patient_general_info($user_id);
+						}
 
 					?>
 					<div class="col-xs-5 col-md-5">
@@ -79,11 +78,12 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 									    </thead>
 										<?php
 
+										if ($user_id !== null) {
 
+											$resutlSet = get_patient_condtition_and_treatment($user_id);
 
-										$resutlSet = get_patient_condtition_and_treatment('386');
+											while ($row = $resutlSet->fetch_assoc()): ?>
 
-										while ($row = $resutlSet->fetch_assoc()): ?>
 											<tbody>
 											  <tr>
 												<td><?php echo $row['date'];?></td>
@@ -94,7 +94,8 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 												<td><?php echo $row['treated by'];?></td>
 											  </tr>
 											</tbody>
-			                            <?php endwhile; ?>
+
+										<?php endwhile; } ?>
 
 									  </table>
 									</div>
@@ -133,10 +134,12 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 
 										<?php
 
-										$resutlSet = get_patient_vitals('386');
+										if ($user_id !== null) {
 
-									 	while ($row = $resutlSet->fetch_assoc()):
-											?>
+											$resutlSet = get_patient_vitals($user_id);
+
+									 		while ($row = $resutlSet->fetch_assoc()): ?>
+
 											<tbody>
 											  <tr>
 												<td><?php echo $row['date'];?></td>
@@ -150,8 +153,8 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 												<td><?php echo $row['taken_by'];?></td>
 											  </tr>
 											</tbody>
-										<?php endwhile;
-										 ?>
+
+										<?php endwhile; } ?>
 
 									  </table>
 									</div>
@@ -185,10 +188,11 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 
 										<?php
 
-										$resutlSet = get_patient_medication('387');
+										if ($user_id !== null) {
 
-									 	while ($row = $resutlSet->fetch_assoc()):
-											?>
+											$resutlSet = get_patient_medication($user_id);
+
+									 		while ($row = $resutlSet->fetch_assoc()): ?>
 											<tbody>
 											  <tr>
 												<td><?php echo $row['date'];?></td>
@@ -198,8 +202,7 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 												<td><?php echo $row['given_by'];?></td>
 											  </tr>
 											</tbody>
-										<?php endwhile;
-										 ?>
+										<?php endwhile; } ?>
 
 									  </table>
 									</div>

@@ -43,13 +43,16 @@
 								# 4. sign in user and log
 								if(sign_in_patient($_POST['medical_id'], $_POST['email'], $_POST['password'])){
 
+									// set_sign_in_session($_POST['medical_id'], $type, (string)time() /*timestamp*/);
+									// header('Location: login-verification.php');
 
 									if(generate_and_send_verification_code_by_email($_POST['medical_id']))
 							        {
 										# 5. create seesions with encrypted id
-										set_session(USER_KEY, $_POST['medical_id']);
-										set_session(USER_TYPE, $type);
+										#set_session(USER_KEY, $_POST['medical_id']);
+										#set_session(USER_TYPE, $type);
 
+										set_sign_in_session($_POST['medical_id'], $type, (string)time() /*timestamp*/);
 										header('Location: login-verification.php');
 									}
 
@@ -309,9 +312,9 @@
 			  			<button type="submit" name="submit" value="submit" class="btn btn-send btn-block">Sign In Now  <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
 			  		</div>
 			  		<br><br><br>
-			  		<center>
+			  		<!-- <center>
 			  			<small>Forgot Password? <a href="">Reset</a></small>
-			  		</center>
+			  		</center> -->
 			  	</div>
 
 			</form>
