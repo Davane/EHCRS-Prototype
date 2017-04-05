@@ -1,4 +1,7 @@
-<?php include 'header.php' ?>
+<?php
+include 'patient-header.php';
+require_once 'session-validation.php';
+ ?>
 <div id="wrapper">
 	<div class="main-content-wrapper" id="p-info">
 		<div class="main-content">

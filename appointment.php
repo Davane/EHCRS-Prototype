@@ -6,7 +6,7 @@
 			  	<p><code><b>echo session user</b></code> your next patient is : </p>
 			  		<div class="panel panel-default">
 			  			<div class="panel">
-			  				<div class="table-responsive">          
+			  				<div class="table-responsive">
 								<table class="table">
 									<thead>
 										<tr>
@@ -38,7 +38,7 @@
 			  	<p><code><b>echo session user</b></code> your next appointment is scheduled for : </p>
 			  		<div class="panel panel-default">
 			  			<div class="panel">
-			  				<div class="table-responsive">          
+			  				<div class="table-responsive">
 								<table class="table">
 									<thead>
 										<tr>
@@ -64,7 +64,7 @@
 							</div>
 			  			</div>
 			  		</div>
-			  </div>			  
+			  </div>
 		</div>
 	</div>
 </div>

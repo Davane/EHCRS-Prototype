@@ -19,11 +19,12 @@
         <!-- Calendar -->
         <link rel='stylesheet' href='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.css' />
 	</head>
+
 <body>
 <div class="container-fluid">
  <!-- Begin Navigation Container -->
         <nav class="navbar navbar-greyscale navbar-fixed-top">
-            <div class="container" style="margin-top: 0px;">
+            <div class="container" style="margin-top: 25px;">
                 <div class="navbar-header">
                     <div onclick="navX(this)">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-bar-mobile-menu">
@@ -59,7 +60,12 @@
                         </li>
                         <li class="avatar">
                             <div class="circle">
-                           
+<<<<<<< HEAD
+
+
+=======
+
+>>>>>>> thegarfieldgray/master
                                 <img class="img-cirlce" src="img/detta.svg" alt="user-avatar" height="30px" width="32px">
 
                             </div>

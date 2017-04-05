@@ -1,35 +1,69 @@
 <?php
 
+
     require_once 'core/patient/patient.inc.php';
 
-    if (isset($_POST['code'])) {
-        if(!empty($_POST['code'])){
+    require_once 'session-validation.php';
 
-            #echo "SET " . $_POST['code'];
+	$error = array();
+    $info = array();
+    # Starting session
+    is_session_started();
 
-            $code = $_POST['code'];
-            # read from session to get ID;
+    # check if patient seesion was set
+    if(get_user_id_from_session() != null) {
+        #echo 'Session set';
+        $user_id = get_user_id_from_session() ;
+        if (isset($_POST['code'])) {
 
-            if(confirm_verification('303', $code)) {
-                echo 'confirmed';
+            if(!empty($_POST['code'])){
 
-            } else  {
-                echo 'not confirmed';
+                $code = trim($_POST['code']);
+                # read from session to get ID;
+
+                if(confirm_verification($user_id, $code)) {
+
+                    #check if patient of physician
+                    if(get_current_user_type() != null && get_current_user_type() == 'Patient') {
+                        #echo "Patient";
+                        header('Location: patient-info.php');
+                    } else if (get_current_user_type() != null && get_current_user_type() == 'Medical') {
+
+                        # check if clerk of doctor or nurse and
+                        # present them with a different page if necesaary
+
+                        header('Location: patient-registration.php');
+                    } else {
+                        $error['unknown-error'] = "An unknown-error Occured";
+                    }
+
+
+                } else  {
+                    #echo 'Invalid Code';
+                	$error['invalid_code'] = 'Invalid Code';
+                }
+            } else {
+                $error['field_empty'] = 'Field Cannot Be Empty';
             }
+
+        } else if (isset($_GET['send'])) {
+
+                # send email again
+                #echo 'send again';
+                unset($_GET['send']);
+
+                if(generate_and_send_verification_code_by_email(get_user_id_from_session())) {
+                    $info['sent_again'] = 'Sent';
+                }
+
+        } else {
+            #echo 'Not Set';
+
         }
 
-    } else if (isset($_GET['send'])) {
-        
-            # send email again
-            echo 'send again';
-            unset($_GET['send']);
-
-            if(generate_and_send_verification_code_by_email('303')) {
-                echo 'sent';
-            }
-
     } else {
-        echo 'Not Set';
+        echo " Session Not Set";
+        #header('Location: sign-up.php');
     }
     # 5. create seesions with encrypted id
 
@@ -176,7 +210,7 @@
         				<br>
         				<p class="text-center">
         					<h4 class="header-caption">LOGIN VERIFICATION</h4>
-        					A confirmation code was sent to your email, if you did not reveice it, click here to <a href="login_verification.php?send=true">Send Again</a>
+        					A confirmation code was sent to your email, if you did not reveice it, click here to <a href="login-verification.php?send=true">Send Again</a>
         				</p>
         			</center>
         			<!-- sign up form -->
@@ -185,12 +219,36 @@
                         <div class="row">
         					<div class="col-md-12">
                                 <center>
+                                    <?php if (!empty($info)) {
+                                        if(array_key_exists('sent_again',$info)){
+                                            echo '<p class="leading text-info"> <b>' . $info['sent_again'] . '</b></p>';
+                                            echo '<br>';
+                                        }
+                                    }?>
         						    <p class="lead">Enter Code Here</p>
                                 </center>
 
         						<input type="text" name="code" id="code" placeholder="" class="form-control" required>
         					</div>
         				</div>
+                        <center>
+                            <?php if (!empty($error)) {
+                                if(array_key_exists('invalid_code',$error)){
+                                    echo output_error($error['invalid_code']);
+                                    echo '<br>';
+                                }
+
+                                if(array_key_exists('field_empty',$error)){
+                                    echo output_error($error['field_empty']);
+                                    echo '<br>';
+                                }
+
+                                if(array_key_exists('unknown-error',$error)){
+                                    echo output_error($error['unknown-error']);
+                                    echo '<br>';
+                                }
+                            }?>
+                        </center>
                         <br>
         			  	<div class="row">
         			  		<div class="col-md-12 col-xs-offset-0">
