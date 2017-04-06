@@ -39,12 +39,15 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul class="nav navbar-nav navbar-right">
-		  <form action="<?php $_SERVER['PHP_SELF'];?>" class="navbar-form navbar-left" style='margin-right: 25px'>
-  				<div class="form-group">
-  				  <input type="text" class="form-control search-style" placeholder="Search by ID, Name, Email .." style='margin-right: 10px'>
-  				</div>
-  				<button type="submit" class="btn btn-default">Search</button>
+		  <form action="search-results.php" method="post" class="navbar-form navbar-left" style='margin-right: 25px'>
+  			<div class="form-group">
+  				<input type="text" class="form-control search-style" name="query" placeholder="Search by ID, Name, Email ..." style='margin-right: 10px'>
+			</div>
+
+			<button type="submit" class="btn btn-default">Search</button>
+
   		</form>
+		
         <li><a href="#">My Profile</a></li>
         <!-- <li><a href="set-appointment.php" style="margin-right: 25px" >Set Appointment</a></li> -->
 

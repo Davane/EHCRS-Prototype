@@ -34,4 +34,34 @@ function verify_user_and_password($id, $password){
 
 }
 
+
+function search_for_patient($search_query){
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_search_for_patient (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $search_query);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        echo 'Not selected';
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet == null) {
+		/*  Handle error */
+		echo "ResultSet == null" ;
+
+	 }
+
+    # var_dump($connect->error);
+     return  $resultSet;
+}
+
  ?>
