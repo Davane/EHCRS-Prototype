@@ -47,12 +47,12 @@
 			<button type="submit" class="btn btn-default">Search</button>
 
   		</form>
-		
+
         <li><a href="#">My Profile</a></li>
         <!-- <li><a href="set-appointment.php" style="margin-right: 25px" >Set Appointment</a></li> -->
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="margin-right: 25px">  <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="margin-right: 25px"> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Appoinments</a></li>
 			<li><a href="#">Patient Registration</a></li>
