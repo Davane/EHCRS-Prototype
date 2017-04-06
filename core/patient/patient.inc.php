@@ -4,7 +4,6 @@
 require_once(dirname(__FILE__) . '/../init.php');
 require_once(dirname(__FILE__) . '/../member.inc.php');
 
-
 function get_patient_general_info($patient_id){
 
     global $connect;
@@ -25,42 +24,16 @@ function get_patient_general_info($patient_id){
     $resultSet = $stmt->get_result();
 
     if ($resultSet == null) {
-		/* Handle error */
+		/*  Handle error */
 		echo "ResultSet == null" ;
 
 	 }
+
     # var_dump($connect->error);
      return  $resultSet->fetch_assoc();;
 
-
 }
 
-function sign_in_patient($id, $email, $password) {
-
-    global $connect;
-
-    // the prepare for update
-    $stmt = $connect->prepare("CALL proc_sign_in_user (?, ?, ?);");
-
-    // bind string datatype to varaibles
-    $stmt->bind_param("sss", $id, $email, $password);
-
-    #executing and fetching he rows
-    $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
-    $stmt->close();
-
-    $signed_in = (bool) $row['signed_in'];
-
-    # if sign in successful
-    if ($signed_in) {
-        log_user_sign($id, '', 'sign_in');
-        return true;
-    }
-
-    log_user_sign($id, '', 'sign_in_attempt');
-    return false;
-
-}
 
 function pateint_registration_process($firstname, $middleName ='', $lastname,
                         $maidenName, $email, $trn, $password, $gender = '',
@@ -72,27 +45,49 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
                         $height, $weight, $temp, $pulse, $resp, $bp, $urinalysis,
                         $condition) {
 
+    # preventing against XSS attacks
+    $firstname  = gen_sanitize_for_datebase($firstname);
+    $middleName = gen_sanitize_for_datebase($middleName);
+    $lastname   = gen_sanitize_for_datebase($lastname);
+    $maidenName = gen_sanitize_for_datebase($maidenName);
+    $trn        = gen_sanitize_for_datebase($trn);
+    $password   = gen_sanitize_for_datebase($password);
+    $gender     = gen_sanitize_for_datebase($gender);
+    $tel_no     = gen_sanitize_for_datebase($tel_no);
+    $age        = gen_sanitize_for_datebase($age);
+    $parish     = gen_sanitize_for_datebase($parish);
+    $country    = gen_sanitize_for_datebase($country);
+    $emp_name   = gen_sanitize_for_datebase($emp_name);
+    $occupation = gen_sanitize_for_datebase($occupation);
+    $emp_tel_no = gen_sanitize_for_datebase($emp_tel_no);
+    $policy     = gen_sanitize_for_datebase($policy);
+    $emp_street_name = gen_sanitize_for_datebase($emp_street_name);
+    $emp_parish  = gen_sanitize_for_datebase($emp_parish);
+    $emp_country = gen_sanitize_for_datebase($emp_country);
+    $pet_name    = gen_sanitize_for_datebase($pet_name);
+    $kin         = gen_sanitize_for_datebase($kin);
+    $relationship = gen_sanitize_for_datebase($relationship);
+    $religion    = gen_sanitize_for_datebase($religion);
+    $father_name = gen_sanitize_for_datebase($father_name);
+    $mother_name = gen_sanitize_for_datebase($mother_name);
+    $birth_place = gen_sanitize_for_datebase($birth_place);
+    $birth_parish = gen_sanitize_for_datebase($birth_parish);
+    $height      = gen_sanitize_for_datebase($height);
+    $weight      = gen_sanitize_for_datebase($weight);
+    $temp        = gen_sanitize_for_datebase($temp);
+    $pulse       = gen_sanitize_for_datebase($pulse);
+    $resp        = gen_sanitize_for_datebase($resp);
+    $bp          = gen_sanitize_for_datebase($bp);
+    $urinalysis  = gen_sanitize_for_datebase($urinalysis);
+    $condition   = gen_sanitize_for_datebase($condition);
+
+
     global $connect;
 
 	/* turn autocommit off */
 	$connect->autocommit(false);
 
-    # enter in address table +
-
-    # enter into Address table (Employment Info address)
-        # - enter Employment Info
-
-    # enter member Info
-
-    # enter into pateint table
-
-    # enter into register table
-
-    # enter in medical history table
-
-    # enter vitals +
-
-    # enter into condition table
+    $error = array();
 
     $physician_id = $clerk_id = '308';
     $hospital_id = '1';
@@ -105,11 +100,6 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
         if ($status === true) {
             $address_id = getLastInsertedId($connect);
 
-            // var_dump($address_id);
-            // var_dump($status);
-            // var_dump($street_name);
-            // var_dump($parish);
-            // var_dump($country);
         } else {
             $address_id = null;
         }
@@ -139,19 +129,12 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
                 if($emp_info_status = enter_new_employee_info($connect, $emp_address_id, $insurance_id, $emp_name,
                                             $occupation, $emp_tel_no, $policy)) {
 
-                    # get last insert id from emplotment_info table
-                    #$emp_id = getLastInsertedId($connect);
 
                     if ($emp_info_status === true) {
                         $emp_id = getLastInsertedId($connect);
                     } else {
                         $emp_id = null;
                     }
-
-                    #var_dump($emp_id);
-                    #var_dump($emp_info_status);
-
-                    #die();
 
                     if(enter_new_pateint($connect, $member_id, $emp_id, $pet_name,
                                                     $kin, $relationship, $religion, $father_name,
@@ -171,50 +154,69 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
 
                                     if(enter_new_conditions($connect, $condition, $medical_history_id)) {
 
+
                                         if(generate_activation_code_and_email($connect, $member_id, $email, $firstname, $lastname)){
-                                            echo "REGISTERED";
+                                            #echo "REGISTERED";
+
                                             $connect->commit();
+
+                                            set_session('user', $member_id);
+                                            set_session('name', $firstname .' ' . $lastname);
+
+                                            header('Location: success.php?type=reg');
+
                                         } else {
                                             echo 'activation code not Sent';
+                                            $error['error'] = 'activation code not Sent';
                                         }
 
                                     } else {
                                         echo "create new condition error:" . $connect->error;
+                                        $error['error'] = 'create new condition error';
                                     }
 
                                 } else {
                                     echo "create new Vitals error:" . $connect->error;
+                                    $error['error'] = 'create new Vitals error';
                                 }
 
                             } else {
                                 echo "create new medical record error:" . $connect->error;
+                                $error['error'] = 'create new medical record error:';
                             }
 
                         } else {
                             echo "Register Patient error:" . $connect->error;
+                            $error['error'] = 'Register Patient error';
                         }
 
                     } else {
                         echo "new Patient error:" . $connect->error;
+                        $error['error'] = 'new Patient error';
                     }
 
                 } else {
                     echo "Employment Info error:" . $connect->error;
+                    $error['error'] = 'Employment Info error';
                 }
 
             } else {
                 echo "Employment Address error:" . $connect->error;
+                $error['error'] = 'Employment Address error';
             }
 
         } else {
             echo "Member error:" . $connect->error;
+            $error['error'] = 'Member error : Email Already Exists';
         }
 
     } else {
         echo "Pateint Address Wrong error:" . $connect->error;
+        $error['error'] = 'Member error';
     }
 
 
+    return $error;
 
 
 
@@ -411,7 +413,7 @@ function enter_new_employee_info(&$connect = null, $address_id = null, $insuranc
 
         $emp_insert = $stmt->execute();
 
-        echo $connect->error;
+        #echo $connect->error;
 
         return $emp_insert;
     } else {

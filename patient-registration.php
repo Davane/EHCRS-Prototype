@@ -16,7 +16,7 @@
 	# pateint need to set password after they are registered by physician
 	$error = array();
 
-	if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['maidenName'])) {
+	if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['maidenName']) && isset($_POST['condition'])) {
 
 		$items = array(
 				'TEXT-firstName-26-required'  => $_POST['firstName'],
@@ -43,7 +43,7 @@
 	 			'TEXT-emp_parish-26'    => $_POST['emp_parish'],
 				'TEXT-emp_tel-15'       => $_POST['emp_tel'],
 				'TEXT-occupation-48'    => $_POST['occupation'],
-				'TEXT-condition-128'    => $_POST['condition'],
+				'TEXT-condition-128-required' => $_POST['condition'],
 				'TEXT-height-10'         => $_POST['height'],
 				'TEXT-weight-10'         => $_POST['weight'],
 				'TEXT-bp-10'            => $_POST['bp'],
@@ -61,7 +61,7 @@
 			include_once 'core/patient/patient.inc.php';
 
 			# register pateint
-			pateint_registration_process($_POST['firstName'], $_POST['middleName'], $_POST['lastName'],
+			$error = pateint_registration_process($_POST['firstName'], $_POST['middleName'], $_POST['lastName'],
 									  	 $_POST['maidenName'],$_POST['email'], $_POST['trn'], 'password',
 										 $_POST['gender'], $_POST['dob'], $_POST['telephone'], $_POST['age'], $_POST['street_name'],
 										 $_POST['parish'], ''/*country*/, '0'/*insurance_id*/, $_POST['employer_name'], $_POST['occupation'],
@@ -72,17 +72,14 @@
 										 $_POST['urinalysis'], $_POST['condition']);
 		}
 
-
 	} else {
-		$error['required_field'] = "Enter the required fields";
+		#$error['required_field'] = "Enter the required fields";
 	}
+
+	include './header.php'
 
 ?>
 
-
-
-
-<?php include './header.php' ?>
 
 <div id="wrapper">
 	<div class="sidebar-wrapper">
@@ -100,10 +97,13 @@
 			  <div class="panel-body">
 			  <div class="container-fluid">
 			  <span><h3><b>Patient Registration Form</b></h3></span>
+			  <p><?php if(isset($error['error'])) { echo output_error_by_key('error', $error); } ?></p>
 			  <hr style="width: 99%;color:black">
-			  <p><b>Names   </b> <?php if (!empty($error)) {
- 				  echo output_error_by_key('required_field', $error);
- 			  } ?></p>
+			  <p><b>Names   </b>
+				  <?php if (!empty($error)) {
+ 				  	echo output_error_by_key('required_field', $error);
+	 			  } ?>
+			  </p>
 
 
 			  <form action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
@@ -155,7 +155,7 @@
 							} ?>
 						</div>
 						<div class="col-md-6 col-xs-12">
-							<input type="text" class="form-control" name="trn" placeholder="TRN" required>
+							<input type="text" class="form-control" name="trn" placeholder="TRN" >
 						</div>
 
 					 </div>
@@ -221,7 +221,7 @@
 					    	<input type="text" class="form-control" name="relationship" placeholder="Relationship" >
 					    </div>
 					    <div class="col-md-4 col-xs-12">
-					    	<input type="tel" class="form-control" name="em_telephone" placeholder="Tel No." required>
+					    	<input type="tel" class="form-control" name="em_telephone" placeholder="Tel No.">
 					    </div>
 					 </div>
 
@@ -284,7 +284,10 @@
 
 					<div class="form-group">
 					    <div class="col-md-12 col-xs-12">
-					    	<input type="tel" class="form-control" name="condition" placeholder="Condition" required>
+					    	<input type="tel" class="form-control" name="condition" placeholder="Condition (Required)" required>
+							<?php if (!empty($error)) {
+							  echo output_error_by_key('condition', $error).'<br>';
+							} ?>
 					    </div>
 					</div>
 

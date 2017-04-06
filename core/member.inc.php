@@ -1,5 +1,95 @@
 <?php
 
+function validate_user_from_session($id, $type, $session_id){
+
+    global $connect;
+    
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_validate_user_session (?, ?, ?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("sss", $id, $type, $session_id);
+
+    #executing and fetching he rows
+    $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
+    $stmt->close();
+
+    if (array_key_exists('valid', $row)){
+
+        $verified = (bool) $row['valid'];
+        // var_dump($verified);
+        # if successful
+        if ($verified) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+
+function update_user_session($id, $session_id) {
+
+        global $connect;
+
+        // the prepare for update
+        $stmt = $connect->prepare("CALL proc_update_session (?, ?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("ss", $id, $session_id);
+
+        #executing and fetching he rows
+        $update = $stmt->execute();
+
+        #var_dump($connect->error);
+        #var_dump($stmt->affected_rows);
+
+        if($stmt->affected_rows > 0) {
+            #echo "string";
+            $stmt->close();
+            return true;
+        }
+
+        #echo "2222";
+        return false;
+
+}
+
+
+function sign_in_member($id, $email, $password, $type) {
+
+    global $connect;
+
+    if($type === 'Patient') {
+        $query = 'CALL proc_sign_in_user (?, ?, ?);';
+    } else {
+        $query = 'CALL proc_sign_in_user (?, ?, ?);';
+    }
+
+    // the prepare for update
+    $stmt = $connect->prepare($query);
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("sss", $id, $email, $password);
+
+    #executing and fetching he rows
+    $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
+    $stmt->close();
+
+    $signed_in = (bool) $row['signed_in'];
+
+    # if sign in successful
+    if ($signed_in) {
+        log_user_sign($id, '', 'sign_in');
+        return true;
+    }
+
+    log_user_sign($id, '', 'sign_in_attempt');
+    return false;
+
+}
+
 function add_new_member(&$connect, $address_id, $firstName, $lasttName, $middleName,
                         $maidenName, $email, $trn, $password = '', $gender,
                         $dob = '0000-01-01', $tel_no, $age = '0'){
@@ -32,7 +122,7 @@ function add_new_member(&$connect, $address_id, $firstName, $lasttName, $middleN
 
     $member_insert = $stmt->execute();
 
-    echo $connect->error;
+    #echo $connect->error;
 
     return $member_insert;
 }
@@ -69,6 +159,7 @@ function confirm_verification($id, $code){
 
         # if successful
         if ($verified) {
+            update_verification_code($id, null);
             return true;
         }
     }
@@ -165,7 +256,6 @@ function is_code_and_user_valid($email, $code) {
         return (bool) $row['exist'];
 }
 
-
 function is_member_active($id) {
 
     global $connect;
@@ -187,9 +277,7 @@ function is_member_active($id) {
     return !array_key_exists('active' , $row) ? false : (bool) $row['active'];
 }
 
-
-function active_account_by_email($email)
-{
+function active_account_by_email($email){
     global $connect;
 
     // the prepare for update
