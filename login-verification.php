@@ -33,8 +33,8 @@
 
                         # check if clerk of doctor or nurse and
                         # present them with a different page if necesaary
-
                         header('Location: patient-registration.php');
+
                     } else {
                         $error['unknown-error'] = "An unknown-error Occured";
                     }
@@ -65,7 +65,7 @@
 
     } else {
         echo " Session Not Set";
-        #header('Location: sign-up.php');
+        header('Location: sign-up.php');
     }
     # 5. create seesions with encrypted id
 

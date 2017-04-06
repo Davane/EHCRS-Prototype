@@ -1,82 +1,114 @@
 
 <?php
 
-#echo $_POST['street_name'];
-#echo $_POST['parish'];
+#var_dump($_POST);
 
+	require_once 'core/physician/physician.inc.php';
 
-	require_once 'core/init.php';
-
-	# Check if user has been logged in and verfied
-
-
-	# when registered generate medical ID for user
-
-
-	# pateint need to set password after they are registered by physician
 	$error = array();
 
-	if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['maidenName']) && isset($_POST['condition'])) {
+	# verify the physician infromation entered into the modal
+	if(isset($_POST['medical_id']) && isset($_POST['password'])){
 
-		$items = array(
-				'TEXT-firstName-26-required'  => $_POST['firstName'],
-				'TEXT-lastName-26-required'   => $_POST['lastName'],
-				'TEXT-maidenName-26-required' => $_POST['maidenName'],
-				'TEXT-middleName-26' => $_POST['middleName'],
-				'TEXT-petName-26'    => $_POST['petName'],
-				'EMAIL-email-64-required'     => $_POST['email'],
-				'TEXT-trn-15'        => $_POST['trn'],
-				'TEXT-dob-26'        => $_POST['dob'],
-				'INT-age-26'         => $_POST['age'],
-				'TEXT-gender-5'       => $_POST['gender'],
-				'TEXT-telephone-15'  => $_POST['telephone'],
-				'TEXT-religion-18'   => $_POST['religion'],
-				'TEXT-union-12'      => $_POST['union'],
-				'TEXT-street_name-26' => $_POST['street_name'],
-				'TEXT-parish-26'      => $_POST['parish'],
-				'TEXT-kin-54'         => $_POST['kin'],
-				'TEXT-relationship-12'  => $_POST['relationship'],
-				'TEXT-mother_name-24'   => $_POST['mother_name'],
-				'TEXT-father_name-24'   => $_POST['father_name'],
-				'TEXT-employer_name-45' => $_POST['employer_name'],
-				'TEXT-emp_address-26'   => $_POST['emp_address'],
-	 			'TEXT-emp_parish-26'    => $_POST['emp_parish'],
-				'TEXT-emp_tel-15'       => $_POST['emp_tel'],
-				'TEXT-occupation-48'    => $_POST['occupation'],
-				'TEXT-condition-128-required' => $_POST['condition'],
-				'TEXT-height-10'         => $_POST['height'],
-				'TEXT-weight-10'         => $_POST['weight'],
-				'TEXT-bp-10'            => $_POST['bp'],
-				'TEXT-temp-10'          => $_POST['temp'],
-				'TEXT-pulse-10'         => $_POST['pulse'],
-				'TEXT-resp-10'          => $_POST['resp'],
-				'TEXT-urinalysis-10'    => $_POST['urinalysis']);
+		$id = $_POST['medical_id'];
+		$passw = $_POST['password'];
 
-		$error = gen_validate_inputs($items);
+		# echo $passw;
+		# var_dump(get_user_id_from_session());
 
-		#var_dump($error);
+		# check the session medical id with the entered medical id
+		if ($id === get_user_id_from_session()) {
 
-		if (empty($error)) {
+			if (verify_user_and_password($id, $passw)){
+				echo "Vefired";
+				$error = register_patient($error);
+			} else {
+				echo "Credentials wrong";
+			}
 
-			include_once 'core/patient/patient.inc.php';
+		} else {
+			echo " Credentials wrong";
+		}
+	}
 
-			# register pateint
-			$error = pateint_registration_process($_POST['firstName'], $_POST['middleName'], $_POST['lastName'],
-									  	 $_POST['maidenName'],$_POST['email'], $_POST['trn'], 'password',
-										 $_POST['gender'], $_POST['dob'], $_POST['telephone'], $_POST['age'], $_POST['street_name'],
-										 $_POST['parish'], ''/*country*/, '0'/*insurance_id*/, $_POST['employer_name'], $_POST['occupation'],
-										 $_POST['emp_tel'], '' /*Policy*/, $_POST['emp_address'], $_POST['emp_parish'],
-										  ''/*employer_country*/, $_POST['petName'], $_POST['kin'], $_POST['relationship'], $_POST['religion'],
-										 $_POST['father_name'],	$_POST['mother_name'], ''/*birth_place*/, ''/*birth_parish*/, $_POST['union'],
-										 $_POST['height'], $_POST['weight'], $_POST['temp'], $_POST['pulse'],$_POST['resp'], $_POST['bp'],
-										 $_POST['urinalysis'], $_POST['condition']);
+
+
+	function register_patient($error) {
+
+		# Check if user has been logged in and verfied
+
+		# when registered generate medical ID for user
+
+		# pateint need to set password after they are registered by physician
+
+
+		if (isset($_POST['firstName']) && isset($_POST['lastName'])
+				&& isset($_POST['maidenName']) && isset($_POST['condition'])) {
+
+			# validating the user inputs
+			$items = array(
+					'TEXT-firstName-26-required'  => $_POST['firstName'],
+					'TEXT-lastName-26-required'   => $_POST['lastName'],
+					'TEXT-maidenName-26-required' => $_POST['maidenName'],
+					'TEXT-middleName-26' => $_POST['middleName'],
+					'TEXT-petName-26'    => $_POST['petName'],
+					'EMAIL-email-64-required'     => $_POST['email'],
+					'TEXT-trn-15'        => $_POST['trn'],
+					'TEXT-dob-26'        => $_POST['dob'],
+					'INT-age-26'         => $_POST['age'],
+					'TEXT-gender-5'       => $_POST['gender'],
+					'TEXT-telephone-15'  => $_POST['telephone'],
+					'TEXT-religion-18'   => $_POST['religion'],
+					'TEXT-union-12'      => $_POST['union'],
+					'TEXT-street_name-26' => $_POST['street_name'],
+					'TEXT-parish-26'      => $_POST['parish'],
+					'TEXT-kin-54'         => $_POST['kin'],
+					'TEXT-relationship-12'  => $_POST['relationship'],
+					'TEXT-mother_name-24'   => $_POST['mother_name'],
+					'TEXT-father_name-24'   => $_POST['father_name'],
+					'TEXT-employer_name-45' => $_POST['employer_name'],
+					'TEXT-emp_address-26'   => $_POST['emp_address'],
+					'TEXT-emp_parish-26'    => $_POST['emp_parish'],
+					'TEXT-emp_tel-15'       => $_POST['emp_tel'],
+					'TEXT-occupation-48'    => $_POST['occupation'],
+					'TEXT-condition-128-required' => $_POST['condition'],
+					'TEXT-height-10'         => $_POST['height'],
+					'TEXT-weight-10'         => $_POST['weight'],
+					'TEXT-bp-10'            => $_POST['bp'],
+					'TEXT-temp-10'          => $_POST['temp'],
+					'TEXT-pulse-10'         => $_POST['pulse'],
+					'TEXT-resp-10'          => $_POST['resp'],
+					'TEXT-urinalysis-10'    => $_POST['urinalysis']);
+
+			$error = gen_validate_inputs($items);
+
+			#var_dump($error);
+
+			if (empty($error)) {
+
+				include_once 'core/patient/patient.inc.php';
+
+				# register pateint
+				$error = pateint_registration_process($_POST['firstName'], $_POST['middleName'], $_POST['lastName'],
+											 $_POST['maidenName'],$_POST['email'], $_POST['trn'], 'password',
+											 $_POST['gender'], $_POST['dob'], $_POST['telephone'], $_POST['age'], $_POST['street_name'],
+											 $_POST['parish'], ''/*country*/, '0'/*insurance_id*/, $_POST['employer_name'], $_POST['occupation'],
+											 $_POST['emp_tel'], '' /*Policy*/, $_POST['emp_address'], $_POST['emp_parish'],
+											  ''/*employer_country*/, $_POST['petName'], $_POST['kin'], $_POST['relationship'], $_POST['religion'],
+											 $_POST['father_name'],	$_POST['mother_name'], ''/*birth_place*/, ''/*birth_parish*/, $_POST['union'],
+											 $_POST['height'], $_POST['weight'], $_POST['temp'], $_POST['pulse'],$_POST['resp'], $_POST['bp'],
+											 $_POST['urinalysis'], $_POST['condition']);
+			}
+
+		} else {
+			#$error['required_field'] = "Enter the required fields";
 		}
 
-	} else {
-		#$error['required_field'] = "Enter the required fields";
+		return $error;
 	}
 
 	include './header.php'
+
 
 ?>
 
@@ -347,11 +379,41 @@
 					    	<input type="file" name="pic" accept="image/*">
 					    </div>
 					    <div class="col-md-4 col-xs-12">
-					    	<button name="submit" class="btn btn-block btn-submit-rq">Register</button>
+					    	<!-- <button name="submit" class="btn btn-block btn-submit-rq">Register</button> -->
+							<button type="button" class="btn btn-block btn-submit-rq" data-toggle="modal" data-target="#myModal">
+							  Register
+							</button>
 					    </div>
 					</div>
 
 				</div>
+
+				<!-- Button trigger modal -->
+				<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+				  Launch demo modal
+				</button> -->
+
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel"><b>Verify User</b></h4>
+				      </div>
+				      <div class="modal-body">
+						  <p>Enter your account credential before you can continue</p>
+				       	<input type="text" class="form-control" name="medical_id" placeholder='Medial ID' >
+						<input type="password" class="form-control" name="password" placeholder='Password'>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        <button type="submit" class="btn btn-primary">Sign & Register Patient</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+
 
 				</form>
 			  </div>

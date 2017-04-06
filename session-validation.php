@@ -6,13 +6,13 @@
 
     $error = array();
 
-    if(get_user_id_from_session() !== null){
+    if (get_user_id_from_session() !== null) {
 
         if(validate_user_from_session(get_user_id_from_session(), get_current_user_type(), get_session_id())) {
 
             if (!is_user_verified()) {
                 if (basename($_SERVER['PHP_SELF']) !== 'login-verification.php'){
-                    echo 'USER NOT VRIFIED';
+                    #echo 'USER NOT VRIFIED';
                     header('Location: login-redirect.php');
                 }
             }

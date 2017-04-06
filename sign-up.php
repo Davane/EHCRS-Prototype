@@ -53,7 +53,7 @@
 
 							if ($sign_in) {
 
-							if(generate_and_send_verification_code_by_email($_POST['medical_id'])) {
+								if(generate_and_send_verification_code_by_email($_POST['medical_id'])) {
 
 									# 5. create seesions with encrypted id
 									set_sign_in_session($_POST['medical_id'], $type, (string)time() /*timestamp*/);
@@ -61,10 +61,7 @@
 									if(update_user_session($_POST['medical_id'], get_value_from_session(SESSION_ID))){
 
 										header('Location: login-verification.php');
-
 									}
-
-
 								}
 
 							} else {

@@ -9,7 +9,7 @@
         $type = $_GET['type'];
 
     }
-    session_start();
+    is_session_started();
     #var_dump($_SESSION);
     include 'patient-header.php';
 ?>
@@ -29,6 +29,7 @@
                                 <img src="img/tick-icon.png" class="img-responsive" alt="logo" width="60px" height="60px">
                                 <p class="text-center">
                                     <h3 class="header-caption"><b>Registered</b></h3>
+                                    <br>
                                     Patient '<b><?php
                                                 if(isset($_SESSION['name'])){
                                                     echo get_value_from_session('name');
@@ -41,6 +42,8 @@
                                                      echo get_value_from_session('user');
                                                      destroy_session_value('user');
                                                  }?></b>'
+                                    <br>
+                                    An Email was sent to you for you to activate your account
                                     <br><br><br>
                                     Go back to <a href="patient-registration.php">Registration Page</a>
                                 </p>

@@ -39,19 +39,20 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul class="nav navbar-nav navbar-right">
-		  <form class="navbar-form navbar-left" style='margin-right: 25px'>
+		  <form action="<?php $_SERVER['PHP_SELF'];?>" class="navbar-form navbar-left" style='margin-right: 25px'>
   				<div class="form-group">
-  				  <input type="text" class="form-control search-style" placeholder="Search for pateint" style='margin-right: 10px'>
+  				  <input type="text" class="form-control search-style" placeholder="Search by ID, Name, Email .." style='margin-right: 10px'>
   				</div>
   				<button type="submit" class="btn btn-default">Search</button>
   		</form>
-        <li><a href="patient-info.php">Medical Information</a></li>
-        <li><a href="set-appointment.php" style="margin-right: 25px" >Set Appointment</a></li>
+        <li><a href="#">My Profile</a></li>
+        <!-- <li><a href="set-appointment.php" style="margin-right: 25px" >Set Appointment</a></li> -->
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="margin-right: 25px">  <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Term And Conditions</a></li>
+            <li><a href="#">Appoinments</a></li>
+			<li><a href="#">Patient Registration</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="sign-out.php">Sign Out</a></li>
           </ul>

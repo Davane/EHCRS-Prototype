@@ -3,7 +3,7 @@
 function validate_user_from_session($id, $type, $session_id){
 
     global $connect;
-    
+
     // the prepare for update
     $stmt = $connect->prepare("CALL proc_validate_user_session (?, ?, ?);");
 
@@ -62,16 +62,16 @@ function sign_in_member($id, $email, $password, $type) {
     global $connect;
 
     if($type === 'Patient') {
-        $query = 'CALL proc_sign_in_user (?, ?, ?);';
+        $query = 'CALL proc_sign_in_user (?, ?, ?, ?);';
     } else {
-        $query = 'CALL proc_sign_in_user (?, ?, ?);';
+        $query = 'CALL proc_sign_in_user (?, ?, ?, ?);';
     }
 
     // the prepare for update
     $stmt = $connect->prepare($query);
 
     // bind string datatype to varaibles
-    $stmt->bind_param("sss", $id, $email, $password);
+    $stmt->bind_param("ssss", $id, $email, $password, $type);
 
     #executing and fetching he rows
     $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
