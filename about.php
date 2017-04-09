@@ -6,12 +6,13 @@
 <script type="text/javascript">
   FusionCharts.ready(function(){
     var revenueChart = new FusionCharts({
-        "type": "column2d",
+        "type": "doughnut2d",
         "renderAt": "chartContainer",
-        "width": "500",
-        "height": "300",
+        "width": "200",
+        "height": "200",
         "dataFormat": "json",
         "dataSource":  {
+
           "chart": {
             "caption": "Monthly revenue for last year",
             "subCaption": "Harry's SuperMart",
@@ -70,7 +71,6 @@
             }
           ]
       }
-
   });
 revenueChart.render();
 })

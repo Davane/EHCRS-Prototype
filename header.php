@@ -7,7 +7,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content=""/>
         <meta name="keywords" content="">
-    	<title>EHCS</title>
+    	<title>HeathWise</title>
     	<link rel="icon" href="img/logo.png">
     	<link href="css/bootstrap.min.css" rel="stylesheet">
     	<link rel="stylesheet" type="text/css" href="css/styles.css">

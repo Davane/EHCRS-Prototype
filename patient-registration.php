@@ -1,13 +1,15 @@
 
 <?php
-var_dump($_POST);
+#var_dump($_POST);
 
 	require_once 'core/physician/physician.inc.php';
+	is_session_started();
 
 	$error = array();
 
 	# verify the physician infromation entered into the modal
 	if(isset($_POST['medical_id']) && isset($_POST['password'])){
+
 
 		$id = $_POST['medical_id'];
 		$passw = $_POST['password'];
@@ -106,7 +108,7 @@ var_dump($_POST);
 		return $error;
 	}
 
-	include 'header.php'
+	include 'header.php';
 
 ?>
 
@@ -203,7 +205,7 @@ var_dump($_POST);
 					    </div>
 						<div class="col-md-4 col-xs-4">
 						   <!-- <input type="text" class="form-control" name="gender" placeholder="Gender"> -->
-						   <select class="custom-select">
+						   <select name="gender" class="custom-select">
 							  <option value="male" selected>Male</option>
 							  <option value="female">Female</option>
 						  </select>
@@ -238,7 +240,7 @@ var_dump($_POST);
 					    </div>
 					    <div class="col-md-4 col-xs-12">
 					    	<!-- <input type="text" class="form-control" name="parish" placeholder="Parish" > -->
-							<select class="custom-select">
+							<select name='parish' class="custom-select">
 								<option value="Kingston" selected>Kingston</option>
 								 <option value="Portland" >Portland</option>
 								 <option value="Clarendon">Clarendon</option>
@@ -312,7 +314,7 @@ var_dump($_POST);
 					    </div>
 					    <div class="col-md-4 col-xs-12">
 					    	<!-- <input type="text" class="form-control" name="emp_parish" placeholder="Parish" > -->
-							<select class="custom-select">
+							<select name="emp_parish" class="custom-select">
 								<option value="Kingston" selected>Kingston</option>
 								 <option value="Portland" >Portland</option>
 								 <option value="Clarendon">Clarendon</option>
@@ -436,7 +438,7 @@ var_dump($_POST);
 
 					  <div class="modal-body">
 						  <p>Enter your account credential before you can continue</p>
-				       	<input type="text" class="form-control" name="medical_id" placeholder='Medial ID' required>
+				       	<input type="text" class="form-control" name="medical_id" placeholder='Medial ID' value="<?php echo get_user_id_from_session() == null ? "": get_user_id_from_session() ; ?>" required>
 						<input type="password" class="form-control" name="password" placeholder='Password' required>
 				      </div>
 
@@ -451,21 +453,14 @@ var_dump($_POST);
 
 
 				</form>
+				<!-- <br /><b>Warning</b>:  session_start(): Cannot send session cookie - headers already sent by (output started at /Users/davanedavis/Sites/EHCRS-Prototype/header.php:155) in <b>/Users/davanedavis/Sites/EHCRS-Prototype/core/general.inc.php</b> on line <b>23</b><br /><br /><b>Warning</b>:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/davanedavis/Sites/EHCRS-Prototype/header.php:155) in <b>/Users/davanedavis/Sites/EHCRS-Prototype/core/general.inc.php</b> on line <b>23</b><br /> -->
+
 			  </div>
 			</div>
 			</div>
 		</div>
 	</div>
+
 </div>
-
-
-
-
-						<!-- <p>Select the Hospital current</p>
-						<select class="selectpicker" title="Choose one of the following...">
-						  <option>Mustard</option>
-						  <option>Ketchup</option>
-						  <option>Relish</option>
-						</select> -->
 
 <?php include 'footer.php' ?>

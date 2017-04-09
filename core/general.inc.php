@@ -19,9 +19,11 @@ function set_session($key, $value){
 
 
 function is_session_started(){
-    if (session_status() == PHP_SESSION_NONE) {
+
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+
 }
 
 function is_user_verified() {

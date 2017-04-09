@@ -76,7 +76,7 @@ function get_physician_work_place($id){
     $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
     $stmt->close();
 
-    var_dump($row);
+    #var_dump($row);
     //die();
 
 
@@ -87,6 +87,65 @@ function get_physician_work_place($id){
     return null;
 
 
+}
+
+function get_appointment_for_hospital_by_id($id) {
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_appointments_for_hospital (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        echo 'Not selected';
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet == null) {
+        /*  Handle error */
+        echo "ResultSet == null" ;
+
+     }
+
+    # var_dump($connect->error);
+     return  $resultSet;
+}
+
+
+function get_emergency_count($id) {
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_em_and_inc_em_count (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        echo 'Not selected';
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet == null) {
+        /*  Handle error */
+        echo "ResultSet == null" ;
+
+     }
+
+    # var_dump($connect->error);
+     return  $resultSet;
 }
 
  ?>
