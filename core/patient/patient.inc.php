@@ -89,8 +89,13 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
 
     $error = array();
 
-    $physician_id = $clerk_id = '308';
-    $hospital_id = '1';
+
+    $physician_id = $clerk_id = get_user_id_from_session();
+    $hospital_id = get_physician_work_place($physician_id);
+
+    // var_dump($clerk_id);
+    // var_dump($hospital_id);
+    #die();
 
     # entering pateint's Address
     if($status = enter_new_address($connect, $street_name, $parish, $country)) {

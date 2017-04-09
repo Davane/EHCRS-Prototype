@@ -40,11 +40,13 @@
 
       <ul class="nav navbar-nav navbar-right">
 		  <form action="search-results.php" method="post" class="navbar-form navbar-left" style='margin-right: 25px'>
-  			<div class="form-group">
-  				<input type="text" class="form-control search-style" name="query" placeholder="Search by ID, Name, Email ..." style='margin-right: 10px'>
-			</div>
 
-			<button type="submit" class="btn btn-default">Search</button>
+			  <div class="input-group">
+			       <input type="text" class="form-control" name="query" placeholder="Search by ID, Name, Email ...">
+			       <span class="input-group-btn">
+			 	 		<button type="submit" class="btn btn-default">Search</button>
+			       </span>
+			     </div><!-- /input-group -->
 
   		</form>
 

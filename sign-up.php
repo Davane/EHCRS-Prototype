@@ -314,9 +314,11 @@
 			  			<button type="submit" name="submit" value="submit" class="btn btn-send btn-block">Sign In Now  <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
 			  		</div>
 			  		<br><br><br>
-			  		<!-- <center>
-			  			<small>Forgot Password? <a href="">Reset</a></small>
-			  		</center> -->
+					<?php if (isset($_GET['type']) && $_GET['type'] === 'Medical') { ?>
+			  		<center>
+			  			<small>Would you like to do an <a href="">Emergency Sign in</a></small>
+			  		</center>
+					<?php } ?>
 			  	</div>
 
 			</form>

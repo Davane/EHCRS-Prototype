@@ -1,9 +1,29 @@
-<?php include 'header.php' ?>
+<?php
+
+require_once 'core/physician/physician.inc.php';
+include 'header.php';
+
+$error = array();
+
+if(true /* if session is set*/) {
+	# get pyhsicain ID
+
+
+} else {
+	echo "Redirect : Login-redirect";
+}
+
+
+
+
+ ?>
 <div id="wrapper">
 	<div class="main-content-wrapper" id="p-info">
 		<div class="main-content">
 			  <div class="row">
-			  	<p><code><b>echo session user</b></code> your next patient is : </p>
+				  <h4>Remaining appointments :<code><b>echo session user</b></code> </h4>
+				  <br>
+			  	  <p><code><b>echo session user</b></code> your next patient is : </p>
 			  		<div class="panel panel-default">
 			  			<div class="panel">
 			  				<div class="table-responsive">

@@ -1,7 +1,6 @@
 
 <?php
-
-#var_dump($_POST);
+var_dump($_POST);
 
 	require_once 'core/physician/physician.inc.php';
 
@@ -107,7 +106,7 @@
 		return $error;
 	}
 
-	include './header.php'
+	include 'header.php'
 
 ?>
 
@@ -116,7 +115,7 @@
 	<div class="sidebar-wrapper">
 		<div class="sidebar">
 			<ul>
-				<li><a href="#">Next Appointment</a></li>
+				<li><a href="appointment.php">Next Appointment</a></li>
 			</ul>
 		</div>
 	</div>
@@ -137,7 +136,7 @@
 			  </p>
 
 
-			  <form action="<?php $_SERVER['PHP_SELF'];?>" method="POST">
+			  <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
 				<div class="row">
 
 					<div class="form-group">
@@ -203,7 +202,11 @@
 					    	<input type="number" class="form-control" name="age" placeholder="Age">
 					    </div>
 						<div class="col-md-4 col-xs-4">
-						   <input type="text" class="form-control" name="gender" placeholder="Gender">
+						   <!-- <input type="text" class="form-control" name="gender" placeholder="Gender"> -->
+						   <select class="custom-select">
+							  <option value="male" selected>Male</option>
+							  <option value="female">Female</option>
+						  </select>
 					   </div>
 					</div>
 				</div>
@@ -234,7 +237,24 @@
 					    	<input type="text" class="form-control" name="street_name" placeholder="Street Name">
 					    </div>
 					    <div class="col-md-4 col-xs-12">
-					    	<input type="text" class="form-control" name="parish" placeholder="Parish" >
+					    	<!-- <input type="text" class="form-control" name="parish" placeholder="Parish" > -->
+							<select class="custom-select">
+								<option value="Kingston" selected>Kingston</option>
+								 <option value="Portland" >Portland</option>
+								 <option value="Clarendon">Clarendon</option>
+								 <option value="Manchester">Manchester</option>
+								 <option value="Trelawny">Trelawny</option>
+								 <option value="Westmorland">Westmorland</option>
+								 <option value="Hanover">Hanover</option>
+								 <option value="St. Elizabeth">St. Elizabeth</option>
+								 <option value="St. James" >St. James</option>
+								 <option value="St. Ann">St. Ann</option>
+								 <option value="St. Thomas" >St. Thomas</option>
+								 <option value="St. Mary" >St. Mary</option>
+								 <option value="St. Andrew" >St. Andrew</option>
+								 <option value="St. Catherine">St. Catherine</option>
+
+						   </select>
 					    </div>
 					 </div>
 
@@ -271,6 +291,7 @@
 
 				</div>
 				<br>
+
 				<p><b>Employment Information</b></p>
 
 				<div class="row">
@@ -290,7 +311,24 @@
 					    	<input type="address" class="form-control" name="emp_address" placeholder="Address (Street Name)">
 					    </div>
 					    <div class="col-md-4 col-xs-12">
-					    	<input type="text" class="form-control" name="emp_parish" placeholder="Parish" >
+					    	<!-- <input type="text" class="form-control" name="emp_parish" placeholder="Parish" > -->
+							<select class="custom-select">
+								<option value="Kingston" selected>Kingston</option>
+								 <option value="Portland" >Portland</option>
+								 <option value="Clarendon">Clarendon</option>
+								 <option value="Manchester">Manchester</option>
+								 <option value="Trelawny">Trelawny</option>
+								 <option value="Westmorland">Westmorland</option>
+								 <option value="Hanover">Hanover</option>
+								 <option value="St. Elizabeth">St. Elizabeth</option>
+								 <option value="St. James" >St. James</option>
+								 <option value="St. Ann">St. Ann</option>
+								 <option value="St. Thomas" >St. Thomas</option>
+								 <option value="St. Mary" >St. Mary</option>
+								 <option value="St. Andrew" >St. Andrew</option>
+								 <option value="St. Catherine">St. Catherine</option>
+
+						   </select>
 					    </div>
 					 </div>
 
@@ -329,11 +367,11 @@
 				<div class="row">
 
 					<div class="form-group">
-					    <div class="col-md-3 col-xs-6">
+					    <div class="col-md-2 col-xs-6">
 					    	<label for="height">Height</label>
 					    	<input type="text" class="form-control" name="height" id="height">
 					    </div>
-					    <div class="col-md-3 col-xs-6">
+					    <div class="col-md-2 col-xs-6">
 					    	<label for="weight">Weight</label>
 					    	<input type="text" class="form-control" name="weight" id="weight">
 					    </div>
@@ -349,22 +387,13 @@
 					    	<label for="Pulse">Pulse</label>
 					    	<input type="text" class="form-control" name="pulse" id="pulse">
 					    </div>
-					</div>
-
-				</div>
-
-				<div class="row">
-
-					<div class="form-group">
-					    <div class="col-md-4 col-xs-12">
+					    <div class="col-md-2 col-xs-12">
 					    	<label for="resp">Resp</label>
 					    	<input type="tel" class="form-control" name="resp" id="resp">
 					    </div>
-					    <div class="col-md-4 col-xs-12">
+					    <div class="col-md-2 col-xs-12">
 					    	<label for="urinalysis">Urinalysis</label>
 					    	<input type="text" class="form-control" name="urinalysis" id="urinalysis">
-					    </div>
-					    <div class="col-md-4 col-xs-12">
 					    </div>
 					 </div>
 
@@ -375,7 +404,10 @@
 
 					<div class="form-group">
 					    <div class="col-md-8 col-xs-12">
-					    	<input type="file" name="pic" accept="image/*">
+							<label class="custom-file">
+							 <input type="file" id="file" class="custom-file-input">
+							 <span class="custom-file-control"></span>
+							</label>
 					    </div>
 					    <div class="col-md-4 col-xs-12">
 					    	<!-- <button name="submit" class="btn btn-block btn-submit-rq">Register</button> -->
@@ -396,19 +428,23 @@
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
-				      <div class="modal-header">
+
+					  <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				        <h4 class="modal-title" id="myModalLabel"><b>Verify User</b></h4>
 				      </div>
-				      <div class="modal-body">
+
+					  <div class="modal-body">
 						  <p>Enter your account credential before you can continue</p>
-				       	<input type="text" class="form-control" name="medical_id" placeholder='Medial ID' >
-						<input type="password" class="form-control" name="password" placeholder='Password'>
+				       	<input type="text" class="form-control" name="medical_id" placeholder='Medial ID' required>
+						<input type="password" class="form-control" name="password" placeholder='Password' required>
 				      </div>
+
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				        <button type="submit" class="btn btn-primary">Sign & Register Patient</button>
 				      </div>
+
 				    </div>
 				  </div>
 				</div>
@@ -421,5 +457,15 @@
 		</div>
 	</div>
 </div>
+
+
+
+
+						<!-- <p>Select the Hospital current</p>
+						<select class="selectpicker" title="Choose one of the following...">
+						  <option>Mustard</option>
+						  <option>Ketchup</option>
+						  <option>Relish</option>
+						</select> -->
 
 <?php include 'footer.php' ?>

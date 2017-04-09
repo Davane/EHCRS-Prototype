@@ -32,64 +32,102 @@
  ?>
 
 <div id="wrapper">
- <div class="sidebar-wrapper">
-     <div class="sidebar">
-         <div class="list-group">
-             <a href="#" class="list-group-item active">
-                 <h4 class="list-group-item-heading"><b>Filters</b></h4>
-             </a>
-             <a href="#" class="list-group-item">
-                 <h4 class="list-group-item-heading">Address</h4>
-                 <p class="list-group-item-text">Filter search results by the person's address</p>
-             </a>
 
-             <a href="#" class="list-group-item">
-                 <h4 class="list-group-item-heading">Address</h4>
-                 <p class="list-group-item-text">Filter search results by the person's address</p>
-             </a>
+     <div class="sidebar-wrapper">
+         <div class="sidebar">
+             <div id='sidebar-list-group' class="list-group">
+                 <div class="list-group-item active">
+                     <h4 class="list-group-item-heading"><b>Filters</b></h4>
+                 </div>
+                 <div class="list-group-item">
+                     <h4 class="list-group-item-heading">Address</h4>
+                     <p class="list-group-item-text">Filter search results by the person's address</p>
+                     <input type="text" class="form-control" name="filter-address" placeholder="Enter a place ..." style='margin-right: 10px'>
+                 </div>
+
+                 <div class="list-group-item">
+                     <h4 class="list-group-item-heading">Gender</h4>
+                     <div class="btn-group" data-toggle="buttons">
+                          <label class="btn btn-primary active">
+                            <input type="radio" name="options" id="option1" autocomplete="off" checked> Male
+                          </label>
+                          <label class="btn btn-primary">
+                            <input type="radio" name="options" id="option2" autocomplete="off"> Female
+                          </label>
+
+                    </div>
+                 </div>
+             </div>
          </div>
      </div>
- </div>
- <div class="main-content-wrapper" id="p-info">
-     <!-- <div class="main-content"> -->
 
-    <?php
+     <div class="main-content-wrapper" id="p-info">
+         <!-- <div class="main-content"> -->
 
-    if (empty($error)) {
+        <?php
 
-        echo "<h4>Results found for '<b>". $_POST['query'] ."</b>'</h4>";
+        if (empty($error)) {
 
-        while ($row = $resultSet->fetch_assoc()):?>
+            echo "<h4>Results found for '<b>". $_POST['query'] ."</b>'</h4>";
 
-        <div class="media" style="border: 0.5px solid lightgrey; border-radius: 5px">
-           <div class="media-left">
-               <a href="#">
-                 <img id="search-result-image" style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;" class="media-object" src="img/avatar.png" alt="patient-image">
-               </a>
+            while ($row = $resultSet->fetch_assoc()):?>
+
+            <div class="media" style="border: 0.5px solid lightgrey; border-radius: 5px">
+               <div class="media-left">
+                   <a href="#">
+                     <img id="search-result-image" style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;" class="media-object" src="img/avatar.png" alt="patient-image">
+                   </a>
+               </div>
+               <div class="media-body">
+                   <h4 class="media-heading" style="margin-top: 25px;"><b><?php echo ucfirst($row['firstname']) . ' ' . strtoupper(substr($row['middlename'],0,1)) . '. ' . ucfirst($row['lastname']); ?></b></h4>
+                   <p><b>ID: </b> <?php echo $row['member_id']; ?> <br>
+                   <b>Tel: </b><?php echo $row['tel_no']; ?>   &#0149;    <?php echo ucfirst($row['gender']); ?></p>
+                   <ul class="list-inline">
+                      <li><a href="#">Admit Patient</a></li>
+                      <li>&#0149;</li>
+                      <li><button type="button" data-toggle="modal" data-target="#myModal">View Record</button></li>
+                      <li>&#0149;</li>
+                      <li><a href="#">Edit Record</a></li>
+                      <li>&#0149;</li>
+                      <li><a href="#">Transfer Record</a></li>
+                      <!-- <li><a href="#">Admit Patient</a></li> -->
+                    </ul>
+               </div>
            </div>
-           <div class="media-body">
-               <h4 class="media-heading" style="margin-top: 25px;"><b><?php echo ucfirst($row['firstname']) . ' ' . strtoupper(substr($row['middlename'],0,1)) . '. ' . ucfirst($row['lastname']); ?></b></h4>
-               <p><b>ID: </b> <?php echo $row['member_id']; ?> <br>
-               <b>Tel: </b><?php echo $row['tel_no']; ?>   &#0149;    <?php echo ucfirst($row['gender']); ?></p>
-               <ul class="list-inline">
-                  <li><a href="#">Admit Patient</a></li>
-                  <li>&#0149;</li>
-                  <li><a href="#">View Record</a></li>
-                  <li>&#0149;</li>
-                  <li><a href="#">Edit Record</a></li>
-                  <li>&#0149;</li>
-                  <li><a href="#">Transfer Record</a></li>
-                  <!-- <li><a href="#">Admit Patient</a></li> -->
-                </ul>
+
+       <?php endwhile; } else {
+
+           echo "<h4 class=''><b>". $error['empty-search'] ."</b></h4>";
+
+       } ?>
+
+       <!-- Modal -->
+       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               <h4 class="modal-title" id="myModalLabel"><b>Verify User</b></h4>
+             </div>
+             <div class="modal-body">
+                 <p>Enter your account credential before you can continue</p>
+               <input type="text" class="form-control" name="medical_id" placeholder='Medial ID' >
+               <input type="password" class="form-control" name="password" placeholder='Password'>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary">Sign & Register Patient</button>
+             </div>
            </div>
+         </div>
        </div>
 
-   <?php endwhile; } else {
+         <!-- </div> -->
+     </div>
 
-       echo "<h4 class=''><b>". $error['empty-search'] ."</b></h4>";
 
-   } ?>
 
-     <!-- </div> -->
- </div>
- </div>
+
+
+
+</div>

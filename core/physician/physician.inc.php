@@ -64,4 +64,29 @@ function search_for_patient($search_query){
      return  $resultSet;
 }
 
+function get_physician_work_place($id){
+
+    global $connect;
+
+    $stmt = $connect->prepare("CALL proc_get_physician_working_hosptial (?);");
+
+    $stmt->bind_param("s", $id);
+
+    #executing and fetching he rows
+    $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
+    $stmt->close();
+
+    var_dump($row);
+    //die();
+
+
+    if ($row !== null && array_key_exists('hospital', $row)){
+        return $row['hospital'];
+    }
+
+    return null;
+
+
+}
+
  ?>

@@ -71,7 +71,7 @@
     # hash_equals(Timing attack safe string comparison) Compares two strings using
     ## the same time whether they're equal or not.
 
-
+    # GEOLOACTION APIs are not secure - s
 
 
  ?>
