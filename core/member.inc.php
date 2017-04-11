@@ -1,5 +1,33 @@
 <?php
 
+function set_appointment($patient, $apptmentSetter, $hospital, $date, $time, $type = 'reg') {
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_set_appointment (?, ?, ?, ?, ?, ?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("ssssss", $patient, $apptmentSetter, $hospital, $date, $time, $type);
+
+    #executing and fetching he rows
+    $update = $stmt->execute();
+
+    //var_dump($connect->error);
+    //var_dump($stmt->affected_rows);
+    //die();
+
+    if($stmt->affected_rows > 0) {
+        #echo "string";
+        $stmt->close();
+        return true;
+    }
+
+    #echo "2222";
+    return false;
+
+}
+
 function validate_user_from_session($id, $type, $session_id){
 
     global $connect;
@@ -26,7 +54,6 @@ function validate_user_from_session($id, $type, $session_id){
 
     return false;
 }
-
 
 
 function update_user_session($id, $session_id) {

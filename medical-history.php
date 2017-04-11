@@ -81,19 +81,37 @@ var_dump($_POST);
  		 										  </tr>
 											    </thead>
 											    <tbody>
-											      <tr>
-											        <td>1</td>
-											        <td>Anna</td>
-											        <td>Pitt</td>
-											        <td>35</td>
-											        <td>New York</td>
-											        <td>USA</td>
-													<td>35</td>
-											        <td>New York</td>
-											        <td>USA</td>
-													<td><button type="button" class='btn btn-link' name="button">Edit</button></td>
 
-											      </tr>
+                                                <form class="" action='<?php $_SERVER['PHP_SELF'];  ?>' method="post">
+    											      <tr>
+    											        <td>1 <input type="hidden" name="record_id" value="x"></td>
+    											        <td>Anna</td>
+    											        <td>Pitt</td>
+    											        <td>35</td>
+    											        <td>New York</td>
+    											        <td>USA</td>
+    													<td>35</td>
+    											        <td>New York</td>
+    											        <td>USA</td>
+    													<td><button type="submit" class='btn btn-link' name="submit">Edit</button></td>
+
+    											      </tr>
+                                                  </form>
+                                                  <form class="" action='<?php $_SERVER['PHP_SELF'];  ?>' method="post">
+      											      <tr>
+      											        <td>1 <input type="hidden" name="record_id" value="y"></td>
+      											        <td>Anna</td>
+      											        <td>Pitt</td>
+      											        <td>35</td>
+      											        <td>New York</td>
+      											        <td>USA</td>
+      													<td>35</td>
+      											        <td>New York</td>
+      											        <td>USA</td>
+      													<td><button type="submit" class='btn btn-link' name="submit">Edit</button></td>
+
+      											      </tr>
+                                                    </form>
 											    </tbody>
 											  </table>
 										</div>

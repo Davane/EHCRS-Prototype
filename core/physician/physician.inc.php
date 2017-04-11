@@ -85,10 +85,31 @@ function get_physician_work_place($id){
     }
 
     return null;
-
-
 }
 
+function get_hospital_id_from_name($hospital) {
+
+    global $connect;
+
+    $stmt = $connect->prepare("CALL proc_get_hospital_id_by_name (?);");
+
+    $stmt->bind_param("s", $hospital);
+
+    #executing and fetching he rows
+    $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
+    $stmt->close();
+
+    #var_dump($row);
+    //die();
+
+
+    if ($row !== null && array_key_exists('hospital', $row)){
+        return $row['hospital'];
+    }
+
+    return null;
+
+}
 function get_appointment_for_hospital_by_id($id) {
 
     global $connect;

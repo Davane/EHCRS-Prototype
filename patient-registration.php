@@ -25,10 +25,12 @@
 				$error = register_patient($error);
 			} else {
 				echo "Credentials wrong";
+				$error['credentials'] = "Credentials wrong";
 			}
 
 		} else {
 			echo " Credentials wrong";
+			$error['credentials'] = "Credentials wrong";
 		}
 	}
 
@@ -131,7 +133,11 @@
 			  <span><h3><b>Patient Registration Form</b></h3></span>
 			  <p><?php if(isset($error['error'])) { echo output_error_by_key('error', $error); } ?></p>
 			  <hr style="width: 99%;color:black">
-			  <p><b>Names   </b>
+			  <?php if (!empty($error)) {
+					  echo output_error_by_key('credentials', $error).'<br>';
+					 } ?>
+
+			  <p><b>Names  </b>
 				  <?php if (!empty($error)) {
  				  	echo output_error_by_key('required_field', $error);
 	 			  } ?>
@@ -181,7 +187,7 @@
 				<div class="row">
 					<div class="form-group">
 						<div class="col-md-6 col-xs-12">
-							<input type="email" class="form-control" name="email" placeholder="Email (Required) ">
+							<input type="email" class="form-control" name="email" placeholder="Email (Required)" required>
 							<?php if (!empty($error)) {
 							  echo output_error_by_key('email', $error).'<br>';
 							} ?>
@@ -205,7 +211,7 @@
 					    </div>
 						<div class="col-md-4 col-xs-4">
 						   <!-- <input type="text" class="form-control" name="gender" placeholder="Gender"> -->
-						   <select name="gender" class="custom-select">
+						   <select name="gender" class="form-control custom-select">
 							  <option value="male" selected>Male</option>
 							  <option value="female">Female</option>
 						  </select>
@@ -240,7 +246,7 @@
 					    </div>
 					    <div class="col-md-4 col-xs-12">
 					    	<!-- <input type="text" class="form-control" name="parish" placeholder="Parish" > -->
-							<select name='parish' class="custom-select">
+							<select name='parish' class="form-control custom-select">
 								<option value="Kingston" selected>Kingston</option>
 								 <option value="Portland" >Portland</option>
 								 <option value="Clarendon">Clarendon</option>
@@ -255,7 +261,6 @@
 								 <option value="St. Mary" >St. Mary</option>
 								 <option value="St. Andrew" >St. Andrew</option>
 								 <option value="St. Catherine">St. Catherine</option>
-
 						   </select>
 					    </div>
 					 </div>
@@ -314,7 +319,7 @@
 					    </div>
 					    <div class="col-md-4 col-xs-12">
 					    	<!-- <input type="text" class="form-control" name="emp_parish" placeholder="Parish" > -->
-							<select name="emp_parish" class="custom-select">
+							<select name="emp_parish" class="form-control custom-select">
 								<option value="Kingston" selected>Kingston</option>
 								 <option value="Portland" >Portland</option>
 								 <option value="Clarendon">Clarendon</option>

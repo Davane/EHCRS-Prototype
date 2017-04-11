@@ -2,9 +2,9 @@
 
 require_once 'core/physician/physician.inc.php';
 require_once 'session-validation.php';
-#is_session_started();
 
 $error = array();
+$resultSet = null;
 
 if($work_id = get_physician_work_place(get_user_id_from_session())){
 	#echo $work_id;
@@ -18,7 +18,7 @@ if($work_id = get_physician_work_place(get_user_id_from_session())){
 	#var_dump($resultSet);
 
 } else {
-	echo 'error: work place not found';
+	#echo 'error: work place not found';
 	$error['error'] = 'error: work place not found';
 }
 
@@ -32,7 +32,10 @@ include 'header.php';
 
 
 			  <div class="row">
-				  <h4><b>Emergency Appointments</b>  <span style="float: right;">Remaining appointments :<code><b><?php echo $resultSet->num_rows;?></b></code> </span> </h4>
+				  <?php if (array_key_exists('error',$error)) {
+						  echo output_error_by_key('error', $error).'<br>';
+					  }  ?>
+				  <h4><b>Emergency Appointments</b>  <span style="float: right;">Remaining appointments :<code><b><?php if($resultSet !== null) { echo $resultSet->num_rows; }?></b></code> </span> </h4>
 				  <br>
 			  		<div class="panel panel-default">
 			  			<div class="panel">

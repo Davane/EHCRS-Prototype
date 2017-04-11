@@ -212,9 +212,12 @@ function output_error($error){
 function output_error_by_key($key, $error){
 
     if(array_key_exists($key, $error)){
-        return "<small class=\"text-danger\">". $error[$key] ."</small> <br>";
-        #echo output_error($error[$key]);
-        #echo '<br>';
+        // return "<small class=\"text-danger\">". $error[$key] ."</small> <br>";
+
+        return '<div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    '. $error[$key]  .'
+                </div>';
     }
 
 
