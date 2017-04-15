@@ -131,6 +131,10 @@
 			  <div class="panel-body">
 			  <div class="container-fluid">
 			  <span><h3><b>Patient Registration Form</b></h3></span>
+
+
+<!-- TEST IF REGISTRATON IS WORKING  -->
+
 			  <p><?php if(isset($error['error'])) { echo output_error_by_key('error', $error); } ?></p>
 			  <hr style="width: 99%;color:black">
 			  <?php if (!empty($error)) {

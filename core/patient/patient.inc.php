@@ -3,18 +3,44 @@
 # including 'init.php'
 require_once(dirname(__FILE__) . '/../init.php');
 require_once(dirname(__FILE__) . '/../member.inc.php');
+require_once(dirname(__FILE__) . '/../physician/physician.inc.php');
 
 function get_patient_general_info($patient_id){
 
     global $connect;
 
-    // the prepare for update
+    // the prepare query
     $stmt = $connect->prepare("CALL proc_get_pateint_profile_info (?);");
 
     // bind string datatype to varaibles
     $stmt->bind_param("s", $patient_id);
 
     #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        echo 'Not selected';
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet == null) {
+		/*  Handle error */
+		echo "ResultSet == null" ;
+
+	 }
+
+    # var_dump($connect->error);
+     return  $resultSet->fetch_assoc();;
+
+}
+
+function get_patient_name($patient_id){
+
+    global $connect;
+
+    $stmt = $connect->prepare("CALL proc_get_patient_name (?);");
+    $stmt->bind_param("s", $patient_id);
     $select = $stmt->execute();
 
     if (!$select) {
@@ -312,25 +338,25 @@ function register_pateint(&$connect = null, $pateint_id, $clerk_id, $hospital_id
     return $register_insert;
 }
 
-function create_new_medical_record(&$connect = null, $pateint_id, $hospital_id, $clerk_id) {
-
-    if($connect == null) {
-        echo "pateint.inc.php : global connect medical_history";
-        global $connect;
-    }
-
-    // the prepare for update
-    $stmt = $connect->prepare("CALL proc_create_new_medical_record (?, ?, ?);");
-
-    // bind string datatype to varaibles
-    $stmt->bind_param("sss", $pateint_id, $hospital_id, $clerk_id);
-
-    $medical_insert = $stmt->execute();
-
-    #echo $connect->error;
-
-    return $medical_insert;
-}
+// function create_new_medical_record(&$connect = null, $pateint_id, $hospital_id, $clerk_id) {
+//
+//     if($connect == null) {
+//         echo "pateint.inc.php : global connect medical_history";
+//         global $connect;
+//     }
+//
+//     // the prepare for update
+//     $stmt = $connect->prepare("CALL proc_create_new_medical_record (?, ?, ?);");
+//
+//     // bind string datatype to varaibles
+//     $stmt->bind_param("sss", $pateint_id, $hospital_id, $clerk_id);
+//
+//     $medical_insert = $stmt->execute();
+//
+//     #echo $connect->error;
+//
+//     return $medical_insert;
+// }
 
 function enter_new_vitals(&$connect = null, $medical_id, $who_recorded, $height = '', $weight = '', $temp  = '',
                             $pulse = '', $resp = '', $bp = '', $urinalysis = '') {

@@ -1,18 +1,27 @@
 <?php
 
 require_once 'core/physician/physician.inc.php';
-require_once 'session-validation.php';
+// require_once 'session-validation.php';
 
 $error = array();
 $resultSet = null;
 
+
 if($work_id = get_physician_work_place(get_user_id_from_session())){
-	#echo $work_id;
+
+	if(isset($_POST['submit']) && $_POST['submit'] === 'complete') {
+		#echo 'Remove From List';
+
+		if(isset($_POST['id'])) {
+			change_appointment_status($_POST['id'], 'complete');
+		}
+	}
+
 
 	$resultSet = get_appointment_for_hospital_by_id($work_id);
 
 	if($resultSet->num_rows === 0) {
-		$error['error'] = 'Not Appointments';
+		$error['error'] = 'No Appointments';
 	}
 
 	#var_dump($resultSet);
@@ -21,7 +30,6 @@ if($work_id = get_physician_work_place(get_user_id_from_session())){
 	#echo 'error: work place not found';
 	$error['error'] = 'error: work place not found';
 }
-
 
 include 'header.php';
 
@@ -55,20 +63,22 @@ include 'header.php';
 
 										<?php
 
-										if (empty($error)) {
+										if (empty($error) && $resultSet != null) {
 											$resultSet->data_seek(0);
 											while ($row = $resultSet->fetch_assoc()):
 												if ($row['type'] === 'inc_em' || $row['type'] === 'em') { ?>
-
-								  	        <tr>
-												<td><?php echo $row['firstname']; ?></td>
-										        <td><?php echo $row['lastname']; ?></td>
-										        <td><?php echo $row['date']; ?></td>
-										        <td><?php echo $row['time']; ?></td>
-										        <td><?php echo $row['reason']; ?></td>
-										        <td><?php echo $row['type'] === 'inc_em' ? 'Incoming Emergency': 'Emergency'; ?></td>
-												<th><button type="button" class="btn btn-link" name="button">complete</button></th>
-											</tr>
+												<form  action="<?php $_SERVER['PHP_SELF']?>" method="post">
+													<tr>
+														<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+														<td><?php echo $row['firstname']; ?></td>
+												        <td><?php echo $row['lastname']; ?></td>
+												        <td><?php echo $row['date']; ?></td>
+												        <td><?php echo $row['time']; ?></td>
+												        <td><?php echo $row['reason']; ?></td>
+												        <td><?php echo $row['type'] === 'inc_em' ? 'Incoming Emergency': 'Emergency'; ?></td>
+														<th><button type="submit" class="btn btn-link" name="submit" value="complete">complete</button></th>
+													</tr>
+												</form>
 
 										<?php } endwhile; } ?>
 
@@ -104,16 +114,18 @@ include 'header.php';
 												while ($row = $resultSet->fetch_assoc()):
 													if ($row['type'] === 'wait') { ?>
 
-									  	        <tr>
-													<td><?php echo $row['firstname']; ?></td>
-											        <td><?php echo $row['lastname']; ?></td>
-											        <td><?php echo $row['date']; ?></td>
-											        <td><?php echo $row['time']; ?></td>
-											        <td><?php echo $row['reason']; ?></td>
-											        <td><?php echo $row['type'] === 'wait' ? 'In hospital': ''; ?></td>
-													<th><button type="button" class="btn btn-link" name="button">complete</button></th>
-												</tr>
-
+													<form  action="<?php $_SERVER['PHP_SELF']?>" method="post">
+														<tr>
+															<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+															<td><?php echo $row['firstname']; ?></td>
+													        <td><?php echo $row['lastname']; ?></td>
+													        <td><?php echo $row['date']; ?></td>
+													        <td><?php echo $row['time']; ?></td>
+													        <td><?php echo $row['reason']; ?></td>
+													        <td><?php echo $row['type'] === 'wait' ? 'In hospital': ''; ?></td>
+															<th><button type="submit" class="btn btn-link" name="submit" value="complete">complete</button></th>
+														</tr>
+   													</form>
 											<?php } endwhile; } ?>
 										</tbody>
 									</table>
@@ -130,12 +142,12 @@ include 'header.php';
 								<table class="table">
 									<thead>
 										<tr>
-											<th>#</th>
-										        <th>Firstname</th>
-										        <th>Lastname</th>
-										        <th>Age</th>
-										        <th>City</th>
-										        <th>Country</th>
+											<th>Firstname</th>
+											<th>Lastname</th>
+											<th>Date</th>
+											<th>Time</th>
+											<th>Reason</th>
+											<th>Type</th>
 									    </tr>
 									</thead>
 										<tbody>
@@ -145,15 +157,18 @@ include 'header.php';
 												   while ($row = $resultSet->fetch_assoc()):
 													   if ($row['type'] === 'reg') { ?>
 
-												   <tr>
-													   <td><?php echo $row['firstname']; ?></td>
-													   <td><?php echo $row['lastname']; ?></td>
-													   <td><?php echo $row['date']; ?></td>
-													   <td><?php echo $row['time']; ?></td>
-													   <td><?php echo $row['reason']; ?></td>
-													   <td><?php echo $row['type'] === 'reg' ? 'Regular': ''; ?></td>
-													   <th><button type="button" class="btn btn-link" name="button">complete</button></th>
-												   </tr>
+													   	<form  action="<?php $_SERVER['PHP_SELF']?>" method="post">
+														   <tr>
+															   <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+															   <td><?php echo $row['firstname']; ?></td>
+															   <td><?php echo $row['lastname']; ?></td>
+															   <td><?php echo $row['date']; ?></td>
+															   <td><?php echo $row['time']; ?></td>
+															   <td><?php echo $row['reason']; ?></td>
+															   <td><?php echo $row['type'] === 'reg' ? 'Regular': ''; ?></td>
+															   <th><button type="submit" class="btn btn-link" name="submit" value="complete">complete</button></th>
+														   </tr>
+													   </form>
 
 											   <?php } endwhile; } ?>
 										</tbody>

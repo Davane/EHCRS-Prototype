@@ -1,7 +1,54 @@
 <?php
-include 'header.php';
+include_once 'core/physician/physician.inc.php';
 
 var_dump($_POST);
+
+$resultSet = get_all_patient_and_id();
+$state = array();
+
+# verify the physician infromation entered into the modal
+if(isset($_POST['medical_id']) && isset($_POST['password'])){
+
+
+	$id = $_POST['medical_id'];
+	$passw = $_POST['password'];
+
+	# echo $passw;
+	# var_dump(get_user_id_from_session());
+
+	# check the session medical id with the entered medical id
+	if ($id === get_user_id_from_session()) {
+
+		if (verify_user_and_password($id, $passw)){
+			echo "Vefired";
+
+			$error = add_patient_medical_hisory($id, $condition, $signs, $height, $weight, $temp, $pulse, $bp, $resp, $unrine);
+
+		} else {
+			// echo "Credentials wrong";
+			$state['error'] = "Physician's credentials wrong";
+		}
+
+	} else {
+		// echo " Credentials wrong";
+		$state['error'] = "Physician's credentials wrong";
+	}
+}
+
+add_medical_condtion();
+
+function add_medical_condtion(){
+
+	
+
+
+	add_new_sign_and_sympton('27', '424', 'this is a new condition');
+}
+
+
+// var_dump($resultSet);
+
+include 'header.php';
 
 ?>
 
@@ -14,15 +61,29 @@ var_dump($_POST);
 					<span><h3><b>New condition</b></h3></span>
 					<p>For Patient:
 						<select name="patient" class="custom-select">
-							<option  value="userid-11043" selected>Davane Davis &#8226; ID# 11043</option>
-							 <option value="userid-11043" >Garfield &#8226; ID# 11043</option>
-							 <option value="userid-11043">Orville &#8226; ID# 11043</option>
-							 <option value="userid-11043">Shecky &#8226; ID# 11043</option>
-							 <option value="userid-11043">Darian &#8226; ID# 11043</option>
+							<?php
+
+							if ($resultSet !== null) {
+								while ($row = $resultSet->fetch_assoc()):
+									$patient_info_string =  $row['firstname'] . ' ' . $row['middlename'] . ' '. $row['lastname'] . ' - ' . $row['id'];
+							?>
+									<option  value="<?php echo $patient_info_string; ?>"><?php echo $patient_info_string; ?></option>
+
+							<?php endwhile; }?>
 					   </select>
 			   	    </p>
 
 	                <hr style="width: 98%;">
+					<?php if (array_key_exists('error',$state)) {
+							echo output_error_by_key('error', $state).'<br>';
+						} else if (array_key_exists('success',$state) && $state['success'] === true) {
+							?>
+							<div class="alert alert-success alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								Patient COndition was added <b>Successfully</b>
+							</div>
+					<?php } ?>
+
                     <div class="row">
 						<div class="form-group">
                             <div class="col-md-12 col-xs-12">

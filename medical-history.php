@@ -1,9 +1,27 @@
 <?php
+include_once 'core/patient/patient.inc.php';
+is_session_started();
+
+$nameSet = null;
+
+if(isset($_SESSION['key'])) {
+
+    $id = get_value_from_session('key');
+    #destroy_session_value('key');
+
+    # getting patient name
+    if($id !== null) {
+        $nameSet = get_patient_name($id);
+    }
+
+    # getting patient medical history information
+
+
+}
+
+
 include 'header.php';
-
-var_dump($_POST);
-
- ?>
+?>
 
 
 <div id="wrapper">
@@ -12,7 +30,11 @@ var_dump($_POST);
 			<div class="panel panel-default">
 			  <div class="panel-body" style="padding:0 55px;">
 				<span><h3><b>Edit Medical History</b></h3></span>
-				<p>of <b>First Last Name</b></p> <br>
+				<p>of <b><?php
+                    if ($nameSet !== null) {
+                        echo $nameSet['firstname'] . ' ' . $nameSet['lastname'];
+	                } ?>
+                </b></p> <br>
 				<p><a href="edit-personal-info.php">Edit Patient Personal Record</a></p>
 
 				<hr style="width: 98%;">
@@ -69,14 +91,13 @@ var_dump($_POST);
 											    <thead>
 												<tr>
  		 											<th>Date</th>
- 		 											<th>Weight</th>
+ 		 											<th>Weight (LB)</th>
  		 											<th>Height</th>
  		 											<th>Temp</th>
  		 											<th>Pulse</th>
  		 											<th>B/P</th>
  		 											<th>Resp</th>
  		 											<th>Urinalysis</th>
- 		 											<!-- <th>Hospital</th> -->
  		 											<th>Taken By</th>
  		 										  </tr>
 											    </thead>
@@ -84,69 +105,77 @@ var_dump($_POST);
 
                                                 <form class="" action='<?php $_SERVER['PHP_SELF'];  ?>' method="post">
     											      <tr>
-    											        <td>1 <input type="hidden" name="record_id" value="x"></td>
-    											        <td>Anna</td>
-    											        <td>Pitt</td>
-    											        <td>35</td>
-    											        <td>New York</td>
-    											        <td>USA</td>
-    													<td>35</td>
-    											        <td>New York</td>
-    											        <td>USA</td>
-    													<td><button type="submit" class='btn btn-link' name="submit">Edit</button></td>
 
+                                                          <!-- Not editable -->
+    											        <td>09-09-09 <input type="hidden" name="id" value="x"></td>
+
+                                                        <?php if(!empty($_POST) && $_POST['submit'] === 'edit') { ?>
+                                                               <td><input name="weight" value="<?php echo isset($_POST['weight']) ? $_POST['weight'] : ''; ?>" style="width: 60px;" type="date" class="form-control input-sm" placeholder="weight"></td>
+                                                               <td><input name="height" value="<?php echo isset($_POST['height']) ? $_POST['height'] : ''; ?>" style="width: 60px;" type="text" class="form-control input-sm" placeholder="height"></td>
+                                                               <td><input name="temp"   value="<?php echo isset($_POST['temp']) ? $_POST['temp'] : ''; ?>" style="width: 60px;" type="text" class="form-control input-sm" placeholder="temp"></td>
+                                                               <td><input name="pulse"  value="<?php echo isset($_POST['pulse']) ? $_POST['pulse'] : ''; ?>" style="width: 60px;" type="text" class="form-control input-sm" placeholder="pulse"></td>
+                                                               <td><input name="bp" value="<?php echo isset($_POST['bp']) ? $_POST['bp'] : ''; ?>" style="width: 60px;" type="text" class="form-control input-sm" placeholder="bp"></td>
+                                                               <td><input name="reps" value="<?php echo isset($_POST['resp']) ? $_POST['resp'] : ''; ?>" style="width: 60px;" type="text" class="form-control input-sm" placeholder="resp"></td>
+                                                               <td><input name="urine" value="<?php echo isset($_POST['urine']) ? $_POST['urine'] : ''; ?>" style="width: 60px;" type="text" class="form-control input-sm" placeholder="urine"></td>
+                                                           <?php  } else { ?>
+                                                               <td><?php echo isset($_POST['weight']) ? $_POST['weight'] : ''; ?><input type="hidden" name="weight" value="<?php echo isset($_POST['weight']) ? $_POST['weight'] : '' /*Value from databse*/; ?>"></td>
+                                                               <td>4'4" <input type="hidden" name="height" value="4'4''"></td>
+               											       <td>94    <input type="hidden" name="temp" value="94"></td>
+           											           <td>34/43 <input type="hidden" name="pulse" value="34/43"></td>
+           											           <td>12/70 <input type="hidden" name="bp" value="12/70"></td>
+           													   <td>33    <input type="hidden" name="resp" value="33"></td>
+           											           <td>45    <input type="hidden" name="urine" value="45"></td>
+                                                           <?php } ?>
+
+                                                          <!-- Not editable -->
+    											        <td>Dr. WhathisFace</td>
+
+                                                        <?php if(!empty($_POST) && $_POST['submit'] === 'edit') { ?>
+                                                                    <!-- Edit mode for table row  -->
+    													            <td><button type="submit"  name="submit" value='save' class='btn btn-link'>Save</button></td>
+                                                        <?php  } else { ?>
+                                                                    <!-- Save and 'Just Loaded Paged' mode for table row  -->
+                                                                    <td><button type="submit"  name="submit" value='edit' class='btn btn-link'>Edit</button></td>
+                                                        <?php } ?>
     											      </tr>
                                                   </form>
-                                                  <form class="" action='<?php $_SERVER['PHP_SELF'];  ?>' method="post">
-      											      <tr>
-      											        <td>1 <input type="hidden" name="record_id" value="y"></td>
-      											        <td>Anna</td>
-      											        <td>Pitt</td>
-      											        <td>35</td>
-      											        <td>New York</td>
-      											        <td>USA</td>
-      													<td>35</td>
-      											        <td>New York</td>
-      											        <td>USA</td>
-      													<td><button type="submit" class='btn btn-link' name="submit">Edit</button></td>
 
-      											      </tr>
-                                                    </form>
 											    </tbody>
-											  </table>
-										</div>
 
-										<form class="" action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
+											  </table>
+									       </div>
+
+										<!-- <form class="" action="<?php# $_SERVER['PHP_SELF']; ?>" method="post">
 
 											<div class="form-group">
-												<div class="col-md-1 col-xs-1">
-													<input type="date" class="form-control input-sm" name="weight" placeholder="weight">
+												<div class="col-md-2 col-xs-2">
+													<input value="<?php #echo isset($_POST['weight']) ? $_POST['weight'] : ''; ?>" type="date" class="form-control input-sm" name="weight" placeholder="weight">
 												</div>
-												<div class="col-md-1 col-xs-1">
+												<div class="col-md-2 col-xs-2">
 													<input type="text" class="form-control input-sm" name="height" placeholder="height">
 												</div>
-												<div class="col-md-1 col-xs-1">
+												<div class="col-md-2 col-xs-2">
 												   <input type="text" class="form-control input-sm" name="temp" placeholder="temp">
 												 </div>
-												 <div class="col-md-1 col-xs-1">
+												 <div class="col-md-2 col-xs-2">
  													<input type="date" class="form-control input-sm" name="pulse" placeholder="pulse">
  												</div>
- 												<div class="col-md-1 col-xs-1">
+ 												<div class="col-md-2 col-xs-2">
  													<input type="text" class="form-control input-sm" name="bp" placeholder="bp">
  												</div>
- 												<div class="col-md-1 col-xs-1">
+ 												<div class="col-md-2 col-xs-2">
  												   <input type="text" class="form-control input-sm" name="resp" placeholder="resp">
  												 </div>
-												 <div class="col-md-1 col-xs-1">
+												 <div class="col-md-2 col-xs-2">
  													<input type="date" class="form-control input-sm" name="urinalysis" placeholder="urine">
  												</div>
- 												<div class="col-md-1 col-xs-1 col-md-offset-3">
+ 												<div class="col-md-2 col-xs-2 col-md-offset-8">
  													<button type="submit" class="btn btn-primary">Update Vitals</button>
  												</div>
 
 											</div>
 
-										</form>
+										</form> -->
 				  				</div>
 				  			</div>
 				  		</div>
@@ -243,6 +272,10 @@ var_dump($_POST);
 								</div>
 							</div>
 						</div>
+
+                        <hr style="width: 98%;">
+
+
 			     </div>
 			</div>
 		</div>
