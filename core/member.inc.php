@@ -13,9 +13,9 @@ function set_appointment($patient, $apptmentSetter, $hospital, $date, $time, $ty
     #executing and fetching he rows
     $update = $stmt->execute();
 
-    //var_dump($connect->error);
+    // var_dump($connect->error);
     //var_dump($stmt->affected_rows);
-    //die();
+    // die();
 
     if($stmt->affected_rows > 0) {
         #echo "string";
