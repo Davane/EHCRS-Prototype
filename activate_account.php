@@ -1,5 +1,7 @@
 <?php
 
+    require_once 'session-validation.php';
+
     $error = array();
 
     if(isset($_GET['x'], $_GET['code']) === true) {

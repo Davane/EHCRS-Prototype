@@ -1,13 +1,47 @@
-
 <?php
 
 # SESSION
+
+function set_sign_in_session($id, $type, $time) {
+    is_session_started();
+    $_SESSION[SESSION_ID] = password_hash((string)$time . (string)$id, PASSWORD_DEFAULT);
+    $_SESSION[USER_KEY] = $id;
+    $_SESSION[USER_TYPE] = $type;
+    $_SESSION[USER_TIMESTAMP] = $time;
+    $_SESSION[TIMESTAMP_CREATED] = $time;
+
+}
+
+function set_session($key, $value){
+    is_session_started();
+    $_SESSION[$key] = $value;
+}
+
+
+function is_session_started(){
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+}
+
+function is_user_verified() {
+    is_session_started();
+     if(isset($_SESSION[USER_VERIFIED])){
+         if($_SESSION[USER_VERIFIED] === 'true'){
+             return true;
+         }
+     }
+
+     return false;
+ }
+
 
 function get_user_id_from_session(){
     is_session_started();
     return isset($_SESSION[USER_KEY]) ? $_SESSION[USER_KEY] : null;
 }
-
 
 function get_current_user_type() {
     is_session_started();
@@ -15,15 +49,9 @@ function get_current_user_type() {
 }
 
 
-
-function is_session_started(){
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-}
-function set_session($key, $value){
+function get_session_id() {
     is_session_started();
-    $_SESSION[$key] = $value;
+    return isset($_SESSION[SESSION_ID]) ? $_SESSION[SESSION_ID] : null;
 }
 
 function get_value_from_session($key){
@@ -31,19 +59,22 @@ function get_value_from_session($key){
     return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
 }
 
+
 function destroy_session(){
     is_session_started();
     session_unset();
     session_destroy();
 }
 
-function set_sign_in_session($id, $type, $time) {
+function destroy_session_value($key){
     is_session_started();
-    $_SESSION['session-id'] = "genrate-random id with time and encoded";
-    $_SESSION['user-id'] = $id;
-    $_SESSION['user-type'] = $type;
-    $_SESSION['user-time'] = $time;
+    unset($_SESSION[$key]);
+    #session_destroy();
 }
+
+
+
+
 
 # MAIL
 
@@ -75,18 +106,35 @@ function is_all_empty(){
    return true;
 }
 
+function gen_sanitize_list_for_database() {
+
+    $sanitize_values = array();
+
+    foreach (func_get_args() as $key => $value) {
+
+        if (!empty(trim($value))) {
+            $sanitize_values[$key] = gen_sanitize_for_display(gen_sanitize_for_datebase($value));
+            #echo $key . ' ' . $value;
+        }
+
+    }
+
+    return $sanitize_values;
+
+}
+
 
 # this is escaping quotes, double qustes
 # \n , \r, \t , null
 function gen_sanitize_for_datebase($str){
     # needs databse connection
     global $connect;
-    return $connect->real_escape_string($str);
+    return gen_sanitize_for_display($connect->real_escape_string($str));
 }
 
 # replace htlm special characters with ascii representation
 function gen_sanitize_for_display($str){
-    return htmlspecialchars($str, ENT_QUOTES);
+    return htmlentities($str, ENT_QUOTES);
 }
 
 # removin html tags
@@ -164,9 +212,12 @@ function output_error($error){
 function output_error_by_key($key, $error){
 
     if(array_key_exists($key, $error)){
-        return "<small class=\"text-danger\">". $error[$key] ."</small> <br>";
-        #echo output_error($error[$key]);
-        #echo '<br>';
+        // return "<small class=\"text-danger\">". $error[$key] ."</small> <br>";
+
+        return '<div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    '. $error[$key]  .'
+                </div>';
     }
 
 

@@ -4,7 +4,7 @@ html,body {
 }
 
 body {
-    padding-top: 97px;
+    padding-top: 60px;
 }
 
 /*  ------------ nav bar styles ------------  */
@@ -153,7 +153,7 @@ b.thicker {
 
 .sidebar-wrapper {
     position: absolute;
-    width: 185px;
+    width: 250px;
     height: 100%;
     float: left;
     z-index: 1;
@@ -209,14 +209,17 @@ b.thicker {
 }
 
 #p-info {
-    padding-left: 225px;
-    padding-right: 225px;
+    padding-left: 280px;
+    padding-right: 280px;
 }
 
 input {
     margin-bottom: 15px;
 }
 
+.search-style {
+    margin-bottom: 0px;
+}
 .main-content {
     width: 100%;
     height: 100%;
@@ -246,4 +249,14 @@ input {
 #pad-panel {
     margin: 10px;
     padding: 0 10px;
+}
+
+
+
+#search-result-image {
+  display: block;
+  max-width:100;
+  max-height:100px;
+  width: auto;
+  height: auto;
 }

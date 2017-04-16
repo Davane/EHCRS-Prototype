@@ -17,6 +17,7 @@ function executeAndGetRowsFromSelectPreparedStatement($statements) {
 
  	#var_dump($statements->error);
 
+
 	// checking is the query was executed successfully
 	if (!$select) { /* Handle error */ echo "Select == False"; }
 

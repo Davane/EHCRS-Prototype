@@ -18,74 +18,76 @@
 
 			if (isset($_POST) && !empty($_POST)) {
 
-				if ($type_filter['Patient'] == $type) {
+				include_once 'core/patient/patient.inc.php';
 
-					include_once 'core/patient/patient.inc.php';
+				# 1. validate inputs (check if empty and if correct values)
+				$items = array(
+						'INT-medical_id-2147483648' => $_POST['medical_id'],
+						'EMAIL-email-64'            => $_POST['email'],
+						'PASSWORD-password-255'     => $_POST['password'] );
 
-					# perform patient sign in
+				$error = gen_validate_inputs($items);
 
-					# 1. validate inputs (check if empty and if correct values)
-					$items = array(
-							'INT-medical_id-2147483648' => $_POST['medical_id'],
-							'EMAIL-email-64'            => $_POST['email'],
-							'PASSWORD-password-255'     => $_POST['password'] );
+				if (empty($error)){
 
-					$error = gen_validate_inputs($items);
+					# 2. check if user exist
+					if (is_member_exist($_POST['medical_id'])){
+						# 3. is user active
+						if (is_member_active($_POST['medical_id'])) {
 
+							$sign_in = false;
 
-					if (empty($error)){
+							if ($type_filter['Patient'] == $type) {
 
-						# 2. check if user exist
-						if (is_member_exist($_POST['medical_id'])){
-							# 3. is user active
-							if (is_member_active($_POST['medical_id'])) {
+								# 4. sign in patient and log
+								$sign_in = sign_in_member($_POST['medical_id'], $_POST['email'], $_POST['password'], $type);
 
-								# 4. sign in user and log
-								if(sign_in_patient($_POST['medical_id'], $_POST['email'], $_POST['password'])){
+							} else if ($type_filter['Medical'] == $type) {
 
-									// set_sign_in_session($_POST['medical_id'], $type, (string)time() /*timestamp*/);
-									// header('Location: login-verification.php');
+								# perform medical sign in
+								echo "medical";
+								$sign_in = sign_in_member($_POST['medical_id'], $_POST['email'], $_POST['password'], $type);;
 
-									if(generate_and_send_verification_code_by_email($_POST['medical_id']))
-							        {
-										# 5. create seesions with encrypted id
-										#set_session(USER_KEY, $_POST['medical_id']);
-										#set_session(USER_TYPE, $type);
-
-										set_sign_in_session($_POST['medical_id'], $type, (string)time() /*timestamp*/);
-										header('Location: login-verification.php');
-									}
-
-
-								} else {
-									$error['sign_failed'] = 'Incorrect Credentials';
-								}
-
-							} else {
-
-									# Account isnt Active
-									$error['account_status'] = 'Your account is not active,
-																please contact adminsitrator';
 							}
 
 
+							if ($sign_in) {
+
+								if(generate_and_send_verification_code_by_email($_POST['medical_id'])) {
+
+									# 5. create seesions with encrypted id
+									set_sign_in_session($_POST['medical_id'], $type, (string)time() /*timestamp*/);
+
+									if(update_user_session($_POST['medical_id'], get_value_from_session(SESSION_ID))){
+
+										header('Location: login-verification.php');
+									}
+								}
+
+							} else {
+								$error['sign_failed'] = 'Incorrect Credentials';
+							}
+
 						} else {
 
-							# Account doesnt Exist
-							$error['account_exist'] = 'Your account wasn\'t found,
-							 						  please contact adminsitrator';
-
+								# Account isnt Active
+								$error['account_status'] = 'Your account is not active,
+															please contact adminsitrator';
 						}
 
+
 					} else {
-						#var_dump($error);
-						#Errors
+
+						# Account doesnt Exist
+						$error['account_exist'] = 'Your account wasn\'t found,
+						 						  please contact adminsitrator';
+
 					}
 
-				} else if ($type_filter['Medical'] == $type) {
-					# perform medical sign in
+				} else {
+					#var_dump($error);
+					#Errors
 				}
-
 			}
 		}
 	}
@@ -242,7 +244,7 @@
 						?>
 						 </h4>
 					Hello there, sign in and start managing your <a href="sign-up.php?type=<?php echo $type_filter['Patient']; ?>">Patient</a>
-					or <a href="sign-up.php?type=<?php echo $type_filter['Medical']; ?>">Physicain</a>
+					or <a href="sign-up.php?type=<?php echo $type_filter['Medical']; ?>">Physician</a>
 				</p>
 			</center>
 
@@ -312,9 +314,11 @@
 			  			<button type="submit" name="submit" value="submit" class="btn btn-send btn-block">Sign In Now  <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
 			  		</div>
 			  		<br><br><br>
-			  		<!-- <center>
-			  			<small>Forgot Password? <a href="">Reset</a></small>
-			  		</center> -->
+					<?php if (isset($_GET['type']) && $_GET['type'] === 'Medical') { ?>
+			  		<center>
+			  			<small>Would you like to do an <a href="">Emergency Sign in</a></small>
+			  		</center>
+					<?php } ?>
 			  	</div>
 
 			</form>
