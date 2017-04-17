@@ -223,11 +223,23 @@ function output_error_by_key($key, $error){
 
 }
 
-
-
-
 function refill_input_fields($key){
     #isset($_POST['medical_id']) ? $_POST['medical_id'] : ''
     return isset($_POST[$key]) ? $_POST[$key] : '';
+}
+
+
+function replace_url($original, $replace_with, $str){
+    return str_replace($original, $replace_with, $str);
+}
+
+function get_pro_pic($p_url)
+{
+    $url = 'http://www.freeiconspng.com/uploads/profile-icon-9.png';
+    if  ($p_url['pic_url'] !== null) {
+        $url = replace_url("/Users/davanedavis/Sites/", "http://localhost/~davanedavis/", $p_url['pic_url']);
+    }
+
+    return $url;
 }
 ?>

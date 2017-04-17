@@ -3,6 +3,64 @@
 require_once(dirname(__FILE__) . '/../init.php');
 require_once(dirname(__FILE__) . '/../member.inc.php');
 
+function update_personal_info($patient_id, $firstname, $middlename, $lastname,
+                              $maiden_name, $email, $trn, $gender, $dob, $tel, $age, $kin,
+                              $relationship, $union, $street, $parish, $country, $employer,
+                              $occupation, $emp_tel, $policy, $emp_street, $emp_parish,
+                              $emp_country){
+
+    $firstname = gen_sanitize_for_display($firstname);
+    $middlename = gen_sanitize_for_datebase($middlename);
+    $lastname   = gen_sanitize_for_datebase($lastname);
+    // $email = gen_sanitize_for_datebase($email);
+    $maiden_name = gen_sanitize_for_datebase($maiden_name);
+    $trn        = gen_sanitize_for_datebase($trn);
+    $gender     = gen_sanitize_for_datebase($gender);
+    $tel     = gen_sanitize_for_datebase($tel);
+    $age        = gen_sanitize_for_datebase($age);
+    $street     = gen_sanitize_for_datebase($street);
+    $parish     = gen_sanitize_for_datebase($parish);
+    $country    = gen_sanitize_for_datebase($country);
+    $employer   = gen_sanitize_for_datebase($employer);
+    $occupation  = gen_sanitize_for_datebase($occupation);
+    $emp_tel     = gen_sanitize_for_datebase($emp_tel);
+    $policy      = gen_sanitize_for_datebase($policy);
+    $emp_street  = gen_sanitize_for_datebase($emp_street);
+    $emp_parish  = gen_sanitize_for_datebase($emp_parish);
+    $emp_country = gen_sanitize_for_datebase($emp_country);
+    $kin         = gen_sanitize_for_datebase($kin);
+    $relationship = gen_sanitize_for_datebase($relationship);
+    $union         = gen_sanitize_for_datebase($union);
+
+
+
+    global $connect;
+
+    $connect->autocommit(false);
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_update_personal_info (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("ssssssssssssssssssssssss", $patient_id, $firstname, $middlename, $lastname, $maiden_name, $email, $trn,
+                                  $gender, $dob, $tel, $age, $kin, $relationship, $union, $street, $parish, $country, $employer, $occupation,
+                                  $emp_tel, $policy, $emp_street, $emp_parish, $emp_country);
+
+    $update = $stmt->execute();
+
+     var_dump($connect->error);
+    // die();
+
+    if($update) {
+        $connect->commit();
+        $stmt->close();
+        return true;
+    }
+
+    return false;
+}
+
+
 function verify_user_and_password($id, $password){
 
     global $connect;
@@ -613,6 +671,80 @@ function get_patient_condition_signs_treatment_medication($id){
 
     # var_dump($connect->error);
      return  $resultSet;
+}
+
+
+
+function uploadFile($connect, $patient_id){
+
+    if($connect == null) {
+        echo "pateint.inc.php : global connect Address";
+        global $connect;
+    }
+
+    $uploads_folder = 'uploads';
+    $user_folder = $patient_id;
+    $pro_pic_folder = 'img';
+
+    $upload_dir = getcwd() . DIRECTORY_SEPARATOR . $uploads_folder;
+    $user_dir = $upload_dir . DIRECTORY_SEPARATOR . $user_folder ;
+    $img_dir = $user_dir . DIRECTORY_SEPARATOR . $pro_pic_folder;
+    $pro_pic_img_name = 'patient_photo.jpg';
+
+    var_dump($_FILES['uploadedFile']['tmp_name']);
+    // die();
+
+
+    if (createDirectory($img_dir, true)) {
+        echo 'created';
+
+        // the prepare for update
+        $stmt = $connect->prepare("CALL proc_update_proc_pic_url (?, ?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("ss", $patient_id, $img_dir . DIRECTORY_SEPARATOR . $pro_pic_img_name);
+
+        $stmt->execute();
+
+        // return $address_insert;
+        if($stmt->affected_rows > 0) {
+
+            $stmt->close();
+
+            // $pro_pic_img_name = 'patient_photo.jpg';
+
+            if(move_uploaded_file($_FILES['uploadedFile']['tmp_name'], $img_dir . DIRECTORY_SEPARATOR . $pro_pic_img_name)) {
+                echo "moved";
+                return true;
+            } else {
+                echo "not moved" .  $_FILES['tmp_name'];
+                return false;
+            }
+        }
+
+    } else {
+        echo "not created";
+    }
+
+
+
+    return false;
+}
+
+function createDirectory($dir, $recursive){
+
+    // check if the directory already exists if not creates it (Davane Davis)
+    if(file_exists($dir) === false ) {
+
+        // making directory
+        mkdir($dir, 0775 ,$recursive);
+
+        // checking if the folders were created successfully
+        if(file_exists($dir) === false) { return false; }
+    }
+
+    // directory already created
+    return true;
 }
 
  ?>

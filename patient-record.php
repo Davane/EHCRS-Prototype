@@ -2,7 +2,7 @@
 require_once 'core/physician/physician.inc.php';
 // require_once 'session-validation.php';
 
-$id = '387';
+$id = '447';
 $patient_info_result = get_patient_general_info_for_pyhsician($id);
 $patient_vital = get_latest_patient_vital($id);
 $patient_lastest_cond_and_treat = get_patient_condition_signs_treatment_medication($id);
@@ -37,7 +37,7 @@ include 'header.php'
 				<?php if($patient_info_result !== null && !empty($patient_info_result)) { ?>
 
 					<div class="col-md-3">
-						<img src="img/avatar1.png" alt="profile picture" class="img-responsive" width="200px" height="200px">
+						<img src="<?php echo get_pro_pic($patient_info_result); ?>" alt="profile picture" class="img-responsive" width="200px" height="200px">
 					</div>
 
 					<div class="col-md-6">
@@ -217,7 +217,9 @@ include 'header.php'
 						      </div>
 						      <div id="collapse2" class="panel-collapse collapse">
 						        <div class="panel-body">
-									<p>These are the previous hospital visits. </p>
+									<small id="passwordHelpBlock" class="form-text text-muted">
+									  Separate each sign with and comma if you want to add multiple
+								  </small
 						        </div>
 									<table class="table">
 										<thead>

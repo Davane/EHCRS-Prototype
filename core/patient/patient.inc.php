@@ -5,6 +5,37 @@ require_once(dirname(__FILE__) . '/../init.php');
 require_once(dirname(__FILE__) . '/../member.inc.php');
 require_once(dirname(__FILE__) . '/../physician/physician.inc.php');
 
+function get_paitnet_personal_info($patient_id) {
+
+    global $connect;
+
+    // the prepare query
+    $stmt = $connect->prepare("CALL proc_get_patient_personal_info (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $patient_id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        echo 'Not selected';
+        return null;
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet == null) {
+		/*  Handle error */
+		echo "ResultSet == null" ;
+        return null;
+
+	 }
+
+    # var_dump($connect->error);
+     return  $resultSet->fetch_assoc();
+}
+
 function get_patient_general_info($patient_id){
 
     global $connect;
@@ -31,7 +62,7 @@ function get_patient_general_info($patient_id){
 	 }
 
     # var_dump($connect->error);
-     return  $resultSet->fetch_assoc();;
+     return  $resultSet->fetch_assoc();
 
 }
 
@@ -81,6 +112,7 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
     $gender     = gen_sanitize_for_datebase($gender);
     $tel_no     = gen_sanitize_for_datebase($tel_no);
     $age        = gen_sanitize_for_datebase($age);
+    $street_name     = gen_sanitize_for_datebase($street_name);
     $parish     = gen_sanitize_for_datebase($parish);
     $country    = gen_sanitize_for_datebase($country);
     $emp_name   = gen_sanitize_for_datebase($emp_name);
@@ -115,6 +147,11 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
 
     $error = array();
 
+
+
+
+                                // #upload File
+                                // uploadFile($connect, '303');
 
     $physician_id = $clerk_id = get_user_id_from_session();
     $hospital_id = get_physician_work_place($physician_id);
@@ -185,6 +222,8 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
 
                                     if(enter_new_conditions($connect, $condition, $medical_history_id)) {
 
+                                        // #upload File
+                                        uploadFile($connect, $member_id);
 
                                         if(generate_activation_code_and_email($connect, $member_id, $email, $firstname, $lastname)){
                                             #echo "REGISTERED";

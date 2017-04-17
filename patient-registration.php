@@ -1,116 +1,123 @@
 
 <?php
-#var_dump($_POST);
+// var_dump($_POST);
+// var_dump($_FILES);
 
-	require_once 'core/physician/physician.inc.php';
-	is_session_started();
+require_once 'core/physician/physician.inc.php';
+is_session_started();
 
-	$error = array();
-
-	# verify the physician infromation entered into the modal
-	if(isset($_POST['medical_id']) && isset($_POST['password'])){
+$error = array();
 
 
-		$id = $_POST['medical_id'];
-		$passw = $_POST['password'];
 
-		# echo $passw;
-		# var_dump(get_user_id_from_session());
+$error = register_patient($error);
 
-		# check the session medical id with the entered medical id
-		if ($id === get_user_id_from_session()) {
+# verify the physician infromation entered into the modal
+if(isset($_POST['medical_id']) && isset($_POST['password'])){
 
-			if (verify_user_and_password($id, $passw)){
-				echo "Vefired";
-				$error = register_patient($error);
-			} else {
-				echo "Credentials wrong";
-				$error['credentials'] = "Credentials wrong";
-			}
 
+	$id = $_POST['medical_id'];
+	$passw = $_POST['password'];
+
+	# echo $passw;
+	# var_dump(get_user_id_from_session());
+
+	# check the session medical id with the entered medical id
+	if ($id === get_user_id_from_session()) {
+
+		if (verify_user_and_password($id, $passw)){
+			echo "Vefired";
+			$error = register_patient($error);
 		} else {
-			echo " Credentials wrong";
+			echo "Credentials wrong";
 			$error['credentials'] = "Credentials wrong";
 		}
+
+	} else {
+		echo " Credentials wrong";
+		$error['credentials'] = "Credentials wrong";
 	}
+}
 
 
 
-	function register_patient($error) {
+function register_patient($error) {
 
-		# Check if user has been logged in and verfied
+	# Check if user has been logged in and verfied
 
-		# when registered generate medical ID for user
+	# when registered generate medical ID for user
 
-		# pateint need to set password after they are registered by physician
+	# pateint need to set password after they are registered by physician
 
 
-		if (isset($_POST['firstName']) && isset($_POST['lastName'])
-				&& isset($_POST['maidenName']) && isset($_POST['condition'])) {
+	if (isset($_POST['firstName']) && isset($_POST['lastName'])
+			&& isset($_POST['maidenName']) && isset($_POST['condition'])) {
 
-			# validating the user inputs
-			$items = array(
-					'TEXT-firstName-26-required'  => $_POST['firstName'],
-					'TEXT-lastName-26-required'   => $_POST['lastName'],
-					'TEXT-maidenName-26-required' => $_POST['maidenName'],
-					'TEXT-middleName-26' => $_POST['middleName'],
-					'TEXT-petName-26'    => $_POST['petName'],
-					'EMAIL-email-64-required'     => $_POST['email'],
-					'TEXT-trn-15'        => $_POST['trn'],
-					'TEXT-dob-26'        => $_POST['dob'],
-					'INT-age-26'         => $_POST['age'],
-					'TEXT-gender-5'       => $_POST['gender'],
-					'TEXT-telephone-15'  => $_POST['telephone'],
-					'TEXT-religion-18'   => $_POST['religion'],
-					'TEXT-union-12'      => $_POST['union'],
-					'TEXT-street_name-26' => $_POST['street_name'],
-					'TEXT-parish-26'      => $_POST['parish'],
-					'TEXT-kin-54'         => $_POST['kin'],
-					'TEXT-relationship-12'  => $_POST['relationship'],
-					'TEXT-mother_name-24'   => $_POST['mother_name'],
-					'TEXT-father_name-24'   => $_POST['father_name'],
-					'TEXT-employer_name-45' => $_POST['employer_name'],
-					'TEXT-emp_address-26'   => $_POST['emp_address'],
-					'TEXT-emp_parish-26'    => $_POST['emp_parish'],
-					'TEXT-emp_tel-15'       => $_POST['emp_tel'],
-					'TEXT-occupation-48'    => $_POST['occupation'],
-					'TEXT-condition-128-required' => $_POST['condition'],
-					'TEXT-height-10'         => $_POST['height'],
-					'TEXT-weight-10'         => $_POST['weight'],
-					'TEXT-bp-10'            => $_POST['bp'],
-					'TEXT-temp-10'          => $_POST['temp'],
-					'TEXT-pulse-10'         => $_POST['pulse'],
-					'TEXT-resp-10'          => $_POST['resp'],
-					'TEXT-urinalysis-10'    => $_POST['urinalysis']);
+		# validating the user inputs
+		$items = array(
+				'TEXT-firstName-26-required'  => $_POST['firstName'],
+				'TEXT-lastName-26-required'   => $_POST['lastName'],
+				'TEXT-maidenName-26-required' => $_POST['maidenName'],
+				'TEXT-middleName-26' => $_POST['middleName'],
+				'TEXT-petName-26'    => $_POST['petName'],
+				'EMAIL-email-64-required'     => $_POST['email'],
+				'TEXT-trn-15'        => $_POST['trn'],
+				'TEXT-dob-26'        => $_POST['dob'],
+				'INT-age-26'         => $_POST['age'],
+				'TEXT-gender-5'       => $_POST['gender'],
+				'TEXT-telephone-15'  => $_POST['telephone'],
+				'TEXT-religion-18'   => $_POST['religion'],
+				'TEXT-union-12'      => $_POST['union'],
+				'TEXT-street_name-64' => $_POST['street_name'],
+				'TEXT-parish-16'      => $_POST['parish'],
+				'TEXT-kin-54'         => $_POST['kin'],
+				'TEXT-relationship-12'  => $_POST['relationship'],
+				'TEXT-mother_name-24'   => $_POST['mother_name'],
+				'TEXT-father_name-24'   => $_POST['father_name'],
+				'TEXT-employer_name-45' => $_POST['employer_name'],
+				'TEXT-emp_address-26'   => $_POST['emp_address'],
+				'TEXT-emp_parish-26'    => $_POST['emp_parish'],
+				'TEXT-emp_tel-15'       => $_POST['emp_tel'],
+				'TEXT-occupation-48'    => $_POST['occupation'],
+				'TEXT-condition-128-required' => $_POST['condition'],
+				'TEXT-height-10'         => $_POST['height'],
+				'TEXT-weight-10'         => $_POST['weight'],
+				'TEXT-bp-10'            => $_POST['bp'],
+				'TEXT-temp-10'          => $_POST['temp'],
+				'TEXT-pulse-10'         => $_POST['pulse'],
+				'TEXT-resp-10'          => $_POST['resp'],
+				'TEXT-urinalysis-10'    => $_POST['urinalysis']);
 
-			$error = gen_validate_inputs($items);
+		$error = gen_validate_inputs($items);
 
-			#var_dump($error);
+		#var_dump($error);
 
-			if (empty($error)) {
+		if (empty($error)) {
 
-				include_once 'core/patient/patient.inc.php';
+			include_once 'core/patient/patient.inc.php';
 
-				# register pateint
-				$error = pateint_registration_process($_POST['firstName'], $_POST['middleName'], $_POST['lastName'],
-											 $_POST['maidenName'],$_POST['email'], $_POST['trn'], 'password',
-											 $_POST['gender'], $_POST['dob'], $_POST['telephone'], $_POST['age'], $_POST['street_name'],
-											 $_POST['parish'], ''/*country*/, '0'/*insurance_id*/, $_POST['employer_name'], $_POST['occupation'],
-											 $_POST['emp_tel'], '' /*Policy*/, $_POST['emp_address'], $_POST['emp_parish'],
-											  ''/*employer_country*/, $_POST['petName'], $_POST['kin'], $_POST['relationship'], $_POST['religion'],
-											 $_POST['father_name'],	$_POST['mother_name'], ''/*birth_place*/, ''/*birth_parish*/, $_POST['union'],
-											 $_POST['height'], $_POST['weight'], $_POST['temp'], $_POST['pulse'],$_POST['resp'], $_POST['bp'],
-											 $_POST['urinalysis'], $_POST['condition']);
-			}
+			# register pateint
+			$error = pateint_registration_process($_POST['firstName'], $_POST['middleName'], $_POST['lastName'],
+										 $_POST['maidenName'],$_POST['email'], $_POST['trn'], 'password',
+										 $_POST['gender'], $_POST['dob'], $_POST['telephone'], $_POST['age'], $_POST['street_name'],
+										 $_POST['parish'], ''/*country*/, '0'/*insurance_id*/, $_POST['employer_name'], $_POST['occupation'],
+										 $_POST['emp_tel'], '' /*Policy*/, $_POST['emp_address'], $_POST['emp_parish'],
+										  ''/*employer_country*/, $_POST['petName'], $_POST['kin'], $_POST['relationship'], $_POST['religion'],
+										 $_POST['father_name'],	$_POST['mother_name'], ''/*birth_place*/, ''/*birth_parish*/, $_POST['union'],
+										 $_POST['height'], $_POST['weight'], $_POST['temp'], $_POST['pulse'],$_POST['resp'], $_POST['bp'],
+										 $_POST['urinalysis'], $_POST['condition']);
 
-		} else {
-			#$error['required_field'] = "Enter the required fields";
+
 		}
 
-		return $error;
+	} else {
+		#$error['required_field'] = "Enter the required fields";
 	}
 
-	include 'header.php';
+	return $error;
+}
+
+include 'header.php';
 
 ?>
 
@@ -148,7 +155,7 @@
 			  </p>
 
 
-			  <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+			  <form enctype="multipart/form-data" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
 				<div class="row">
 
 					<div class="form-group">
@@ -358,6 +365,7 @@
 
 				</div>
 				<br>
+
 				<p><b>Presenting Complaint</b></p>
 
 				<div class="row">
@@ -415,9 +423,12 @@
 
 					<div class="form-group">
 					    <div class="col-md-8 col-xs-12">
-							<label class="custom-file">
+							<!-- <label class="custom-file">
 							 <input type="file" id="file" class="custom-file-input">
 							 <span class="custom-file-control"></span>
+							</label> -->
+							<label class="btn btn-default btn-file">
+    							<b>Browse</b> <input type="file" name="uploadedFile" hidden>
 							</label>
 					    </div>
 					    <div class="col-md-4 col-xs-12">

@@ -1,10 +1,10 @@
 <?php
 include_once 'core/patient/patient.inc.php';
-is_session_started();
+// is_session_started();
 
 $nameSet = null;
 
-if(isset($_SESSION['key'])) {
+if(get_value_from_session('key') !== null) {
 
     $id = get_value_from_session('key');
     #destroy_session_value('key');

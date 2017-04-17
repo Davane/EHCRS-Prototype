@@ -26,7 +26,7 @@ if(!empty($_POST)) {
                     break;
             case 'edit':
                     echo 'edit';
-                    header('location: medical-history.php');
+                    header('location: edit-medical-history.php');
                     break;
             case 'transfer':
                     echo 'transfer';
