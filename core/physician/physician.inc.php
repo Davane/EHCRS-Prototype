@@ -3,6 +3,120 @@
 require_once(dirname(__FILE__) . '/../init.php');
 require_once(dirname(__FILE__) . '/../member.inc.php');
 
+
+function get_medical_history_id($id){
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_all_medical_history_condition (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        return null;
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet === null) {
+        return null;
+	 }
+
+    # var_dump($connect->error);
+     return  $resultSet;
+
+}
+
+function get_patient_vitals_by_med_history_id($patient_id){
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_patient_vitals_new (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $patient_id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        return null;
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet === null) {
+        return null;
+	 }
+
+    # var_dump($connect->error);
+     return  $resultSet;
+
+}
+
+function get_sign_and_symptons_by_patient_id($patient_id){
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_symptons_by_patient_id (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $patient_id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        return null;
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet === null) {
+        return null;
+	 }
+
+    # var_dump($connect->error);
+     return  $resultSet;
+
+}
+
+function get_treatment_medication_by_patient_id($patient_id){
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_treatment_medication_by_patient_id (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $patient_id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        return null;
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet === null) {
+        return null;
+	 }
+
+    # var_dump($connect->error);
+     return  $resultSet;
+
+}
+
+
 function update_personal_info($patient_id, $firstname, $middlename, $lastname,
                               $maiden_name, $email, $trn, $gender, $dob, $tel, $age, $kin,
                               $relationship, $union, $street, $parish, $country, $employer,
