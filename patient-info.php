@@ -10,18 +10,12 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 	$user_id = get_user_id_from_session();
 } else {
 	echo "Session not set: logout user";
+	header('Location: login-redirect.php');
 }
 
 ?>
 
 <div id="wrapper">
-	<!-- <div class="sidebar-wrapper">
-		<div class="sidebar">
-			<ul>
-				<li></li>
-			</ul>
-		</div>
-	</div> -->
 
 	<div class="main-content-wrapper" id="p-info">
 		<div class="main-content">

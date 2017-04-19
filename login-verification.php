@@ -12,27 +12,29 @@
 
     # check if patient seesion was set
     if(get_user_id_from_session() != null) {
-        #echo 'Session set';
-        $user_id = get_user_id_from_session() ;
-        if (isset($_POST['code'])) {
 
+        $user_id = get_user_id_from_session() ;
+
+        if (isset($_POST['code'])) {
             if(!empty($_POST['code'])){
 
                 $code = trim($_POST['code']);
                 # read from session to get ID;
-
                 if(confirm_verification($user_id, $code)) {
+
+                    set_session(USER_VERIFIED, 'true');
 
                     #check if patient of physician
                     if(get_current_user_type() != null && get_current_user_type() == 'Patient') {
-                        #echo "Patient";
+
                         header('Location: patient-info.php');
+
                     } else if (get_current_user_type() != null && get_current_user_type() == 'Medical') {
 
                         # check if clerk of doctor or nurse and
                         # present them with a different page if necesaary
+                        header('Location: home.php');
 
-                        header('Location: patient-registration.php');
                     } else {
                         $error['unknown-error'] = "An unknown-error Occured";
                     }
@@ -63,7 +65,7 @@
 
     } else {
         echo " Session Not Set";
-        #header('Location: sign-up.php');
+        header('Location: sign-up.php');
     }
     # 5. create seesions with encrypted id
 
