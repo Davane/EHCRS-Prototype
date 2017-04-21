@@ -3,6 +3,123 @@
 require_once(dirname(__FILE__) . '/../init.php');
 require_once(dirname(__FILE__) . '/../member.inc.php');
 
+function update_vtials($vitals_id, $height, $weight, $temp, $pulse, $bp, $resp, $urine){
+
+    if(!is_all_empty($height, $weight, $temp, $pulse, $resp, $bp, $urine)) {
+
+        global $connect;
+
+        // the prepare for update
+        $stmt = $connect->prepare("CALL proc_update_vitals (?, ?, ?, ?, ?, ?, ?, ?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("ssssssss", $vitals_id, $height, $weight, $temp, $pulse, $bp, $resp, $urine);
+
+        #executing and fetching he rows
+        $update = $stmt->execute();
+
+        if($stmt->affected_rows > 0) {
+            $stmt->close();
+            return true;
+        }
+
+        #var_dump($connect->error);
+        return false;
+
+    } else {
+        return 'All fields cannot be empty';
+    }
+
+}
+
+function update_sign_and_symtpom($sign_id, $sign){
+
+    if(!is_all_empty($sign)) {
+
+        global $connect;
+
+        // the prepare for update
+        $stmt = $connect->prepare("CALL proc_update_sign_and_symptom (?, ?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("ss", $sign_id, $sign);
+
+        #executing and fetching he rows
+        $update = $stmt->execute();
+
+        if($stmt->affected_rows > 0) {
+            $stmt->close();
+            return true;
+        }
+
+        #var_dump($connect->error);
+        return false;
+
+    } else {
+        return 'All fields cannot be empty';
+    }
+
+}
+
+
+function update_treatment($treat_id, $treat){
+
+    if(!is_all_empty($treat)) {
+
+        global $connect;
+
+        // the prepare for update
+        $stmt = $connect->prepare("CALL proc_update_treatment (?, ?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("ss", $treat_id, $treat);
+
+        #executing and fetching he rows
+        $update = $stmt->execute();
+
+        if($stmt->affected_rows > 0) {
+            $stmt->close();
+            return true;
+        }
+
+        #var_dump($connect->error);
+        return false;
+
+    } else {
+        return 'All fields cannot be empty';
+    }
+
+}
+
+
+function update_medication($med_id, $med, $dosage, $type, $cat){
+
+    if(!is_all_empty($med, $dosage, $type, $cat)) {
+
+        global $connect;
+
+        // the prepare for update
+        $stmt = $connect->prepare("CALL proc_update_medication (?, ?, ? ,? ,?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("sssss", $med_id, $med, $dosage, $type, $cat);
+
+        #executing and fetching he rows
+        $update = $stmt->execute();
+
+        if($stmt->affected_rows > 0) {
+            $stmt->close();
+            return true;
+        }
+
+        var_dump($connect->error);
+        return false;
+
+    } else {
+        return 'All fields cannot be empty';
+    }
+
+}
 
 function get_medical_history_id($id){
 
@@ -83,17 +200,44 @@ function get_sign_and_symptons_by_patient_id($patient_id){
         return null;
 	 }
 
+     return  $resultSet;
+
+}
+
+function get_treatment_by_patient_id($patient_id){
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_get_treatment_by_patient_id (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $patient_id);
+
+    #executing and fetching he rows
+    $select = $stmt->execute();
+
+    if (!$select) {
+        return null;
+    }
+
+    $resultSet = $stmt->get_result();
+
+    if ($resultSet === null) {
+        return null;
+	 }
+
     # var_dump($connect->error);
      return  $resultSet;
 
 }
 
-function get_treatment_medication_by_patient_id($patient_id){
+function get_medication_by_patient_id($patient_id){
 
     global $connect;
 
     // the prepare for update
-    $stmt = $connect->prepare("CALL proc_get_treatment_medication_by_patient_id (?);");
+    $stmt = $connect->prepare("CALL proc_get_medication_by_patient_id (?);");
 
     // bind string datatype to varaibles
     $stmt->bind_param("s", $patient_id);
@@ -461,6 +605,69 @@ function add_new_sign_and_sympton($med_id, $physician_id, $sign){
         }
 
         #echo "2222";
+        return false;
+
+    } else {
+
+        return true;
+    }
+}
+
+function add_new_treatment($med_id, $physician_id, $treat){
+
+    global $connect;
+
+    if(!is_all_empty($med_id, $physician_id, $treat)) {
+
+        // the prepare for update
+        $stmt = $connect->prepare("CALL proc_enter_new_sign_and_symptom (?, ?, ?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("sss", $med_id, $physician_id, $treat);
+
+        #executing and fetching he rows
+        $insert = $stmt->execute();
+
+        // var_dump($stmt->error);
+        // var_dump($stmt->affected_rows);
+        // die();
+
+        if($stmt->affected_rows > 0) {
+            $stmt->close();
+            return true;
+        }
+
+        return false;
+
+    } else {
+
+        return true;
+    }
+}
+function add_new_medication($med_id, $physician_id, $med, $dosage, $type, $category){
+
+    global $connect;
+
+    if(!is_all_empty($med_id, $physician_id, $med, $dosage, $type, $category)) {
+
+        // the prepare for update
+        $stmt = $connect->prepare("CALL proc_enter_new_sign_and_symptom (?, ?, ?, ?, ?, ?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("ssssss", $med_id, $physician_id, $med, $dosage, $type, $category);
+
+        #executing and fetching he rows
+        $insert = $stmt->execute();
+
+        // var_dump($stmt->error);
+        // var_dump($stmt->affected_rows);
+        // die();
+
+        if($stmt->affected_rows > 0) {
+            $stmt->close();
+            return true;
+        }
+
         return false;
 
     } else {

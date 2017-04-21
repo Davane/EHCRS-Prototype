@@ -32,7 +32,8 @@ if(!empty($_POST)) {
                     echo 'transfer';
                 break;
             case 'admit':
-                    echo 'admit';
+                    echo 'add';
+                    header('location: add-medical-history.php');
                 break;
             default:
                 # code...
@@ -122,7 +123,7 @@ include './header.php';
                           <li>&#0149;</li>
                           <li><button class="btn btn-link" type="submit" name="submit" value='view'>View Record</button></li>
                           <li>&#0149;</li>
-                          <li><button class="btn btn-link" type="submit" name="submit" value='admit'>Admit Patient</button></li>
+                          <li><button class="btn btn-link" type="submit" name="submit" value='add'>Add Condition Patient</button></li>
                           <li>&#0149;</li>
                           <li><button class="btn btn-link" type="submit" name="submit" value='transfer'>Tranfer Record</button></li>
                          <!-- <li><a href="#">Admit Patient</a></li> -->
