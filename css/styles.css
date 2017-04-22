@@ -66,7 +66,7 @@ a.navbar-left {
 /* mobile version */
 .navbar-greyscale .navbar-toggle {
     border-color: transparent;
-    margin-top: 3px;
+    margin-top: -3px;
 }
 .navbar-greyscale .navbar-toggle:hover,
 .navbar-greyscale .navbar-toggle:focus {
@@ -74,6 +74,50 @@ a.navbar-left {
 }
 .navbar-greyscale .navbar-toggle .icon-bar {
     background-color: white;
+}
+
+/* For responsive navbar */
+
+@media screen and (max-width: 770px){
+    .navbar-xs {
+        height: 53px;
+    }
+
+    .navbar-collapse {
+        background: #3a4b5e;
+    }
+
+    #ipt {
+        width: 100%;
+    }
+
+    .navbar-form {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    input#ipt.form-control {
+        border-color: rgba(32, 152, 209, 1);
+        box-shadow: 0 1px 1px rgba(32, 152, 209, 1) inset, 0 0 8px rgba(32, 152, 209, 1);
+    }
+
+    .navbar-greyscale .navbar-toggle {
+        margin-top: 0px;
+    }
+
+    .nav-logo {
+        margin-top: 8.5px;
+    }
+
+    #signout-on-small {
+        color: white;
+    }
+
+    #signout-on-small:hover,
+    #signout-on-small:focus {
+        background: transparent;
+        color: white;
+    }
 }
 
 
@@ -240,7 +284,6 @@ input {
     padding: 0 10px;
 }
 
-<<<<<<< HEAD
 #dp-style {
     color:white;
     text-decoration: none;
@@ -256,10 +299,11 @@ input {
 
 
 .navbar-green {
-    background-color: #24c4a3;
+    background-color: #3a4b5e;
     margin-bottom: 0px;
     color: white;
-    margin-top: -61px;
+    margin-top: -25px;
+    opacity: 0.93;
 }
 
 .navbar-green .navbar-nav > li > a,
@@ -270,7 +314,7 @@ input {
 
 .navbar-green .navbar-nav > li > a:hover,
 .navbar-green .navbar-nav > li > a:focus {
-    color: white;
+    color: #d4d5d5;
     background-color: transparent;
 }
 
@@ -293,11 +337,14 @@ input {
 
 footer {
     background-color: #2d3a49;
-    position: fixed;
+    position: relative;
     bottom: 0;
     width: 100%;
     height: 35px;
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
+
 .copyright{
   position: relative;
   height: 40px;
@@ -306,7 +353,6 @@ footer {
   color: white;
   padding: 10px;
 }
-=======
 
 
 #search-result-image {
@@ -316,4 +362,154 @@ footer {
   width: auto;
   height: auto;
 }
->>>>>>> origin/master
+
+/* Overline Reveal */
+.hvr-overline-reveal-blue {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow: hidden;
+}
+.hvr-overline-reveal-blue:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: #0caaef;
+  height: 3px;
+  -webkit-transform: translateY(-4px);
+  transform: translateY(-4px);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-overline-reveal-blue:hover:before, .hvr-overline-reveal-blue:focus:before, .hvr-overline-reveal-blue:active:before {
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.nav-logo {
+    margin-top: 2.5px;
+}
+
+@media screen and (max-width: 720px){
+    .nav-logo {
+        margin-top: 5.5px;
+    }
+}
+
+#header-search {
+    position: absolute;
+    margin-top: 6px;
+    margin-left: -11px;
+    color: #0c95d1;
+    cursor: pointer;
+}
+
+.cover {
+    position: relative;
+    height: 365px;
+    width: 100%;
+    margin-top: -55px;
+
+    background-image: url('/dev/EHR/img/background.jpg');
+    background-repeat: none;
+    background-size: cover;
+    background-position: center;
+}
+
+.tagline {
+    position: relative;
+    height: 60px;
+    width: 100%;
+    background-color: #f6f7fa;
+}
+
+.cards-en-tagline {
+    position: relative;
+    margin: 0px auto;
+    width: 50%;
+    height: 100%;
+}
+
+.wrapper-for-cover-left {
+    padding:95px 0px 0px 30px;
+}
+
+.wrapper-for-cover-right {
+    padding:85px 0px 0px 0px;
+}
+
+.full {
+    width: 100%;
+    padding: 0px;
+}
+
+.bg-white-card {
+    margin-top: -15px;
+    margin-left: 4px;
+    width: 90%;
+    height: 90px;
+    max-height: 110px;
+    border: 0.5px solid white;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0,0,0,.05), 0 6px 10px rgba(0,0,0,.08);
+    -webkit-transform: scale(1.2,1.2);
+    transform: scale(1.2,1.2);
+}
+
+.bg-white-card-hidden{
+    margin-top: -6px;
+    height: 70px;
+    max-height: 90px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: transparent;
+}
+
+.bg-white-card-hidden:hover,
+.bg-white-card-hidden:focus
+{
+    margin-top: -8px;
+    height: 75px;
+    border: 0.5px solid white;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0,0,0,.05), 0 6px 10px rgba(0,0,0,.08);
+    -webkit-transform: scale(1.2,1.2);
+    transform: scale(1.2,1.2);
+}
+
+.goto-appoint {
+    position: absolute;
+    right: 5px;
+    top: 15px;
+    cursor: pointer;
+}
+
+a.goto-appoint {
+    text-decoration: none;
+}
+
+a.goto-appoint:hover {
+    text-decoration: none;
+}
