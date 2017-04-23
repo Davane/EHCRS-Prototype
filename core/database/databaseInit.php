@@ -9,7 +9,7 @@ set_error_handler("var_dump");*/
 
 define('hostname', 'localhost');
 define('user','root');
-define('password', '');
+define('password', 'Root_123456');
 define('database', 'health_care_mp');
 
 // creating connection
