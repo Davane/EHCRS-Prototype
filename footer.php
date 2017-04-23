@@ -18,7 +18,7 @@
 
 <script>
 	function navX(x) {
-    x.classList.toggle("change");
+    	x.classList.toggle("change");
     }
 </script>
 

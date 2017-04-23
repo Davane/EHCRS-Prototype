@@ -228,6 +228,16 @@ include 'header.php';
 
             </script>
 
+
+              <!-- particles.js container -->
+<div id="particles-js"></div>
+
+<!-- particles.js lib (JavaScript CodePen settings): https://github.com/VincentGarreau/particles.js -->
+  <script src='http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
+<script src='http://threejs.org/examples/js/libs/stats.min.js'></script>
+
+    <script src="js/index.js"></script>
+
 <!-- ************************ Begin View ************************ -->
 
 <div class="container-fluid full">
@@ -239,7 +249,9 @@ include 'header.php';
           <h1>Welcome to Heath<b>Wise</b></h1>
             <h4>Get started with Jamaica's First Interconnected Electronic Health Record System</h4>
             <p>By Jamaicans, for Jamaicans</p>
-            <p><a class="btn btn-primary btn-lg" href="about.php" role="button">Learn more</a></p>
+            <div class="shown">
+            <p><a class="btn btn-primary btn-lg" href="about.php" role="button"">Learn more</a></p>
+            </div>
         </div>
       </div>
     
@@ -247,10 +259,12 @@ include 'header.php';
         <div class="wrapper-for-cover-right">
           <br>
           <center><p>
-            <sm>Interconnected Electronic Health Record System</sm>
+            <sm>Electronic Health Record System</sm>
           </p>
           </center>
-            <img src="img/cover-image.jpg" alt="" class="img-responsive hvr-grow">
+            <div class="shown">
+              <img src="img/cover-image.jpg" alt="" class="img-responsive hvr-grow">
+            </div>
         </div>
       </div>
     </div>
