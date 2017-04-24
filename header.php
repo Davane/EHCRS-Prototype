@@ -37,7 +37,6 @@
 											placeholder="Search for Patient..." name="q">
 
 
-
                             			</div>
                             		</div>
                             	</div>

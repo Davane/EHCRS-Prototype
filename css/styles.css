@@ -132,6 +132,7 @@ a.navbar-left {
       border-radius: 4px;
       margin: 0px 14.5px;
       background-color: #ecf0f1;
+
       }
 
       rect[Attributes Style] {
@@ -361,7 +362,6 @@ input {
 /****** Footer ******/
 
 footer {
-
     position: relative;
     margin-top: 20px;
     left: 0;
