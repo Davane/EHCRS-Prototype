@@ -15,6 +15,7 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 
 ?>
 
+
 <div id="wrapper">
 
 	<div class="main-content-wrapper" id="p-info">

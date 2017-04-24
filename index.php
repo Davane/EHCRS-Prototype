@@ -229,6 +229,16 @@
 
             </script>
 
+
+              <!-- particles.js container -->
+<div id="particles-js"></div>
+
+<!-- particles.js lib (JavaScript CodePen settings): https://github.com/VincentGarreau/particles.js -->
+  <script src='http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
+<script src='http://threejs.org/examples/js/libs/stats.min.js'></script>
+
+    <script src="js/index.js"></script>
+
 <!-- ************************ Begin View ************************ -->
 
 <div class="container-fluid full">
@@ -240,7 +250,9 @@
           <h1>Welcome to Heath<b>Wise</b></h1>
             <h4>Get started with Jamaica's First Interconnected Electronic Health Record System</h4>
             <p>By Jamaicans, for Jamaicans</p>
-            <p><a class="btn btn-primary btn-lg" href="about.php" role="button">Learn more</a></p>
+            <div class="shown">
+            <p><a class="btn btn-primary btn-lg" href="about.php" role="button"">Learn more</a></p>
+            </div>
         </div>
       </div>
 
@@ -248,17 +260,19 @@
         <div class="wrapper-for-cover-right">
           <br>
           <center><p>
-            <sm>Interconnected Electronic Health Record System</sm>
+            <sm>Electronic Health Record System</sm>
           </p>
           </center>
-            <img src="img/cover-image.jpg" alt="" class="img-responsive hvr-grow">
+            <div class="shown">
+              <img src="img/cover-image.jpg" alt="" class="img-responsive hvr-grow">
+            </div>
         </div>
       </div>
     </div>
   </div>
   </div>
 
-  <div class="tagline">
+  <div class="tagline hide-on-small">
     <div class="cards-en-tagline">
       <div class="container-fluid">
         <div class="row">
@@ -291,16 +305,49 @@
         </h5>
       </div>
   </div>
+
+  <!--Shown on small screens-->
+  <div class="row hide-on-large">
+  <br>
+    <div class="col-sm-6">
+      <div class="card sm-card">
+              <div class="card-block">
+                <h4 class="card-title text-center">In Hospital Emergencies</h4>
+                  <p class="card-text text-center"><i class="fa fa-h-square " aria-hidden="true"></i>&nbsp;
+                  this is some text</p>
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="col-sm-6">
+      <div class="card sm-card">
+              <div class="card-block">
+                <h4 class="card-title text-center">Incomming Emergencies</h4>
+                  <p class="card-text text-center"><i class="fa fa-h-square" aria-hidden="true"></i>&nbsp;
+                  this is some text</p>
+              </div>
+            </div>
+    </div>
+  </div>
+  <br>
+  <div class="hide-on-large" align="center">
+  <hr style="color: #d4d5d5; width: 40%;">
+        <h5>Go to <a href="appointment.php">Emergencies and Appointments
+        <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </h5>
+      </div>
+  
 </div>
 
 <!-- Begin messy code by dav -->
+
 
 <div class="container">
 <h3><b>Statistics</b></h3>
             <br>
 
               <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-12 col-xs-12">
                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                   <div class="card-block">
                       <center>
@@ -311,32 +358,39 @@
                 </div>
               </div>
             </div>
-            <br>
+<div class="shown-on-small">
+  <br>
+</div>
             <div class="row">
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                     <div class="card-block">
                        <center>
-                           <h3 class="card-title"><strong>hospital name</strong> most popular illnesses in the last week</h3>
+                           <h3 class="card-title"><strong>Hospital name</strong> most popular illnesses in the last week</h3>
                            <div id="donutChartContainer">FusionCharts XT will load here!</div>
                         </center>
                     </div>
                  </div>
                </div>
+
+               <div class="shown-on-small">
+  <br>
+</div>
                <div class="col-sm-6">
                   <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                     <div class="card-block">
                         <center>
                             <h3 class="card-title">View More Stats</h3>
                             <div id="pieChartContainer">FusionCharts XT will load here!</div>
-                       </center>
+                       </center><br>
                     </div>
                   </div>
                 </div>
-
             </div>
 
-
+<div class="shown-on-small">
+  <br>
+</div>
 
             <br>
             <h3><b>Patient Actions</b></h3>
@@ -353,7 +407,10 @@
                 </div>
               </div>
             </div>
-            <br>
+
+<div class="shown-on-small">
+  <br>
+</div>
             <div class="row">
               <div class="col-sm-6">
                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
@@ -364,6 +421,10 @@
                   </div>
                 </div>
               </div>
+
+              <div class="shown-on-small">
+  <br>
+</div>
 
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
@@ -376,7 +437,7 @@
                </div>
             </div>
 
-            <br>
+
             <h3><b>Appointments</b></h3>
             <br>
             <div class="row">
@@ -390,7 +451,9 @@
                   </div>
                 </div>
               </div>
-
+              <div class="shown-on-small">
+  <br>
+</div>
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                    <div class="card-block">
