@@ -340,6 +340,7 @@ include 'header.php';
 
 <!-- Begin messy code by dav -->
 
+
 <div class="container">
 <h3><b>Statistics</b></h3>
             <br>
@@ -356,18 +357,24 @@ include 'header.php';
                 </div>
               </div>
             </div>
-            <br>
+<div class="shown-on-small">
+  <br>
+</div>
             <div class="row">
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                     <div class="card-block">
                        <center>
-                           <h3 class="card-title"><strong>hospital name</strong> most popular illnesses in the last week</h3>
+                           <h3 class="card-title"><strong>Hospital name</strong> most popular illnesses in the last week</h3>
                            <div id="donutChartContainer">FusionCharts XT will load here!</div>
                         </center>
                     </div>
                  </div>
                </div>
+
+               <div class="shown-on-small">
+  <br>
+</div>
                <div class="col-sm-6">
                   <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                     <div class="card-block">
@@ -378,10 +385,11 @@ include 'header.php';
                     </div>
                   </div>
                 </div>
-
             </div>
 
-
+<div class="shown-on-small">
+  <br>
+</div>
 
             <br>
             <h3><b>Patient Actions</b></h3>
@@ -398,7 +406,10 @@ include 'header.php';
                 </div>
               </div>
             </div>
-            <br>
+
+<div class="shown-on-small">
+  <br>
+</div>
             <div class="row">
               <div class="col-sm-6">
                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
@@ -409,6 +420,10 @@ include 'header.php';
                   </div>
                 </div>
               </div>
+
+              <div class="shown-on-small">
+  <br>
+</div>
 
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
@@ -421,7 +436,7 @@ include 'header.php';
                </div>
             </div>
 
-            <br>
+
             <h3><b>Appointments</b></h3>
             <br>
             <div class="row">
@@ -435,7 +450,9 @@ include 'header.php';
                   </div>
                 </div>
               </div>
-
+              <div class="shown-on-small">
+  <br>
+</div>
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                    <div class="card-block">

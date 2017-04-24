@@ -131,9 +131,13 @@ a.navbar-left {
       border:1px solid #ecf0f1;
       border-radius: 4px;
       margin: 0px 14.5px;
-      background-color: #ecf0f1;
-      
-}
+      background-color: #ecf0f1; 
+      }
+
+      rect[Attributes Style] {
+        width: 100%;
+      }   
+  }
 
 @media screen and (min-width: 770px){
     .hide-on-large {
