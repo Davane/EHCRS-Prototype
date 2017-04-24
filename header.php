@@ -1,6 +1,6 @@
 <!DOCtype html>
 <html lang="en">
-<? require 'header-styles.php' ?>
+<?php require 'header-styles.php' ?>
 
 <body>
 <div class="container-fluid">
@@ -22,7 +22,7 @@
                         <img src="img/logo.png" alt="logo" width="20px" >
                             &nbsp;&nbsp;Health<b>Wise</b></a>
                     </div>
-                    
+
                 </div>
 
                 <div class="collapse navbar-collapse" id="nav-bar-mobile-menu">
@@ -35,7 +35,7 @@
 
                                 			<input type="text" class="form-control" id="ipt"
 											placeholder="Search for Patient..." name="q">
-                                                
+
 
                             			</div>
                             		</div>
@@ -50,7 +50,7 @@
                             <div class="circle">
 
                                 <img class="img-cirlce" src="img/avatar.png" alt="user-avatar" height="20px">-->
-                                <li>                      
+                                <li>
                                 <a href="#" class="dropdown-toggle" id="menu1" data-toggle="dropdown">
                                     <span id="dp-style">
                                     Dr. Davis
@@ -96,11 +96,7 @@
     </div>
 </nav> <!-- End Nav 2 -->
 </div>
-    
+
 <script type="text/javascript">
     document.getElementById('ipt').style.height="25px";
 </script>
-
-
-
-

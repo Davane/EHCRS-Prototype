@@ -1,8 +1,9 @@
 <?php
+
   #include_once 'core/physician/physician.inc.php';
   #is_session_started();
 
-include 'header.php';
+  include 'header.php';
 
 ?>
 
@@ -242,7 +243,7 @@ include 'header.php';
             <p><a class="btn btn-primary btn-lg" href="about.php" role="button">Learn more</a></p>
         </div>
       </div>
-    
+
       <div class="col-md-3 visible-lg">
         <div class="wrapper-for-cover-right">
           <br>
