@@ -4,6 +4,7 @@ html,body {
 }
 
 body {
+    position: relative;
     padding-top: 60px;
     height: 100%;
     min-height: 100%;
@@ -120,6 +121,24 @@ a.navbar-left {
         background: transparent;
         color: white;
     }
+
+    .hide-on-small {
+      display: none !important;
+    }
+
+    .sm-card {
+      color: #2d3e50;
+      border:1px solid #ecf0f1;
+      border-radius: 4px;
+      margin: 0px 14.5px;
+      background-color: #ecf0f1;
+      
+}
+
+@media screen and (min-width: 770px){
+    .hide-on-large {
+      display: none !important;
+    }
 }
 
 
@@ -143,24 +162,24 @@ a.navbar-left {
     transform: rotate(45deg) translate(-1px, -2px) ;
 }
 
-.navbar-greyscale .navbar-nav > li > input[type=text] {
+.navbar-greyscale .navbar-nav > li > #ipt.input[type=text] {
     background-color: white;
     color: black;
 }
 
-.navbar-greyscale .navbar-nav > li > input::-webkit-input-placeholder {
+.navbar-greyscale .navbar-nav > li > #ipt.input::-webkit-input-placeholder {
 color: #3a3a3a !important;
 }
 
-.navbar-greyscale .navbar-nav > li > input:-moz-placeholder { /* Firefox 18- */
+.navbar-greyscale .navbar-nav > li > #ipt.input:-moz-placeholder { /* Firefox 18- */
 color: black !important;
 }
 
-.navbar-greyscale .navbar-nav > li > input::-moz-placeholder {  /* Firefox 19+ */
+.navbar-greyscale .navbar-nav > li > #ipt.input::-moz-placeholder {  /* Firefox 19+ */
 color: black !important;
 }
 
-.navbar-greyscale .navbar-nav > li > input:-ms-input-placeholder {
+.navbar-greyscale .navbar-nav > li > #ipt.input:-ms-input-placeholder {
 color: black !important;
 }
 
@@ -335,25 +354,22 @@ input {
 }
 
 
-/* Footer */
+/****** Footer ******/
 
 footer {
-
-    clear: both;
     position: relative;
-    z-index: 10;
+    margin-top: 20px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     height: 3em;
-    margin-top: -3em;
-
     background-color: #2d3a49;
-
 }
 
 .copyright{
   position: relative;
   height: 40px;
   width: 100%;
-  
   color: white;
   padding: 10px;
 }
@@ -426,7 +442,6 @@ footer {
     height: 365px;
     width: 100%;
     margin-top: -55px;
-
     background-image: url('/dev/EHR/img/background.jpg');
     background-repeat: none;
     background-size: cover;
@@ -528,8 +543,6 @@ a.goto-appoint:hover {
 
 
 
-
-
 canvas {
   display: block;
   vertical-align: bottom;
@@ -566,4 +579,6 @@ canvas {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
+
+
 

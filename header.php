@@ -34,7 +34,7 @@
                             			<div class="col-xs-12">
 
                                 			<input type="text" class="form-control" id="ipt"
-											placeholder="Search for Patient..." name="q">
+											placeholder="Search for a patient..." name="q">
                                                 
 
                             			</div>
