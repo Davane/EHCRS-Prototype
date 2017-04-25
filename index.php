@@ -373,9 +373,7 @@
                  </div>
                </div>
 
-               <div class="shown-on-small">
-  <br>
-</div>
+
                <div class="col-sm-6">
                   <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                     <div class="card-block">
