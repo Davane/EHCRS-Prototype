@@ -336,7 +336,7 @@
         <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
         </h5>
       </div>
-  
+
 </div>
 
 <!-- Begin messy code by dav -->

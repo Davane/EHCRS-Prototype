@@ -458,7 +458,7 @@ include 'header.php';
 
 					  <div class="modal-body">
 						  <p>Enter your account credential before you can continue</p>
-				       	<input type="text" class="form-control" name="medical_id" placeholder='Medial ID' value="<?php echo get_user_id_from_session() == null ? "": get_user_id_from_session() ; ?>" required>
+				       	<input type="text" class="form-control" name="medical_id" placeholder='Medial ID' value="<?php echo get_user_id_from_session() == null ? "": get_user_id_from_session() ; ?>" required readonly> 
 						<input type="password" class="form-control" name="password" placeholder='Password' required>
 				      </div>
 
