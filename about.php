@@ -1,82 +1,80 @@
 <html>
-<head>
-<title>My first chart using FusionCharts Suite XT</title>
-<script type="text/javascript" src="js/fusioncharts.js"></script>
-<script type="text/javascript" src="js/themes/fusioncharts.theme.fint.js"></script>
-<script type="text/javascript">
-  FusionCharts.ready(function(){
-    var revenueChart = new FusionCharts({
-        "type": "doughnut2d",
-        "renderAt": "chartContainer",
-        "width": "200",
-        "height": "200",
-        "dataFormat": "json",
-        "dataSource":  {
-
-          "chart": {
-            "caption": "Monthly revenue for last year",
-            "subCaption": "Harry's SuperMart",
-            "xAxisName": "Month",
-            "yAxisName": "Revenues (In USD)",
-            "theme": "fint"
-         },
-         "data": [
-            {
-               "label": "Jan",
-               "value": "420000"
-            },
-            {
-               "label": "Feb",
-               "value": "810000"
-            },
-            {
-               "label": "Mar",
-               "value": "720000"
-            },
-            {
-               "label": "Apr",
-               "value": "550000"
-            },
-            {
-               "label": "May",
-               "value": "910000"
-            },
-            {
-               "label": "Jun",
-               "value": "510000"
-            },
-            {
-               "label": "Jul",
-               "value": "680000"
-            },
-            {
-               "label": "Aug",
-               "value": "620000"
-            },
-            {
-               "label": "Sep",
-               "value": "610000"
-            },
-            {
-               "label": "Oct",
-               "value": "490000"
-            },
-            {
-               "label": "Nov",
-               "value": "900000"
-            },
-            {
-               "label": "Dec",
-               "value": "730000"
-            }
-          ]
-      }
-  });
-revenueChart.render();
-})
-</script>
-</head>
+  <head>
+  <?php include 'header.php' ?>
+  <title>About</title>
+  </head>
 <body>
-  <div id="chartContainer">FusionCharts XT will load here!</div>
+
+  <div class="about-cover">
+      <h3><b>OUR MISSION IS TO IMPROVE JAMAICA'S <br>HEALTH CARE SYSTEM THROUGH TECHNOLOGY.</b></h3>
+  </div>
+
+
+  <div class="container-fluid">
+    <center>
+      <img src="img/logo.png" class="img-responsive about-logo" alt="EHCRS">
+    </center>
+    <h3 align="center">Interconnected Electronic Health Care System</h3>
+  </div>
+  <br>
+  <div class="container about-placement">
+    <div class="row">
+
+      <div class="col-md-5">
+        <div class="about-card">
+          <center><h3>Credits</h3></center>
+            <hr style="width: 30%;">
+            <ul>
+              <li>bootstrap-datepicker</li>
+              <li>Google Fonts</li>
+              <li>Font-Awesome</li>
+              <li>Bootstrap</li>
+
+            </ul>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="about-card1">
+          <center><h3>The Team</h3></center>
+            <hr style="width: 30%;">
+              <center><img src="img/girl.png" class="img-responsive" alt="supervisor" width="60"></center>
+              <center>Karlene Black</center>
+              <p></p>
+            <div class="row">
+              <div class="col-md-4">
+                <center><img src="img/man.png" alt="gg" class="img-responsive" width="60">
+                Garfield Gray</center>
+              </div>
+              <div class="col-md-4">
+                <center><img src="img/boy.png" alt="gg" class="img-responsive" width="60">
+                Davane Davis</center>
+              </div>
+              <div class="col-md-4">
+                <center><img src="img/boy.png" alt="gg" class="img-responsive" width="60">
+                </center>
+              </div>
+            </div>
+            <p></p>
+            <div class="row">
+              <div class="col-md-4">
+                <center><img src="img/boy.png" alt="gg" class="img-responsive" width="60">
+                </center>
+              </div>
+              <div class="col-md-4">
+                <center><img src="img/boy.png" alt="gg" class="img-responsive" width="60">
+                </center>
+              </div>
+              <div class="col-md-4">
+                <center><img src="img/boy.png" alt="gg" class="img-responsive" width="60">
+                </center>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<?php include 'footer.php' ?>
 </body>
 </html>

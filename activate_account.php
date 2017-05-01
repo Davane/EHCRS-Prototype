@@ -41,11 +41,9 @@
     include 'patient-header.php';
  ?>
 
- <div id="wrapper">
- 	<div class="main-content-wrapper" id="p-info">
- 		<div class="main-content">
-            FIX THE HEADER : THIS HEADER SHOULD NOT SHOW UP ACTIVATION
-            <div class="panel panel-default">
+<div class="container content">
+
+        <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title"> <b>Account Activation</b></h4>
               </div>
@@ -68,9 +66,11 @@
                     <p>Go to <a href="sign-up.php">Sign In</a> page</p>
                 </div>
               </div>
-            </div>
-        </div>
+
     </div>
+</div>
+<div class="container full-height">
+
 </div>
 
 <?php include 'footer.php' ?>

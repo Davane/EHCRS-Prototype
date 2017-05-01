@@ -2,7 +2,7 @@
 	<div class="container">
 	<div class="copyright">
 		<div align="center">
-			<p>&copy; <?php date_default_timezone_set('Jamaica'); echo date("D");?> EHR System</p>
+			<p>&copy; <?php date_default_timezone_set('Jamaica'); echo date("Y");?> EHR System</p>
 		</div>
 	</div>
 	</div>

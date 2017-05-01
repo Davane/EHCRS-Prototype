@@ -34,9 +34,7 @@ if($work_id = get_physician_work_place(get_user_id_from_session())){
 include 'header.php';
 
  ?>
-<div id="wrapper">
-	<div class="main-content-wrapper" id="p-info">
-		<div class="main-content">
+<div class="container content">
 
 
 			  <div class="row">
@@ -177,8 +175,7 @@ include 'header.php';
 			  			</div>
 			  		</div>
 			  </div>
-		</div>
-	</div>
+	
 </div>
-
+<br><br><br><br>
 <?php include 'footer.php' ?>

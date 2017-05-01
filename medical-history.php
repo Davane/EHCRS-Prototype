@@ -23,10 +23,7 @@ if(isset($_SESSION['key'])) {
 include 'header.php';
 ?>
 
-
-<div id="wrapper">
-	<div class="main-content-wrapper" id="p-info">
-		<div class="main-content">
+<div class="container content">
 			<div class="panel panel-default">
 			  <div class="panel-body" style="padding:0 55px;">
 				<span><h3><b>Edit Medical History</b></h3></span>
@@ -272,14 +269,9 @@ include 'header.php';
 								</div>
 							</div>
 						</div>
-
-                        <hr style="width: 98%;">
-
-
 			     </div>
 			</div>
-		</div>
-	</div>
+		
 </div>
 </div>
 
