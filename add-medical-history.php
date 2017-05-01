@@ -216,9 +216,8 @@ include 'header.php';
               </div>
 		   </div>
 </div>
-
-
-<?php include 'footer.php' ?>
 <script>
 	$('td').attr('contenteditable',true);
 </script>
+
+<?php include 'footer.php' ?>

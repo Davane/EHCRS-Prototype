@@ -83,13 +83,31 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav ">
-                <li class="hvr-overline-reveal-blue"><a href="#">Menu-Item1</a></li>
+                <li class="hvr-overline-reveal-blue"><a href="https://localhost/~davanedavis/EHCRS-Prototype/index.php">DashBoard</a></li>
                 <li class="divider-vertical"></li>
-                <li class="hvr-overline-reveal-blue"><a href="#about">Menu-Item2</a></li>
+                <!-- <li class="hvr-overline-reveal-blue"><a href="https://localhost/~davanedavis/EHCRS-Prototype/patient-registration.php">Register Pateint</a></li> -->
                 <li class="divider-vertical"></li>
-                <li class="hvr-overline-reveal-blue"><a href="#about">Menu-Item3</a></li>
+                <!-- <li class="hvr-overline-reveal-blue"><a href="https://localhost/~davanedavis/EHCRS-Prototype/appointment.php">Appointments</a></li> -->
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Appoinments <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/appointment.php">View Appoinments</a></li>
+                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/set-appointment.php">Set Appointment</a></li>
+                  </ul>
+                </li>
+
                 <li class="divider-vertical"></li>
-                <li class="hvr-overline-reveal-blue"><a href="#about">Menu-Item4</a></li>
+                <!-- <li class="hvr-overline-reveal-blue"><a href="https://localhost/~davanedavis/EHCRS-Prototype/Patient">Menu-Item4</a></li> -->
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Patient <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/patient-registration.php">Register Patient</a></li>
+                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/search-results.php">Find Patient</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/edit-personal-info.php">Update Patient Personal Info</a></li>
+                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/edit-medical-history.php">Update Patient Condtion</a></li>
+                  </ul>
+                </li>
                 <li class="divider-vertical"></li>
             </ul>
         </div>

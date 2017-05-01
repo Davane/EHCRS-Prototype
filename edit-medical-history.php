@@ -71,7 +71,7 @@ if (!empty($_POST)) {
 
             // echo "ADD MEDICATION";
             $physician_id = get_user_id_from_session();
-            
+
             add_new_medication($_POST['med_his_id'], $physician_id, $_POST['medication'], $_POST['dosage'], $_POST['type'], $_POST['category']);
 
             break;
@@ -618,6 +618,7 @@ include 'header.php';
 
 
 <?php include 'footer.php' ?>
+
 <!-- <script>
 	$('td').attr('contenteditable',true);
 </script> -->
