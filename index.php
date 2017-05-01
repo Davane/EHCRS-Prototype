@@ -358,9 +358,7 @@
                 </div>
               </div>
             </div>
-<div class="shown-on-small">
-  <br>
-</div>
+			<br>
             <div class="row">
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
@@ -386,10 +384,6 @@
                 </div>
             </div>
 
-<div class="shown-on-small">
-  <br>
-</div>
-
             <br>
             <h3><b>Patient Actions</b></h3>
             <br>
@@ -405,10 +399,7 @@
                 </div>
               </div>
             </div>
-
-<div class="shown-on-small">
-  <br>
-</div>
+			<br>
             <div class="row">
               <div class="col-sm-6">
                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
@@ -420,9 +411,6 @@
                 </div>
               </div>
 
-              <div class="shown-on-small">
-  <br>
-</div>
 
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
@@ -439,7 +427,6 @@
             <h3><b>Appointments</b></h3>
             <br>
             <div class="row">
-
               <div class="col-sm-6">
                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                   <div class="card-block">
@@ -449,9 +436,7 @@
                   </div>
                 </div>
               </div>
-              <div class="shown-on-small">
-  <br>
-</div>
+
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                    <div class="card-block">

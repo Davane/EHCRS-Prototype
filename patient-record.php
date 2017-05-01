@@ -28,9 +28,7 @@ include 'header.php'
 ?>
 
 
-<div id="wrapper">
-	<div class="main-content-wrapper" id="p-info">
-		<div class="main-content">
+<div class="container content">
 
 			  <div class="row">
 
@@ -261,8 +259,6 @@ include 'header.php'
 						    </div>
 						</div>
 					</div>
-			</div>
-		</div>
 	</div>
 </div>
 

@@ -73,10 +73,14 @@ include 'header.php';
 
 ?>
 
+<<<<<<< HEAD
 <div id="wrapper">
 	<!-- <script>alert('test');</script> -->
 	<div class="main-content-wrapper" id="p-info">
 		<div class="main-content">
+=======
+<div class="container content">
+>>>>>>> thegarfieldgray/master
 			<div class="panel panel-default">
 			  <div class="panel-body" style="padding:0 55px;">
 				<span><h3><b>Edit Personal Record</b></h3></span>
@@ -283,8 +287,6 @@ include 'header.php';
 
               </div>
 		   </div>
-	   </div>
-    </div>
 </div>
 
 

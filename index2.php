@@ -1,23 +1,16 @@
 <?php
+  #include_once 'core/physician/physician.inc.php';
+  #is_session_started();
 
+include 'header.php';
 
-include_once 'core/physician/physician.inc.php';
-is_session_started();
+?>
 
-include_once 'header.php';
-$error = array();
-
- ?>
-<div id="wrapper" style="margin-bottom: 50px">
-	<div class="main-content-wrapper" id="p-info">
-		<div class="main-content" >
-
-
-            <!-- Scripts for the chart  -->
+<!-- Scripts for the chart  -->
             <script type="text/javascript" src="js/fusioncharts.js"></script>
             <script type="text/javascript" src="js/themes/fusioncharts.theme.fint.js"></script>
 
-            <script type="text/javascript">
+<script type="text/javascript">
               FusionCharts.ready(function(){
                 var revenueChart = new FusionCharts({
                     "type": "column2d",
@@ -236,66 +229,124 @@ $error = array();
             </script>
 
 
-            <div class="jumbotron" style="padding-left: 40px; padding-right: 40px;">
-              <h1>Welcome to Heath<b>Wise</b></h1>
-              <p>Get started with Jamaica's First Interconnected Electronic Health Record System</p>
-              <p><a class="btn btn-primary btn-lg" href="about.php" role="button">Learn more</a></p>
+              <!-- particles.js container -->
+<div id="particles-js"></div>
+
+<!-- particles.js lib (JavaScript CodePen settings): https://github.com/VincentGarreau/particles.js -->
+  <script src='http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
+<script src='http://threejs.org/examples/js/libs/stats.min.js'></script>
+
+    <script src="js/index.js"></script>
+
+<!-- ************************ Begin View ************************ -->
+
+<div class="container-fluid full">
+  <div class="cover">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="wrapper-for-cover-left">
+          <h1>Welcome to Heath<b>Wise</b></h1>
+            <h4>Get started with Jamaica's First Interconnected Electronic Health Record System</h4>
+            <p>By Jamaicans, for Jamaicans</p>
+            <div class="shown">
+            <p><a class="btn btn-primary btn-lg" href="about.php" role="button"">Learn more</a></p>
             </div>
+        </div>
+      </div>
+    
+      <div class="col-md-3 visible-lg">
+        <div class="wrapper-for-cover-right">
+          <br>
+          <center><p>
+            <sm>Electronic Health Record System</sm>
+          </p>
+          </center>
+            <div class="shown">
+              <img src="img/cover-image.jpg" alt="" class="img-responsive hvr-grow">
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 
-            <?php
-
-            if($work_id = get_physician_work_place(get_user_id_from_session())){
-
-                $resultSet = get_emergency_count($work_id);
-
-                if($resultSet->num_rows === 0) {
-                    $error['error'] = 'Not Appointments';
-                }
-            } else {
-                echo 'error: work place not found';
-                $error['error'] = 'error: work place not found';
-            }
-
-
-             ?>
-
-            <br>
-            <h3><b>Emergencies </b> &#8226; <span class="badge"><b><?php  if(empty($error)){
-                $inc = (int)$resultSet->fetch_assoc()['inc_em'];
-                $resultSet->data_seek(0);
-                $em = (int) $resultSet->fetch_assoc()['em'] ;
-                echo $inc + $em;
-                }?> </b></span></h3>
-            <br>
-
-            <div class="row">
-
-
-
-              <div class="col-sm-6">
-                <div class="card bg-danger" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
-                  <div class="card-block">
-                    <h3 class="card-title">In Hospital Emergencies</h3>
-                    <p class="card-text"> <mark><b><?php  if(empty($error)){  $resultSet->data_seek(0); echo $resultSet->fetch_assoc()['inc_em']; } else { echo "No";}?></b></mark> Emergency cases currently in (brought in and waiting to be attended to)</p>
-                  </div>
-                </div>
+  <div class="tagline hide-on-small">
+    <div class="cards-en-tagline">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card bg-white-card">
+              <div class="card-block">
+                <h4 class="card-title text-center">In Hospital Emergencies</h4>
+                  <p class="card-text"><i class="fa fa-h-square " aria-hidden="true"></i>&nbsp;
+                  this is some text</p>
               </div>
-              <div class="col-sm-6">
-                 <div class="card bg-danger" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
-                   <div class="card-block">
-                     <h3 class="card-title">Incomming Emergencies</h3>
-                    <p class="card-text"> <code><b><?php  if(empty($error)){ $resultSet->data_seek(0); echo $resultSet->fetch_assoc()['em']; } else { echo "No";}?></b></code> Emergency cases currently on there way to the hospital (in ambulance or other means)</p>
-                   </div>
-                 </div>
-               </div>
             </div>
-            <h5>Go to <a href="appointment.php">Emergencies and Appointments ></a></h5>
-            <br>
-            <h3><b>Statistics</b></h3>
+          </div>
+          <div class="col-sm-6">
+          <div class="bg-white-card-hidden">
+            <div class="card">
+              <div class="card-block">
+                <h4 class="card-title text-center">Incomming Emergencies</h4>
+                  <p class="card-text"><i class="fa fa-h-square" aria-hidden="true"></i>&nbsp;
+                  this is some text</p>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="goto-appoint">
+        <h5>Go to <a href="appointment.php">Emergencies and Appointments
+        <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </h5>
+      </div>
+  </div>
+
+  <!--Shown on small screens-->
+  <div class="row hide-on-large">
+  <br>
+    <div class="col-sm-6">
+      <div class="card sm-card">
+              <div class="card-block">
+                <h4 class="card-title text-center">In Hospital Emergencies</h4>
+                  <p class="card-text text-center"><i class="fa fa-h-square " aria-hidden="true"></i>&nbsp;
+                  this is some text</p>
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="col-sm-6">
+      <div class="card sm-card">
+              <div class="card-block">
+                <h4 class="card-title text-center">Incomming Emergencies</h4>
+                  <p class="card-text text-center"><i class="fa fa-h-square" aria-hidden="true"></i>&nbsp;
+                  this is some text</p>
+              </div>
+            </div>
+    </div>
+  </div>
+  <br>
+  <div class="hide-on-large" align="center">
+  <hr style="color: #d4d5d5; width: 40%;">
+        <h5>Go to <a href="appointment.php">Emergencies and Appointments
+        <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </h5>
+      </div>
+  
+</div>
+
+<!-- Begin messy code by dav -->
+
+
+<div class="container">
+<h3><b>Statistics</b></h3>
             <br>
 
               <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-12 col-xs-12">
                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                   <div class="card-block">
                       <center>
@@ -306,32 +357,31 @@ $error = array();
                 </div>
               </div>
             </div>
-            <br>
+			<br>
             <div class="row">
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                     <div class="card-block">
                        <center>
-                           <h3 class="card-title"><strong>hospital name</strong> most popular illnesses in the last week</h3>
+                           <h3 class="card-title"><strong>Hospital name</strong> most popular illnesses in the last week</h3>
                            <div id="donutChartContainer">FusionCharts XT will load here!</div>
                         </center>
                     </div>
                  </div>
                </div>
+
+
                <div class="col-sm-6">
                   <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                     <div class="card-block">
                         <center>
                             <h3 class="card-title">View More Stats</h3>
                             <div id="pieChartContainer">FusionCharts XT will load here!</div>
-                       </center>
+                       </center><br>
                     </div>
                   </div>
                 </div>
-
             </div>
-
-
 
             <br>
             <h3><b>Patient Actions</b></h3>
@@ -348,7 +398,7 @@ $error = array();
                 </div>
               </div>
             </div>
-            <br>
+			<br>
             <div class="row">
               <div class="col-sm-6">
                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
@@ -359,6 +409,7 @@ $error = array();
                   </div>
                 </div>
               </div>
+
 
               <div class="col-sm-6">
                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
@@ -371,11 +422,10 @@ $error = array();
                </div>
             </div>
 
-            <br>
+
             <h3><b>Appointments</b></h3>
             <br>
             <div class="row">
-
               <div class="col-sm-6">
                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
                   <div class="card-block">
@@ -397,9 +447,9 @@ $error = array();
                </div>
 
             </div>
+  </div>
 
-		</div>
-	</div>
-</div>
+
+
 
 <?php include 'footer.php' ?>

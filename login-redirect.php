@@ -4,10 +4,8 @@
     $reason = get_value_from_session(REASON);
 ?>
 
-<div id="wrapper">
-<div class="main-content-wrapper" id="p-info">
-    <div class="main-content">
-        <div class="panel panel-default">
+<div class="container content">
+         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title"> <b>ACCOUNT SIGN IN REQUIRED</b></h4>
           </div>
@@ -31,8 +29,9 @@
             </div>
           </div>
         </div>
-    </div>
 </div>
+<div class="container full-height">
+
 </div>
 
 <?php include 'footer.php' ?>

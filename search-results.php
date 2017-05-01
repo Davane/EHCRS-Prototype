@@ -62,10 +62,8 @@ if(!empty($_POST)) {
 include './header.php';
 ?>
 
-<div id="wrapper">
-
-     <div class="sidebar-wrapper">
-         <div class="sidebar">
+<div id="container content">
+  <div class="container">
              <div id='sidebar-list-group' class="list-group">
                  <div class="list-group-item active">
                      <h4 class="list-group-item-heading"><b>Filters</b></h4>
@@ -88,12 +86,10 @@ include './header.php';
 
                     </div>
                  </div>
-             </div>
-         </div>
-     </div>
 
-     <div class="main-content-wrapper" id="p-info">
-         <!-- <div class="main-content"> -->
+         </div>
+  </div>
+
 
         <?php
 
@@ -160,15 +156,6 @@ include './header.php';
                <!-- <button type="submit" class="btn btn-primary">Sign & Register Patient</button> -->
              </div>
            </div>
-         </div>
-       </div>
-
-         <!-- </div> -->
-     </div>
-
-
-
-
-
-
+        </div>
+    </div>
 </div>

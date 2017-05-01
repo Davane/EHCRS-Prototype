@@ -122,17 +122,7 @@ include 'header.php';
 ?>
 
 
-<div id="wrapper">
-	<div class="sidebar-wrapper">
-		<div class="sidebar">
-			<ul>
-				<li><a href="appointment.php">Next Appointment</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="main-content-wrapper">
-		<div class="main-content">
+<div class="container content">
 
 			<div class="panel panel-default">
 			  <div class="panel-body">
@@ -477,8 +467,7 @@ include 'header.php';
 
 			  </div>
 			</div>
-			</div>
-		</div>
+			
 	</div>
 
 </div>

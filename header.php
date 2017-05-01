@@ -18,7 +18,7 @@
 
                     <!--Logo-->
                     <div class="nav-logo">
-                        <a class="navbar-left" href="#">
+                        <a class="navbar-left" href="index.php">
                         <img src="img/logo.png" alt="logo" width="20px" >
                             &nbsp;&nbsp;Health<b>Wise</b></a>
                     </div>

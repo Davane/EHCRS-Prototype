@@ -73,9 +73,7 @@ include 'header.php';
 
 ?>
 
-<div id="wrapper">
-	<div class="main-content-wrapper" id="p-info">
-		<div class="main-content">
+<div class="container content">
 			<div class="panel panel-default">
 			  <div class="panel-body" style="padding:0 55px;">
 				<form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
@@ -217,8 +215,6 @@ include 'header.php';
 					</form>
               </div>
 		   </div>
-	   </div>
-    </div>
 </div>
 
 

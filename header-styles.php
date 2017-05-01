@@ -18,18 +18,20 @@
         <!--<link rel='stylesheet' href='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.css' />-->
 
         <style>
-            input[type=text] {
+            input#ipt {
             color:lightgrey;
-            width: 100px;
-            border-color: transparent;
+            width: 100%;
             background-color: #3a4b5e;
-            -webkit-transition: width 0.4s ease-in-out;
-            transition: width 0.4s ease-in-out;
+            border-color: #66afe9;
+            /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);*/
+            box-shadow:  inset 0 1px 1px rgba(0,0,0,.075);
         }
 
-        input[type=text]:focus,
-        input[type=text]:hover, {
-            width: 130px;
+        input#ipt: hover,
+        input#ipt: focus {
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
         }
+
         </style>
 	</head>
