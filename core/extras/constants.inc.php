@@ -6,6 +6,7 @@
 	define("USER_TIMESTAMP", "user-time");
 	define("TIMESTAMP_CREATED", "time-created");
 	define("USER_VERIFIED", "verified");
+	define("USER_QR_VERIFIED", "qr_verified");
 	define("SESSION_TIMEOUT", 300);
 
 	define("REASON", "resaon");

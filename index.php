@@ -251,7 +251,7 @@
             <h4>Get started with Jamaica's First Interconnected Electronic Health Record System</h4>
             <p>By Jamaicans, for Jamaicans</p>
             <div class="shown">
-            <p><a class="btn btn-primary btn-lg" href="about.php" role="button"">Learn more</a></p>
+            <p><a class="btn btn-primary btn-lg" href="about.php" role="button">Learn more</a></p>
             </div>
         </div>
       </div>

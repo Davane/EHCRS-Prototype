@@ -1,6 +1,5 @@
 <?php
 
-
     require_once 'core/init.php';
     require_once 'core/member.inc.php';
 
@@ -10,28 +9,24 @@
 
         if(validate_user_from_session(get_user_id_from_session(), get_current_user_type(), get_session_id())) {
 
-            if (!is_user_verified()) {
+            if (!is_user_verified() && !is_user_qr_verified()) {
                 if (basename($_SERVER['PHP_SELF']) !== 'login-verification.php'){
-                    #echo 'USER NOT VRIFIED';
+                    // echo 'USER NOT VRIFIED';
                     header('Location: login-redirect.php');
                 }
             }
 
         } else {
-            echo 'SESSION NOT VALID';
+            // echo 'SESSION NOT VALID';
             header('Location: login-redirect.php');
         }
 
         $last_activity = (int) get_value_from_session(USER_TIMESTAMP);
         $now = time();
 
-        // var_dump(get_value_from_session(USER_TIMESTAMP));
-        // var_dump($now);
-        #var_dump(($now - $last_activity));
-
         if(($now - $last_activity) > SESSION_TIMEOUT) {
 
-            #echo 'SESSION TIMEOUT : RE-LOGIN';
+            // echo 'SESSION TIMEOUT : RE-LOGIN';
             destroy_session();
             set_session(REASON, 'timeout');
             header('Location: login-redirect.php');
@@ -43,19 +38,19 @@
 
 
     } else {
-        #echo 'Session not set';
+        // echo 'Session not set';
         set_session(REASON, 'no-user');
         header('Location: login-redirect.php');
 
     }
 
 
-    echo " SESSION VALIDATION : IMPLEMENT
-                [SESSION HIJACKING],
-                [TIMING ATTACKS],
-                [XSS - CROSS SITE SCRIPTING],
-                [PROPER ENCRYPTION WITH REASON 'password_hash() function']
-            MITIGATION FEATURES  ";
+    // echo " SESSION VALIDATION : IMPLEMENT
+    //             [SESSION HIJACKING],
+    //             [TIMING ATTACKS],
+    //             [XSS - CROSS SITE SCRIPTING],
+    //             [PROPER ENCRYPTION WITH REASON 'password_hash() function']
+    //         MITIGATION FEATURES  ";
 
     # PASSWORD_BCRYPT and PASSWORD_DEAFULT are constants for the password_hash()
     # function and php offcial documattion failed to mention the encryption method

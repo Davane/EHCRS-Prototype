@@ -37,6 +37,17 @@ function is_user_verified() {
      return false;
  }
 
+ function is_user_qr_verified() {
+     is_session_started();
+      if(isset($_SESSION[USER_QR_VERIFIED])){
+          if($_SESSION[USER_QR_VERIFIED] === 'true'){
+              return true;
+          }
+      }
+
+      return false;
+  }
+
 
 function get_user_id_from_session(){
     is_session_started();

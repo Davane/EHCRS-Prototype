@@ -15,7 +15,7 @@ function executeAndGetRowsFromSelectPreparedStatement($statements) {
 
 	$select = $statements->execute();
 
- 	#var_dump($statements->error);
+ // 	var_dump($statements->error);
 
 
 	// checking is the query was executed successfully

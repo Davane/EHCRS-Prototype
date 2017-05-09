@@ -304,6 +304,32 @@ function is_member_active($id) {
     return !array_key_exists('active' , $row) ? false : (bool) $row['active'];
 }
 
+
+function is_qr_code_login_active($id){
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_is_qr_code_login_active (?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("s", $id);
+
+
+    #executing and fetching he rows
+    $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
+
+    #var_dump($row);
+
+    $stmt->close();
+    #$connect->close();
+
+//     var_dump($row);
+// die();
+    return (bool) $row['active'];
+}
+
+
 function active_account_by_email($email){
     global $connect;
 

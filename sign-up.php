@@ -314,11 +314,11 @@
 			  			<button type="submit" name="submit" value="submit" class="btn btn-send btn-block">Sign In Now  <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
 			  		</div>
 			  		<br><br><br>
-					<?php if (isset($_GET['type']) && $_GET['type'] === 'Medical') { ?>
+					<?php #if (isset($_GET['type']) && $_GET['type'] === 'Medical') { ?>
 			  		<center>
-			  			<small>Would you like to do an <a href="">Emergency Sign in</a></small>
+			  			<small>Other options, <a href="#">Emergency</a> or <a href="barcode-login.php">QR Code</a>  Sign In</small>
 			  		</center>
-					<?php } ?>
+					<?php# } ?>
 			  	</div>
 
 			</form>
