@@ -1,16 +1,21 @@
 <?php
 
-  #include_once 'core/physician/physician.inc.php';
-  #is_session_started();
+require 'core/init.php';
 
-  include 'header.php';
+// is_session_started();
+// var_dump($_SESSION);
+// die();
+
+require_once 'session-validation.php';
+include 'header.php';
 
 ?>
 
 <!-- Scripts for the chart  -->
-            <script type="text/javascript" src="js/fusioncharts.js"></script>
-            <script type="text/javascript" src="js/themes/fusioncharts.theme.fint.js"></script>
+<script type="text/javascript" src="js/fusioncharts.js"></script>
+<script type="text/javascript" src="js/themes/fusioncharts.theme.fint.js"></script>
 
+<!-- Charts -->
 <script type="text/javascript">
               FusionCharts.ready(function(){
                 var revenueChart = new FusionCharts({
@@ -234,10 +239,10 @@
 <div id="particles-js"></div>
 
 <!-- particles.js lib (JavaScript CodePen settings): https://github.com/VincentGarreau/particles.js -->
-  <script src='http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
+<script src='http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
 <script src='http://threejs.org/examples/js/libs/stats.min.js'></script>
 
-    <script src="js/index.js"></script>
+<script src="js/index.js"></script>
 
 <!-- ************************ Begin View ************************ -->
 

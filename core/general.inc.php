@@ -80,7 +80,6 @@ function destroy_session(){
 function destroy_session_value($key){
     is_session_started();
     unset($_SESSION[$key]);
-    #session_destroy();
 }
 
 

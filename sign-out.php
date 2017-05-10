@@ -1,6 +1,6 @@
 <?php
 
-echo 'sign out';
+// echo 'sign out';
 
 include_once 'core/init.php';
 destroy_session();

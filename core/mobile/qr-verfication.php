@@ -17,7 +17,8 @@ if($command === 'login_user') {
 
 }
 
-echo 'Email: ' . $email . ' QR: ' . $qr . ' verified: ' . $verified;
+// echo 'Email: ' . $email . ' QR: ' . $qr / ' verified: ' . $verified;
+echo  $verified;
 
 
 # ------------------------------------------------------------------------------

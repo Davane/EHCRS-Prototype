@@ -5,6 +5,27 @@ require_once(dirname(__FILE__) . '/../init.php');
 require_once(dirname(__FILE__) . '/../member.inc.php');
 require_once(dirname(__FILE__) . '/../physician/physician.inc.php');
 
+
+function update_password($email, $password){
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_update_password_by_email (?, ?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("ss", $email, $password);
+
+    $stmt->execute();
+
+    if($stmt->affected_rows > 0) {
+        $stmt->close();
+        return true;
+    }
+
+    return false;
+}
+
 function get_paitnet_personal_info($patient_id) {
 
     global $connect;
@@ -147,11 +168,8 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
 
     $error = array();
 
-
-
-
-                                // #upload File
-                                // uploadFile($connect, '303');
+    // #upload File
+    // uploadFile($connect, '303');
 
     $physician_id = $clerk_id = get_user_id_from_session();
     $hospital_id = get_physician_work_place($physician_id);
@@ -172,8 +190,8 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
             $address_id = null;
         }
 
-
-        #die();
+        // var_dump($email);
+        // die();
 
         if(add_new_member($connect, $address_id, $firstname, $lastname, $middleName,
                                 $maidenName, $email, $trn, $password, $gender,
@@ -186,8 +204,6 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
             if($emp_add_status = enter_new_address($connect, $emp_street_name, $emp_parish, $emp_country)) {
 
                 # get last insert id from address table
-                # var_dump($emp_add_status);
-
                 if ($emp_add_status === true) {
                     $emp_address_id = getLastInsertedId($connect);
                 } else {
@@ -241,54 +257,51 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
                                         }
 
                                     } else {
-                                        echo "create new condition error:" . $connect->error;
+                                        // echo "create new condition error:" . $connect->error;
                                         $error['error'] = 'create new condition error';
                                     }
 
                                 } else {
-                                    echo "create new Vitals error:" . $connect->error;
+                                    // echo "create new Vitals error:" . $connect->error;
                                     $error['error'] = 'create new Vitals error';
                                 }
 
                             } else {
-                                echo "create new medical record error:" . $connect->error;
+                                // echo "create new medical record error:" . $connect->error;
                                 $error['error'] = 'create new medical record error:';
                             }
 
                         } else {
-                            echo "Register Patient error:" . $connect->error;
+                            // echo "Register Patient error:" . $connect->error;
                             $error['error'] = 'Register Patient error';
                         }
 
                     } else {
-                        echo "new Patient error:" . $connect->error;
-                        $error['error'] = 'new Patient error';
+                        // echo "new Patient error:" . $connect->error;
+                        $error['error'] = 'New Patient error';
                     }
 
                 } else {
-                    echo "Employment Info error:" . $connect->error;
+                    // echo "Employment Info error:" . $connect->error;
                     $error['error'] = 'Employment Info error';
                 }
 
             } else {
-                echo "Employment Address error:" . $connect->error;
+                // echo "Employment Address error:" . $connect->error;
                 $error['error'] = 'Employment Address error';
             }
 
         } else {
-            echo "Member error:" . $connect->error;
-            $error['error'] = 'Member error : Email Already Exists';
+            // echo "Member error:" . $connect->error;
+            $error['error'] = 'Member error : Email Already Exist';
         }
 
     } else {
-        echo "Pateint Address Wrong error:" . $connect->error;
-        $error['error'] = 'Member error';
+        // echo "Pateint Address Wrong error:" . $connect->error;
+        $error['error'] = 'Pateint Address  Error';
     }
 
-
     return $error;
-
-
 
 }
 
@@ -413,6 +426,8 @@ function get_patient_medication($id){
 
      return $resultSet;
 }
+
+
 
 
 

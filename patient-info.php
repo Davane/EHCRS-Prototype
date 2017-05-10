@@ -1,7 +1,6 @@
 <?php
-include_once 'core/patient/patient.inc.php';
-include_once 'patient-header.php';
 
+include_once 'core/patient/patient.inc.php';
 require_once 'session-validation.php';
 
 $user_id = null;
@@ -13,11 +12,12 @@ if(get_user_id_from_session() !== null && get_current_user_type() !== null && ge
 	header('Location: login-redirect.php');
 }
 
+include_once 'patient-header.php';
+
 ?>
 
 
 <div id="wrapper">
-
 	<div class="main-content-wrapper" id="p-info">
 		<div class="main-content">
 			<div class="panel panel-default">

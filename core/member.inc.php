@@ -144,28 +144,17 @@ function add_new_member(&$connect, $address_id, $firstName, $lasttName, $middleN
     $stmt = $connect->prepare("CALL proc_enter_new_member (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?);");
 
     // bind string datatype to varaibles
-    $stmt->bind_param("isssssssssss", $address_id, $firstName, $lasttName, $middleName,
+    $stmt->bind_param("ssssssssssss", $address_id, $firstName, $lasttName, $middleName,
                             $maidenName, $email, $trn, $password, $gender, $dob, $tel_no, $age);
 
     $member_insert = $stmt->execute();
 
-    #echo $connect->error;
+    var_dump($connect->error);
 
     return $member_insert;
 }
 
-function generate_and_send_verification_code_by_email($id) {
 
-    $code = generate_verification_code();
-
-    if(update_verification_code($id, $code))
-    {
-        gen_send_mail('dlen366@gmail.com', 'Hello' , 'PLease Verify your account by entering the following code on the verfication page of our site: ' .$code );
-        return true;
-    }
-
-    return false;
-}
 
 function confirm_verification($id, $code){
     global $connect;
@@ -195,10 +184,6 @@ function confirm_verification($id, $code){
 
 }
 
-function generate_verification_code() {
-    return rand(999,99999);
-}
-
 function update_verification_code($id, $code) {
 
         global $connect;
@@ -212,10 +197,9 @@ function update_verification_code($id, $code) {
         /* execute statement */
         $stmt->execute();
 
-        //var_dump($stmt->affected_rows);
-
         return (bool) $stmt->affected_rows;
 }
+
 
 function is_member_exist($id) {
 
@@ -322,10 +306,7 @@ function is_qr_code_login_active($id){
     #var_dump($row);
 
     $stmt->close();
-    #$connect->close();
 
-//     var_dump($row);
-// die();
     return (bool) $row['active'];
 }
 
@@ -343,6 +324,27 @@ function active_account_by_email($email){
 
     return $activated;
 
+}
+
+
+function generate_and_send_verification_code_by_email($id, $email) {
+
+    $code = generate_verification_code();
+
+    if(update_verification_code($id, $code))
+    {
+        // $testEmail = "dlen366@gmail.com";
+
+        gen_send_mail($email, 'Hello' , 'Please verify your account by entering the following code on the verfication page of our site: ' .$code );
+        return true;
+    }
+
+    return false;
+}
+
+
+function generate_verification_code() {
+    return rand(999,99999);
 }
 
 

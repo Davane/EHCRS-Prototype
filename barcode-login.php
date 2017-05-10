@@ -1,5 +1,5 @@
 <?php
-
+// require 'header-styles.php';
 require_once 'core/init.php';
 require_once 'core/patient/patient.inc.php';
 
@@ -19,7 +19,7 @@ if(!isset($_POST['submit-apt'])) {
 
     if(addQRCodeInDB($qr)) {
 
-        echo $qr;
+        // echo $qr;
         # if QR Code was added Successfuly then create png failed
         QRcode::png($qr, 'qr-file.png');
 
@@ -56,19 +56,16 @@ if(!isset($_POST['submit-apt'])) {
                 set_session(USER_QR_VERIFIED, 'true');
 
                 if ($type == 'Patient') {
-                    header('Location: patient-info.php');
+                    header('Location: https://localhost/~davanedavis/EHCRS-Prototype/patient-info.php');
                 } else {
-                    header('Location: index.php');
+                    header('Location: https://localhost/~davanedavis/EHCRS-Prototype/index.php');
                 }
             } else {
                 $error['error'] = "Session Error, contacting system adminsitrator for more information.";
-
             }
-
         } else {
             $error['error'] = "Loggin Failed, Ensure then your scan the barcode Using your mobile device ";
         }
-
     } else {
          $error['error'] = "ID Filed Empty";
     }

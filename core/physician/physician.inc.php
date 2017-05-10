@@ -725,7 +725,8 @@ function enter_new_pateint(&$connect = null,$member_id, $emp_info_id, $pet_name,
 
     $patient_insert = $stmt->execute();
 
-    // echo $connect->error;
+    // var_dump($connect->error);
+
     if($stmt->affected_rows > 0) {
         $stmt->close();
         return true;
@@ -749,8 +750,9 @@ function register_pateint(&$connect = null, $pateint_id, $clerk_id, $hospital_id
     $stmt->bind_param("iiii", $pateint_id, $clerk_id, $hospital_id, $physician_id);
 
     $register_insert = $stmt->execute();
-
-    // echo $connect->error;
+    //
+    // var_dump($connect->error);
+    // die();
     // return $register_insert;
     if($stmt->affected_rows > 0) {
         $stmt->close();
@@ -890,7 +892,6 @@ function enter_new_address(&$connect = null, $street_name = '', $parish = '', $c
 
         $address_insert = $stmt->execute();
 
-        // return $address_insert;
         if($stmt->affected_rows > 0) {
             $stmt->close();
             return true;
@@ -996,7 +997,11 @@ function get_patient_condition_signs_treatment_medication($id){
 
 
 
-function uploadFile($connect, $patient_id){
+function uploadFile(&$connect, $patient_id){
+
+    if (!isset($_FILES)) {
+        return false;
+    }
 
     if($connect == null) {
         echo "pateint.inc.php : global connect Address";
@@ -1012,18 +1017,20 @@ function uploadFile($connect, $patient_id){
     $img_dir = $user_dir . DIRECTORY_SEPARATOR . $pro_pic_folder;
     $pro_pic_img_name = 'patient_photo.jpg';
 
-    var_dump($_FILES['uploadedFile']['tmp_name']);
+    // var_dump($_FILES['uploadedFile']['tmp_name']);
     // die();
 
 
     if (createDirectory($img_dir, true)) {
-        echo 'created';
+        // echo 'created';
 
         // the prepare for update
-        $stmt = $connect->prepare("CALL proc_update_proc_pic_url (?, ?);");
+        $stmt = $connect->prepare("CALL proc_update_proc_pic_url (?, ?)");
+
+        $proPicDir = $img_dir . DIRECTORY_SEPARATOR . $pro_pic_img_name;
 
         // bind string datatype to varaibles
-        $stmt->bind_param("ss", $patient_id, $img_dir . DIRECTORY_SEPARATOR . $pro_pic_img_name);
+        $stmt->bind_param("ss", $patient_id, $proPicDir);
 
         $stmt->execute();
 

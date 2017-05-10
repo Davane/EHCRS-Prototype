@@ -1,7 +1,10 @@
 <?php
-    include 'patient-header.php';
+
     include 'core/init.php';
     $reason = get_value_from_session(REASON);
+
+    include 'patient-header.php';
+
 ?>
 
 <div class="container content">
@@ -25,7 +28,7 @@
                        $reason = 'Sign in before you can continue';
                 }?>
                 <p><?php echo $reason ?></p>
-                <p>Go to <a href="sign-up.php">Sign In</a> page</p>
+                <p>Go to <a href="https://localhost/~davanedavis/EHCRS-Prototype/sign-out.php">Sign In</a> page</p>
             </div>
           </div>
         </div>

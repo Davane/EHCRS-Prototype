@@ -1,6 +1,6 @@
 <?php
 
-
+    
     require_once 'core/patient/patient.inc.php';
 
     require_once 'session-validation.php';
@@ -33,7 +33,7 @@
 
                         # check if clerk of doctor or nurse and
                         # present them with a different page if necesaary
-                        header('Location: home.php');
+                        header('Location: https://localhost/~davanedavis/EHCRS-Prototype/index.php');
 
                     } else {
                         $error['unknown-error'] = "An unknown-error Occured";

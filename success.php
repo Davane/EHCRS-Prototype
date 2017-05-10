@@ -1,6 +1,6 @@
 <?php
-    include_once 'core/init.php';
     require_once 'session-validation.php';
+    // include_once 'core/init.php';
 
     $type = '';
 
@@ -10,7 +10,7 @@
 
     }
     is_session_started();
-    #var_dump($_SESSION);
+    // var_dump($_SESSION);
     include 'patient-header.php';
 ?>
 

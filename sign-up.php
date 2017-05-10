@@ -32,58 +32,41 @@
 
 					# 2. check if user exist
 					if (is_member_exist($_POST['medical_id'])){
+
 						# 3. is user active
 						if (is_member_active($_POST['medical_id'])) {
 
 							$sign_in = false;
 
 							if ($type_filter['Patient'] == $type) {
-
 								# 4. sign in patient and log
 								$sign_in = sign_in_member($_POST['medical_id'], $_POST['email'], $_POST['password'], $type);
-
 							} else if ($type_filter['Medical'] == $type) {
-
 								# perform medical sign in
-								echo "medical";
 								$sign_in = sign_in_member($_POST['medical_id'], $_POST['email'], $_POST['password'], $type);;
-
 							}
-
-
 							if ($sign_in) {
-
-								if(generate_and_send_verification_code_by_email($_POST['medical_id'])) {
-
+								if(generate_and_send_verification_code_by_email($_POST['medical_id'],  $_POST['email'])) {
 									# 5. create seesions with encrypted id
 									set_sign_in_session($_POST['medical_id'], $type, (string)time() /*timestamp*/);
 
 									if(update_user_session($_POST['medical_id'], get_value_from_session(SESSION_ID))){
-
-										header('Location: login-verification.php');
+										header('Location: https://localhost/~davanedavis/EHCRS-Prototype/login-verification.php');
 									}
 								}
-
 							} else {
 								$error['sign_failed'] = 'Incorrect Credentials';
 							}
-
 						} else {
-
 								# Account isnt Active
 								$error['account_status'] = 'Your account is not active,
 															please contact adminsitrator';
 						}
-
-
 					} else {
-
 						# Account doesnt Exist
 						$error['account_exist'] = 'Your account wasn\'t found,
 						 						  please contact adminsitrator';
-
 					}
-
 				} else {
 					#var_dump($error);
 					#Errors
@@ -316,7 +299,7 @@
 			  		<br><br><br>
 					<?php #if (isset($_GET['type']) && $_GET['type'] === 'Medical') { ?>
 			  		<center>
-			  			<small>Other options, <a href="#">Emergency</a> or <a href="barcode-login.php">QR Code</a>  Sign In</small>
+			  			<small>or <a href="barcode-login.php">QR Code</a>  Sign In</small>
 			  		</center>
 					<?php# } ?>
 			  	</div>

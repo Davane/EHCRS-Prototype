@@ -58,7 +58,7 @@
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="signout-on-small">
-                                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">
+                                  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://localhost/~davanedavis/EHCRS-Prototype/sign-out.php">
                                   <span style="color:#e7604a;">Sign Out
                                   </span></a></li>
                                 </ul>

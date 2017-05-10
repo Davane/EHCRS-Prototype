@@ -4,13 +4,15 @@
 // var_dump($_FILES);
 
 require_once 'core/physician/physician.inc.php';
+// require_once 'session-validation.php';
+
 is_session_started();
 
 $error = array();
 
 
 
-$error = register_patient($error);
+// $error = register_patient($error);
 
 # verify the physician infromation entered into the modal
 if(isset($_POST['medical_id']) && isset($_POST['password'])){
@@ -26,15 +28,15 @@ if(isset($_POST['medical_id']) && isset($_POST['password'])){
 	if ($id === get_user_id_from_session()) {
 
 		if (verify_user_and_password($id, $passw)){
-			echo "Vefired";
+			// echo "Vefired";
 			$error = register_patient($error);
 		} else {
-			echo "Credentials wrong";
+			// echo "Credentials wrong";
 			$error['credentials'] = "Credentials wrong";
 		}
 
 	} else {
-		echo " Credentials wrong";
+		// echo " Credentials wrong";
 		$error['credentials'] = "Credentials wrong";
 	}
 }
@@ -448,7 +450,8 @@ include 'header.php';
 
 					  <div class="modal-body">
 						  <p>Enter your account credential before you can continue</p>
-				       	<input type="text" class="form-control" name="medical_id" placeholder='Medial ID' value="<?php echo get_user_id_from_session() == null ? "": get_user_id_from_session() ; ?>" required readonly> 
+						  <!-- <?php var_dump(get_user_id_from_session()); ?> -->
+				       	<input type="text" class="form-control" name="medical_id" placeholder='Medial ID' value="<?php echo get_user_id_from_session() == null ? "": get_user_id_from_session() ; ?>" required readonly>
 						<input type="password" class="form-control" name="password" placeholder='Password' required>
 				      </div>
 
@@ -467,7 +470,7 @@ include 'header.php';
 
 			  </div>
 			</div>
-			
+
 	</div>
 
 </div>
