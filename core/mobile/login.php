@@ -43,8 +43,8 @@ function mobileLogin($user, $password, $type){
     $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
     $stmt->close();
 
-    #var_dump($connect->error);
-    #die();
+    // var_dump($connect->error);
+    // die();
 
     if (array_key_exists('signed_in', $row)){
 

@@ -118,7 +118,7 @@ function sign_in_member($id, $email, $password, $type) {
 }
 
 function add_new_member(&$connect, $address_id, $firstName, $lasttName, $middleName,
-                        $maidenName, $email, $trn, $password = '', $gender,
+                        $maidenName, $email, $trn, $password = null, $gender,
                         $dob = '0000-01-01', $tel_no, $age = '0'){
     if($connect == null) {
         echo "pateint.inc.php : global connect member";

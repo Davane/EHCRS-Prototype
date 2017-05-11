@@ -1,6 +1,6 @@
 <?php
 
-	# checking to see whether the user is a patient or a physician
+# checking to see whether the user is a patient or a physician
 	$type_filter = array(
 			'Patient' => 'Patient',
 			'Medical' => 'Medical');

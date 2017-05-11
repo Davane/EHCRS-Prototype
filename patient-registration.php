@@ -74,7 +74,7 @@ function register_patient($error) {
 				'TEXT-parish-16'      => $_POST['parish'],
 				'TEXT-kin-54'         => $_POST['kin'],
 				'TEXT-relationship-12'  => $_POST['relationship'],
-				'TEXT-mother_name-24'   => $_POST['mother_name'],
+				'TEXT-mother_name-`24'   => $_POST['mother_name'],
 				'TEXT-father_name-24'   => $_POST['father_name'],
 				'TEXT-employer_name-45' => $_POST['employer_name'],
 				'TEXT-emp_address-26'   => $_POST['emp_address'],
@@ -100,7 +100,7 @@ function register_patient($error) {
 
 			# register pateint
 			$error = pateint_registration_process($_POST['firstName'], $_POST['middleName'], $_POST['lastName'],
-										 $_POST['maidenName'],$_POST['email'], $_POST['trn'], 'password',
+										 $_POST['maidenName'],$_POST['email'], $_POST['trn'], 'tmp_password' /*password*/,
 										 $_POST['gender'], $_POST['dob'], $_POST['telephone'], $_POST['age'], $_POST['street_name'],
 										 $_POST['parish'], ''/*country*/, '0'/*insurance_id*/, $_POST['employer_name'], $_POST['occupation'],
 										 $_POST['emp_tel'], '' /*Policy*/, $_POST['emp_address'], $_POST['emp_parish'],
@@ -231,7 +231,18 @@ include 'header.php';
 					    	<input type="text" class="form-control" name="religion" placeholder="Religion">
 					    </div>
 					    <div class="col-md-4 col-xs-12">
-					    	<input type="text" class="form-control" name="union" placeholder="Union">
+					    	<!-- <input type="text" class="form-control" name="union" placeholder="Union"> -->
+							<select name="union" class="form-control custom-select">
+ 							  	<option value="single" selected>Single</option>
+ 							  	<option value="married">Married</option>
+							  	<option value="divorce">Divorce</option>
+							 	<option value="widow">Widow</option>
+							 	<option value="in a relationship">In a relationship</option>
+
+
+
+							  <!-- 'single','married','divorce','widow','in a relationship' -->
+ 						  </select>
 					    </div>
 					 </div>
 
@@ -450,7 +461,7 @@ include 'header.php';
 
 					  <div class="modal-body">
 						  <p>Enter your account credential before you can continue</p>
-						  <!-- <?php var_dump(get_user_id_from_session()); ?> -->
+
 				       	<input type="text" class="form-control" name="medical_id" placeholder='Medial ID' value="<?php echo get_user_id_from_session() == null ? "": get_user_id_from_session() ; ?>" required readonly>
 						<input type="password" class="form-control" name="password" placeholder='Password' required>
 				      </div>

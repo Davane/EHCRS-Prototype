@@ -112,7 +112,7 @@ function update_medication($med_id, $med, $dosage, $type, $cat){
             return true;
         }
 
-        var_dump($connect->error);
+        // var_dump($connect->error);
         return false;
 
     } else {
@@ -306,7 +306,7 @@ function update_personal_info($patient_id, $firstname, $middlename, $lastname,
 
     $update = $stmt->execute();
 
-     var_dump($connect->error);
+    //  var_dump($connect->error);
     // die();
 
     if($update) {
@@ -441,14 +441,14 @@ function get_appointment_for_hospital_by_id($id) {
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
     }
 
     $resultSet = $stmt->get_result();
 
     if ($resultSet == null) {
         /*  Handle error */
-        echo "ResultSet == null" ;
+        // echo "ResultSet == null" ;
     }
 
      return  $resultSet;
@@ -491,15 +491,17 @@ function get_emergency_count($id) {
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
+        return null;
+
     }
 
     $resultSet = $stmt->get_result();
 
     if ($resultSet == null) {
         /*  Handle error */
-        echo "ResultSet == null" ;
-
+        // echo "ResultSet == null" ;
+        return null;
      }
 
     # var_dump($connect->error);
@@ -521,14 +523,18 @@ function get_all_patient_and_id(){
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
+        return null;
+
     }
 
     $resultSet = $stmt->get_result();
 
     if ($resultSet == null) {
         /*  Handle error */
-        echo "ResultSet == null" ;
+        // echo "ResultSet == null" ;
+        return null;
+
 
      }
 
@@ -679,7 +685,7 @@ function add_new_medication($med_id, $physician_id, $med, $dosage, $type, $categ
 function create_new_medical_record(&$connect = null, $pateint_id, $hospital_id, $clerk_id) {
 
     if($connect == null) {
-        echo "pateint.inc.php : global connect medical_history";
+        // echo "pateint.inc.php : global connect medical_history";
         global $connect;
     }
 
@@ -706,7 +712,7 @@ function enter_new_pateint(&$connect = null,$member_id, $emp_info_id, $pet_name,
                             $mother_name, $birth_place, $birth_parish, $union) {
 
     if($connect == null) {
-        echo "pateint.inc.php : global connect patient";
+        // echo "pateint.inc.php : global connect patient";
         global $connect;
     }
 
@@ -739,7 +745,7 @@ function enter_new_pateint(&$connect = null,$member_id, $emp_info_id, $pet_name,
 function register_pateint(&$connect = null, $pateint_id, $clerk_id, $hospital_id, $physician_id) {
 
     if($connect == null) {
-        echo "pateint.inc.php : global connect register";
+        // echo "pateint.inc.php : global connect register";
         global $connect;
     }
 
@@ -768,7 +774,7 @@ function enter_new_vitals(&$connect = null, $medical_id, $who_recorded, $height 
     if(!is_all_empty($height, $weight, $temp, $pulse, $resp, $bp, $urinalysis)) {
 
         if($connect == null) {
-            echo "pateint.inc.php : global connect vitals";
+            // echo "pateint.inc.php : global connect vitals";
             global $connect;
         }
 
@@ -780,7 +786,7 @@ function enter_new_vitals(&$connect = null, $medical_id, $who_recorded, $height 
 
         $vitals_insert = $stmt->execute();
 
-        echo $connect->error;
+        // echo $connect->error;
 
         // return $vitals_insert;
 
@@ -801,7 +807,7 @@ function enter_new_conditions(&$connect = null, $condition, $medical_id) {
     if(!is_all_empty($condition)) {
 
         if($connect == null) {
-            echo "pateint.inc.php : global connect emp-info";
+            // echo "pateint.inc.php : global connect emp-info";
             global $connect;
         }
 
@@ -877,7 +883,7 @@ function enter_new_address(&$connect = null, $street_name = '', $parish = '', $c
     if(!is_all_empty($street_name, $parish, $country)) {
 
         if($connect == null) {
-            echo "pateint.inc.php : global connect Address";
+            // echo "pateint.inc.php : global connect Address";
             global $connect;
         }
 
@@ -918,7 +924,7 @@ function get_patient_general_info_for_pyhsician($id){
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
         return null;
     }
 
@@ -926,7 +932,7 @@ function get_patient_general_info_for_pyhsician($id){
 
     if ($resultSet == null) {
         /*  Handle error */
-        echo "ResultSet == null" ;
+        // echo "ResultSet == null" ;
         return null;
 
      }
@@ -949,7 +955,7 @@ function get_latest_patient_vital($id){
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
         return null;
     }
 
@@ -957,7 +963,7 @@ function get_latest_patient_vital($id){
 
     if ($resultSet == null) {
         /*  Handle error */
-        echo "ResultSet == null" ;
+        // echo "ResultSet == null" ;
         return null;
      }
 
@@ -979,7 +985,7 @@ function get_patient_condition_signs_treatment_medication($id){
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
         return null;
     }
 
@@ -987,7 +993,7 @@ function get_patient_condition_signs_treatment_medication($id){
 
     if ($resultSet == null) {
         /*  Handle error */
-        echo "ResultSet == null" ;
+        // echo "ResultSet == null" ;
         return null;
      }
 
@@ -1004,7 +1010,7 @@ function uploadFile(&$connect, $patient_id){
     }
 
     if($connect == null) {
-        echo "pateint.inc.php : global connect Address";
+        // echo "pateint.inc.php : global connect Address";
         global $connect;
     }
 
@@ -1042,16 +1048,16 @@ function uploadFile(&$connect, $patient_id){
             // $pro_pic_img_name = 'patient_photo.jpg';
 
             if(move_uploaded_file($_FILES['uploadedFile']['tmp_name'], $img_dir . DIRECTORY_SEPARATOR . $pro_pic_img_name)) {
-                echo "moved";
+                // echo "moved";
                 return true;
             } else {
-                echo "not moved" .  $_FILES['tmp_name'];
+                // echo "not moved" .  $_FILES['tmp_name'];
                 return false;
             }
         }
 
     } else {
-        echo "not created";
+        // echo "not created";
     }
 
 

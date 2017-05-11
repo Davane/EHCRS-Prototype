@@ -247,7 +247,7 @@ function get_pro_pic($p_url)
 {
     $url = 'http://www.freeiconspng.com/uploads/profile-icon-9.png';
     if  ($p_url['pic_url'] !== null) {
-        $url = replace_url("/Users/davanedavis/Sites/", "http://localhost/~davanedavis/", $p_url['pic_url']);
+        $url = replace_url("/Users/davanedavis/Sites/", "https://localhost/~davanedavis/", $p_url['pic_url']);
     }
 
     return $url;

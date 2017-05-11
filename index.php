@@ -1,7 +1,9 @@
 <?php
 
 require 'core/init.php';
-
+if (get_current_user_type() == 'Patient') {
+    header('Location: https://localhost/~davanedavis/EHCRS-Prototype/patient-info.php');
+}
 // is_session_started();
 // var_dump($_SESSION);
 // die();

@@ -40,7 +40,7 @@ function get_paitnet_personal_info($patient_id) {
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
         return null;
     }
 
@@ -48,7 +48,7 @@ function get_paitnet_personal_info($patient_id) {
 
     if ($resultSet == null) {
 		/*  Handle error */
-		echo "ResultSet == null" ;
+		// echo "ResultSet == null" ;
         return null;
 
 	 }
@@ -71,15 +71,16 @@ function get_patient_general_info($patient_id){
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
+        return null;
     }
 
     $resultSet = $stmt->get_result();
 
     if ($resultSet == null) {
 		/*  Handle error */
-		echo "ResultSet == null" ;
-
+		// echo "ResultSet == null" ;
+        return null;
 	 }
 
     # var_dump($connect->error);
@@ -168,15 +169,8 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
 
     $error = array();
 
-    // #upload File
-    // uploadFile($connect, '303');
-
     $physician_id = $clerk_id = get_user_id_from_session();
     $hospital_id = get_physician_work_place($physician_id);
-
-    // var_dump($clerk_id);
-    // var_dump($hospital_id);
-    #die();
 
     # entering pateint's Address
     if($status = enter_new_address($connect, $street_name, $parish, $country)) {
@@ -189,9 +183,6 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
         } else {
             $address_id = null;
         }
-
-        // var_dump($email);
-        // die();
 
         if(add_new_member($connect, $address_id, $firstname, $lastname, $middleName,
                                 $maidenName, $email, $trn, $password, $gender,
@@ -252,7 +243,7 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
                                             header('Location: success.php?type=reg');
 
                                         } else {
-                                            echo 'activation code not Sent';
+                                            // echo 'activation code not Sent';
                                             $error['error'] = 'activation code not Sent';
                                         }
 
@@ -312,7 +303,7 @@ function generate_activation_code($key){
 function generate_activation_code_and_email(&$connect = null, $member_id, $email, $firstname, $lastname) {
 
     if($connect == null) {
-        echo "pateint.inc.php : global connect patient";
+        // echo "pateint.inc.php : global connect patient";
         global $connect;
     }
 
@@ -326,13 +317,13 @@ function generate_activation_code_and_email(&$connect = null, $member_id, $email
 
     $activation_code_inserted = $stmt->execute();
 
-    echo $connect->error;
+    // echo $connect->error;
 
     if ($activation_code_inserted) {
 
         gen_send_mail($email,
                       "Account Activation",
-                      "Hello ". $firstname ." ". $lastname .",\n\nclick the link below to activate your account \n\nhttp://localhost/~davanedavis/EHCRS-Prototype/activate_account.php?x=". $email ."&code=". $activation_code ."
+                      "Hello ". $firstname ." ". $lastname .",\n\nclick the link below to activate your account \n\nhttps://localhost/~davanedavis/EHCRS-Prototype/activate_account.php?x=". $email ."&code=". $activation_code ."
                         \n\n\t- Healthwise Interconnected Health Record System");
         return true;
     } else {
@@ -357,14 +348,16 @@ function get_patient_condtition_and_treatment($id) {
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
+        return null;
     }
 
     $resultSet = $stmt->get_result();
 
     if ($resultSet == null) {
 		/* Handle error */
-		echo "ResultSet == null" ;
+		// echo "ResultSet == null" ;
+        return null;
 
 	 }
 
@@ -385,14 +378,18 @@ function get_patient_vitals($id){
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
+        return null;
+
     }
 
     $resultSet = $stmt->get_result();
 
     if ($resultSet == null) {
         /* Handle error */
-        echo "ResultSet == null" ;
+        // echo "ResultSet == null" ;
+        return null;
+
 
      }
 
@@ -413,14 +410,17 @@ function get_patient_medication($id){
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        // echo 'Not selected';
+        return null;
+
     }
 
     $resultSet = $stmt->get_result();
 
     if ($resultSet == null) {
         /* Handle error */
-        echo "ResultSet == null" ;
+        // echo "ResultSet == null" ;
+        return null;
 
      }
 
