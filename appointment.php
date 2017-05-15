@@ -1,7 +1,14 @@
 <?php
+define('APP_RAN', 'APP_RAN');
 
 require_once 'core/physician/physician.inc.php';
-// require_once 'session-validation.php';
+
+# user and session validation file
+require_once 'session-validation.php';
+
+# Access Contol File
+define('PAGE_ACCESS_LEVEL', 2);
+require_once 'core/access_control.php';
 
 $error = array();
 $resultSet = null;
@@ -13,12 +20,15 @@ if($work_id = get_physician_work_place(get_user_id_from_session())){
 		#echo 'Remove From List';
 
 		if(isset($_POST['id'])) {
+			log_user_sign(get_user_id_from_session(), 'Change appointment with id '.$_POST['id'].' to complete');
 			change_appointment_status($_POST['id'], 'complete');
 		}
 	}
 
 
 	$resultSet = get_appointment_for_hospital_by_id($work_id);
+
+	// var_dump($resultSet->fetch_assoc());
 
 	if($resultSet->num_rows === 0) {
 		$error['error'] = 'No Appointments';
@@ -175,7 +185,7 @@ include 'header.php';
 			  			</div>
 			  		</div>
 			  </div>
-	
+
 </div>
 <br><br><br><br>
 <?php include 'footer.php' ?>

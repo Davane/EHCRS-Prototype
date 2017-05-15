@@ -1,8 +1,17 @@
 <?php
-require_once 'core/physician/physician.inc.php';
-// require_once 'session-validation.php';
+define('APP_RAN', 'APP_RAN');
 
-$id = '447';
+require_once 'core/physician/physician.inc.php';
+
+# user and session validation file
+require_once 'session-validation.php';
+
+# Access Contol File
+define('PAGE_ACCESS_LEVEL', 4);
+require_once 'core/access_control.php';
+
+
+$id = get_value_from_session('key');
 $patient_info_result = get_patient_general_info_for_pyhsician($id);
 $patient_vital = get_latest_patient_vital($id);
 $patient_lastest_cond_and_treat = get_patient_condition_signs_treatment_medication($id);
@@ -62,17 +71,17 @@ include 'header.php'
 				  	<div class="col-md-2 col-md-offset-1">
 						<form class="" action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
 							<input type="hidden" name="patient_id" value="<?php echo $id; ?>">
-					  		<button class="btn btn-link" type="submit" name="edit" value="edit">Edit Record</a>
+							<a href="edit-medical-history.php">Edit Record</a>
+					  		<!-- <button class="btn btn-link" type="submit" name="edit" value="edit">Edit Record</a> -->
 						</form>
 				  	</div>
 
 				<?php } else {
 
-					if (array_key_exists('error',$state)) {
-  				       echo output_error_by_key('error', $state).'<br>';
-  					}
-
-				  } ?>
+							if (array_key_exists('error',$state)) {
+		  				       echo output_error_by_key('error', $state).'<br>';
+		  					}
+						} ?>
 			  </div>
 			  <br><br>
 
@@ -82,45 +91,40 @@ include 'header.php'
 				   <div class="panel-heading">
 				     <h4 class="panel-title">
 				  	 <b>Current Condition</b>
-				  	 <div style="float: right;">
-				  		<span class="badge">date</span>
-				  	 </div>
-				     </h4>
-				   </div>
-				   <div class="panel-collapse">
-				     <div class="panel-body">
-
-					   <?php if($patient_lastest_cond_and_treat !== null && !empty($patient_lastest_cond_and_treat)) {
-
-						   		$lastest_cond_treat = $patient_lastest_cond_and_treat->fetch_assoc();
-
-						   ?>
-
-					  	   <div class="row">
-					  		  <div class="col-md-12">
-					  			<b><p>Condition</p></b>
-					  			<p><?php echo isset($lastest_cond_treat['condition']) ? $lastest_cond_treat['condition'] : 'None recorded' ; ?></p>
-					  		  </div>
-					  	   </div>
-					  	   <hr style="width: 98%;">
-					  	   <div class="row">
-						  		<div class="col-md-6">
-						  			<b>Current Signs</b>
-						  		</div>
-						  		<div class="col-md-6">
-						  			<p><?php echo isset($lastest_cond_treat['symptom']) ? $lastest_cond_treat['symptom'] : 'None recorded' ; ?></p>
-						  			<!-- <p>Headacher</p> -->
-						  		</div>
-					  		</div>
-							<hr style="width: 98%;">
-							<div class="row">
-							   <div class="col-md-12">
-								    <b><p>Nurse's/Doctor's Notes</p></b>
-						  				<sm>some addtional details about the patient conditions</sm><br>
-									<small style="color: #99a6b2;"> - Dr. Whatever</small>
-							   </div>
-						   </div>
-
+					 <?php
+					 		if($patient_lastest_cond_and_treat !== null && !empty($patient_lastest_cond_and_treat)) {
+							    $lastest_cond_treat = $patient_lastest_cond_and_treat->fetch_assoc(); ?>
+							  	   <div style="float: right;">
+							  	       <span class="badge"><?php echo $lastest_cond_treat['date'] ?></span>
+							  	   </div>
+							       </h4>
+								   </div>
+								   <div class="panel-collapse">
+								     <div class="panel-body">
+									  	   <div class="row">
+									  		  <div class="col-md-12">
+									  			<b><p>Condition</p></b>
+									  			<p><?php echo isset($lastest_cond_treat['condition']) ? $lastest_cond_treat['condition'] : 'None recorded' ; ?></p>
+									  		  </div>
+									  	   </div>
+									  	   <hr style="width: 98%;">
+									  	   <div class="row">
+										  		<div class="col-md-6">
+										  			<b>Current Signs</b>
+										  		</div>
+										  		<div class="col-md-6">
+										  			<p><?php echo isset($lastest_cond_treat['symptom']) ? $lastest_cond_treat['symptom'] : 'None recorded' ; ?></p>
+										  			<!-- <p>Headacher</p> -->
+										  		</div>
+									  		</div>
+											<hr style="width: 98%;">
+											<div class="row">
+											   <div class="col-md-12">
+												    <b><p>Nurse's/Doctor's Notes</p></b>
+										  				<sm>some addtional details about the patient conditions</sm><br>
+													<small style="color: #99a6b2;"> - Dr. Whatever</small>
+											   </div>
+										   </div>
 					   <?php } else { ?>
 
 				   		<div class="alert alert-info" role="alert">
@@ -172,7 +176,7 @@ include 'header.php'
 						   	 </div>
 							 <hr style="width: 98%;">
 							 <div align="left" style="margin-left: 10px;">
-			  					<a href="#"><sm>View previous ...</sm></a>
+			  					<!-- <a href="#"><sm>View previous ...</sm></a> -->
 			  				 </div>
 
 						<?php } else { ?>
@@ -188,9 +192,7 @@ include 'header.php'
 					  </div>
 				  </div>
 			  	</div>
-
 			  </div>
-
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel-group" id="accordion">
@@ -206,7 +208,6 @@ include 'header.php'
 						        </div>
 						       </div>
 						    </div>
-
 						    <div class="panel panel-default">
 						      <div class="panel-heading">
 						        <h4 class="panel-title">
@@ -217,7 +218,7 @@ include 'header.php'
 						        <div class="panel-body">
 									<small id="passwordHelpBlock" class="form-text text-muted">
 									  Separate each sign with and comma if you want to add multiple
-								  </small
+									</small>
 						        </div>
 									<table class="table">
 										<thead>
@@ -231,14 +232,10 @@ include 'header.php'
 											</tr>
 										</thead>
 										<tbody>
-
 											<?php
-
 											if (empty($error) && $patient_lastest_cond_and_treat !== null) {
 												$patient_lastest_cond_and_treat->data_seek(0);
-												while ($row = $patient_lastest_cond_and_treat->fetch_assoc()):
-
-												?>
+												while ($row = $patient_lastest_cond_and_treat->fetch_assoc()): ?>
 													<tr>
 														<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 														<td><?php echo $row['date']; ?></td>
@@ -249,8 +246,6 @@ include 'header.php'
 														<td><?php echo $row['hospital']; ?></td>
 														<!-- <th><button type="submit" class="btn btn-link" name="submit" value="complete">complete</button></th> -->
 													</tr>
-
-
 											<?php endwhile; } ?>
 
 										</tbody>

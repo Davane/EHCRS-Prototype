@@ -1,4 +1,6 @@
 <?php
+define('APP_RAN', 'APP_RAN');
+
 include_once 'core/patient/patient.inc.php';
 is_session_started();
 
@@ -271,7 +273,7 @@ include 'header.php';
 						</div>
 			     </div>
 			</div>
-		
+
 </div>
 </div>
 

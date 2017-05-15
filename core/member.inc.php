@@ -1,29 +1,56 @@
 <?php
 
-function set_appointment($patient, $apptmentSetter, $hospital, $date, $time, $type = 'reg') {
+defined('APP_RAN') or header('Location: https://localhost/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
+
+
+function get_email_by_id($id)
+{
 
     global $connect;
 
     // the prepare for update
-    $stmt = $connect->prepare("CALL proc_set_appointment (?, ?, ?, ?, ?, ?);");
+    $stmt = $connect->prepare("CALL proc_get_email_by_id (?);");
 
     // bind string datatype to varaibles
-    $stmt->bind_param("ssssss", $patient, $apptmentSetter, $hospital, $date, $time, $type);
+    $stmt->bind_param("s", $id);
+
+    #executing and fetching he rows
+    $row = executeAndGetRowsFromSelectPreparedStatement($stmt);
+    $stmt->close();
+
+    if (array_key_exists('email', $row)){
+
+        return $row['email'];
+    }
+
+    return null;
+
+}
+
+function set_appointment($patient, $apptmentSetter, $hospital, $date, $time, $type = 'reg', $reason = 'N/A') {
+
+    global $connect;
+
+    // the prepare for update
+    $stmt = $connect->prepare("CALL proc_set_appointment (?, ?, ?, ?, ?, ?, ?);");
+
+    // bind string datatype to varaibles
+    $stmt->bind_param("sssssss", $patient, $apptmentSetter, $hospital, $date, $time, $type, $reason);
 
     #executing and fetching he rows
     $update = $stmt->execute();
 
     // var_dump($connect->error);
-    //var_dump($stmt->affected_rows);
+    // var_dump($stmt->affected_rows);
     // die();
 
     if($stmt->affected_rows > 0) {
-        #echo "string";
+        log_user_sign(get_user_id_from_session(), 'Appointment Set for patient ' . $patient . ' on ' . $date . ' at ' . $time);
         $stmt->close();
         return true;
     }
 
-    #echo "2222";
+    log_user_sign(get_user_id_from_session(), 'Attemp to set Appointment for patient ' . $patient . ' on ' . $date . ' at ' . $time);
     return false;
 
 }
@@ -108,11 +135,11 @@ function sign_in_member($id, $email, $password, $type) {
 
     # if sign in successful
     if ($signed_in) {
-        log_user_sign($id, '', 'sign_in');
+        log_user_sign($id, 'sign_in');
         return true;
     }
 
-    log_user_sign($id, '', 'sign_in_attempt');
+    log_user_sign($id, 'sign_in_attempt');
     return false;
 
 }
@@ -149,7 +176,9 @@ function add_new_member(&$connect, $address_id, $firstName, $lasttName, $middleN
 
     $member_insert = $stmt->execute();
 
-    var_dump($connect->error);
+    // var_dump($connect->error);
+    // var_dump('Member: ' . $connect->error);
+    // die();
 
     return $member_insert;
 }

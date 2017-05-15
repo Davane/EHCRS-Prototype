@@ -1,10 +1,17 @@
 <?php
-include 'patient-header.php';
+define('APP_RAN', 'APP_RAN');
 
 require_once 'core/physician/physician.inc.php';
+
+# user and session validation file
 require_once 'session-validation.php';
 
-#var_dump($_POST);
+# Access Contol File
+// define('PAGE_ACCESS_LEVEL', 2);
+// require_once 'core/access_control.php';
+
+
+
 
 $appointmentTime = ['24:00', '23:00', '22:00', '21:00', '20:00', '19:00', '18:00',
 	     		   	'17:00', '16:00', '15:00', '14:00', '13:00', '12:00', '11:00',
@@ -15,11 +22,13 @@ $monthNames = ["January", "February", "March",
 				"April", "May", "June", "July",
 				"August", "September", "October",
 				"November", "December"];
-// var_dump(get_hospital_id_from_name($_POST['hospital']));
+
+// var_dump($_POST);
+
+
 $state = array();
 
 if (isset($_POST['datepicker']) && isset($_POST['time_select']) && isset($_POST['hospital'])) {
-
 
 
 	$valid = false;
@@ -35,7 +44,8 @@ if (isset($_POST['datepicker']) && isset($_POST['time_select']) && isset($_POST[
 
 	} else if(get_current_user_type() === 'Medical') {
 
-		$patient = $who_set = get_user_id_from_session();
+		$patient = $_POST['id'];
+		$who_set = get_user_id_from_session();
 		$hospital = get_hospital_id_from_name($_POST['hospital']);
 		$valid = true;
 
@@ -52,18 +62,33 @@ if (isset($_POST['datepicker']) && isset($_POST['time_select']) && isset($_POST[
 		$monthIndex = array_search($dateArr[1], $monthNames) + 1;
 		$date = $dateArr[2] . '-' . (string)$monthIndex . '-' . $dateArr[0];
 
-		if(set_appointment($patient, $who_set, $hospital, $date, $_POST['time_select'])){
-			echo 'Appointment Set, Send email';
+		if(set_appointment($patient, $who_set, $hospital, $date, $_POST['time_select'], 'reg' ,$_POST['reason'])){
+			// echo 'Appointment Set, Send email';
+			$email = get_email_by_id($patient);
+
+			if ($email !==  null) {
+				gen_send_mail($email, "Appointment Set",
+				"An appointment was set for you on the " . $date . " at "
+				. $_POST['time_select'] . "\n You will be visting the " . $_POST['hospital']
+				 . " for " . $_POST['reason'] . "\n\n - HealthWise Your Medical Companion");
+			}
+
 			$state['success'] = true;
 
 		} else {
 			echo 'Appointment NOT Set';
-			$state['error'] = 'Error: Appoinemtn Failed to set';
+			$state['error'] = 'Error: Appoinemnt failed to set, That and time might already be taken';
 		}
 
 	}
 
 
+}
+
+if(get_current_user_type() === 'Patient') {
+	include_once 'patient-header.php';
+} else {
+	include_once 'header.php';
 }
 
  ?>
@@ -178,7 +203,15 @@ if (isset($_POST['datepicker']) && isset($_POST['time_select']) && isset($_POST[
 						</div>
 
 						<div class="col-md-6">
-							<h5>Select an available <b>time</b> to set your appointment for</h5>
+							<?php #var_dump(get_current_user_type()); ?>
+							<?php if (get_current_user_type() === "Medical"): ?>
+								<div class="col-md-6">
+									<h5>Enter Patient's ID</h5>
+									<input type="text" class="form-control" name="id" placeholder="Patient ID">
+								</div>
+							<?php endif; ?>
+							<div class="col-md-6">
+							<h5>Select a <b>Time</b></h5>
 							<select name='time_select' id="select_time" onchange="timeChange()" class="form-control custom-select">
 								<!-- <option value="1:30 pm" selected>1:30 pm</option> -->
 								<?php for ($i=0; $i < count($appointmentTime); $i++) {?>
@@ -186,16 +219,21 @@ if (isset($_POST['datepicker']) && isset($_POST['time_select']) && isset($_POST[
 									<option value="<?php echo $appointmentTime[$i]; ?>" ><?php echo $appointmentTime[$i]; ?></option>
 								<?php } ?>
 						   	</select>
-							<br>
+							</div>
+							<br> <br>
 						   <!-- <input id="date" type="text" class="form-control" name="date" value=""> -->
+						   	<div class="col-md-12">
 						   <h5>Select the <b>hospital</b> you want to visit for your appointment</h5>
 						   <select name='hospital' id="select_hospital" onchange="hospitalChange()" class="form-control custom-select">
 							   <option value="University Hospital" selected>University Hospital</option>
 							   <option value="Kingston Public">Kingston Public</option>
 						   </select>
+					   		</div>
+							<div class="col-md-12">
 						   <br>
 						   <h5>What is the reason for your visit</h5>
 						   <input type="text" class="form-control"  id="write_reason" onchange="reasonChange()" name="reason" value="" placeholder="(optional)">
+					   </div>
 						</div>
 						</div>
 						<br>

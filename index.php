@@ -1,14 +1,36 @@
 <?php
 
+//
+// echo $date;
+// echo $time;
+// die();
+
+
+define('APP_RAN', 'APP_RAN');
+
+
 require 'core/init.php';
+
+
+// is_session_started();
+// var_dump($_SESSION);
+
+
+
+
+# user and session validation file
+require_once 'session-validation.php';
+
+// # Access Contol File
+define('PAGE_ACCESS_LEVEL', 2);
+require_once 'core/access_control.php';
+
 if (get_current_user_type() == 'Patient') {
     header('Location: https://localhost/~davanedavis/EHCRS-Prototype/patient-info.php');
 }
-// is_session_started();
-// var_dump($_SESSION);
-// die();
 
-require_once 'session-validation.php';
+
+
 include 'header.php';
 
 ?>
@@ -37,59 +59,59 @@ include 'header.php';
                      "data": [
                         {
                            "label": "Clarendon",
-                           "value": "420000"
+                           "value": "42"
                         },
                         {
                            "label": "Portland",
-                           "value": "810000"
+                           "value": "81"
                         },
                         {
                            "label": "Hanover",
-                           "value": "720000"
+                           "value": "72"
                         },
                         {
                            "label": "Manchester",
-                           "value": "550000"
+                           "value": "55"
                         },
                         {
                            "label": "St. Thomas",
-                           "value": "910000"
+                           "value": "91"
                         },
                         {
                            "label": "Trewlawny",
-                           "value": "510000"
+                           "value": "51"
                         },
                         {
                            "label": "St. Mary",
-                           "value": "680000"
+                           "value": "68"
                         },
                         {
                            "label": "St. Mary",
-                           "value": "620000"
+                           "value": "62"
                         },
                         {
                            "label": "St. Ann",
-                           "value": "610000"
+                           "value": "61"
                         },
                         {
                            "label": "St. Elizabeth",
-                           "value": "490000"
+                           "value": "49"
                         },
                         {
                            "label": "St. Catherine",
-                           "value": "900000"
+                           "value": "90"
                         },
                         {
                            "label": "Westmoreland",
-                           "value": "730000"
+                           "value": "73"
                         },
                         {
                            "label": "St. James",
-                           "value": "730000"
+                           "value": "73"
                         },
                         {
                            "label": "St. Andrew",
-                           "value": "730000"
+                           "value": "73"
                         }
                       ]
                   }
@@ -173,9 +195,9 @@ include 'header.php';
 
                       "chart": {
                         "caption": "Monthly revenue for last year",
-                        "subCaption": "Harry's SuperMart",
+                        "subCaption": "Across All Hospil's",
                         "xAxisName": "Month",
-                        "yAxisName": "Revenues (In USD)",
+                        "yAxisName": "Revenues (In JMD)",
                         "theme": "fint"
                      },
                      "data": [
@@ -401,7 +423,7 @@ include 'header.php';
                   <div class="card-block">
                     <h3 class="card-title">New Illness For Patient</h3>
                     <p class="card-text">Update pateint medical information by adding new sickness.</p>
-                    <a href="add-medical-history" class="btn btn-primary">New Illness</a>
+                    <a href="add-medical-history.php" class="btn btn-primary">New Illness</a>
                   </div>
                 </div>
               </div>

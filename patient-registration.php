@@ -1,18 +1,24 @@
 
 <?php
-// var_dump($_POST);
-// var_dump($_FILES);
+
+define('APP_RAN', 'APP_RAN');
 
 require_once 'core/physician/physician.inc.php';
-// require_once 'session-validation.php';
+
+# user and session validation file
+require_once 'session-validation.php';
+
+# Access Contol File
+define('PAGE_ACCESS_LEVEL', 4);
+require_once 'core/access_control.php';
+
 
 is_session_started();
 
 $error = array();
 
 
-
-// $error = register_patient($error);
+// var_dump($_POST);
 
 # verify the physician infromation entered into the modal
 if(isset($_POST['medical_id']) && isset($_POST['password'])){
@@ -39,6 +45,8 @@ if(isset($_POST['medical_id']) && isset($_POST['password'])){
 		// echo " Credentials wrong";
 		$error['credentials'] = "Credentials wrong";
 	}
+} else if (isset($_POST['submit']) && $_POST['submit'] === 'submit') {
+	$error['credentials'] = "Credentials Empty";
 }
 
 
@@ -74,8 +82,8 @@ function register_patient($error) {
 				'TEXT-parish-16'      => $_POST['parish'],
 				'TEXT-kin-54'         => $_POST['kin'],
 				'TEXT-relationship-12'  => $_POST['relationship'],
-				'TEXT-mother_name-`24'   => $_POST['mother_name'],
-				'TEXT-father_name-24'   => $_POST['father_name'],
+				'TEXT-mother_name-48'   => $_POST['mother_name'],
+				'TEXT-father_name-48'   => $_POST['father_name'],
 				'TEXT-employer_name-45' => $_POST['employer_name'],
 				'TEXT-emp_address-26'   => $_POST['emp_address'],
 				'TEXT-emp_parish-26'    => $_POST['emp_parish'],
@@ -92,7 +100,7 @@ function register_patient($error) {
 
 		$error = gen_validate_inputs($items);
 
-		#var_dump($error);
+		// var_dump($error);
 
 		if (empty($error)) {
 
@@ -108,6 +116,10 @@ function register_patient($error) {
 										 $_POST['father_name'],	$_POST['mother_name'], ''/*birth_place*/, ''/*birth_parish*/, $_POST['union'],
 										 $_POST['height'], $_POST['weight'], $_POST['temp'], $_POST['pulse'],$_POST['resp'], $_POST['bp'],
 										 $_POST['urinalysis'], $_POST['condition']);
+
+			if (!empty($error)) {
+				log_user_sign(get_user_id_from_session(), 'Attempted to register a new patient');
+			}
 
 
 		}
@@ -468,7 +480,7 @@ include 'header.php';
 
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        <button type="submit" class="btn btn-primary">Sign & Register Patient</button>
+				        <button type="submit" class="btn btn-primary" name="submit" value="submit">Sign & Register Patient</button>
 				      </div>
 
 				    </div>

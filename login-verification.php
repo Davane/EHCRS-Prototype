@@ -1,73 +1,79 @@
 <?php
+define('APP_RAN', 'APP_RAN');
 
-    
-    require_once 'core/patient/patient.inc.php';
+require_once 'core/patient/patient.inc.php';
 
-    require_once 'session-validation.php';
+# user and session validation file
+require_once 'session-validation.php';
 
-	$error = array();
-    $info = array();
-    # Starting session
-    is_session_started();
-
-    # check if patient seesion was set
-    if(get_user_id_from_session() != null) {
-
-        $user_id = get_user_id_from_session() ;
-
-        if (isset($_POST['code'])) {
-            if(!empty($_POST['code'])){
-
-                $code = trim($_POST['code']);
-                # read from session to get ID;
-                if(confirm_verification($user_id, $code)) {
-
-                    set_session(USER_VERIFIED, 'true');
-
-                    #check if patient of physician
-                    if(get_current_user_type() != null && get_current_user_type() == 'Patient') {
-
-                        header('Location: patient-info.php');
-
-                    } else if (get_current_user_type() != null && get_current_user_type() == 'Medical') {
-
-                        # check if clerk of doctor or nurse and
-                        # present them with a different page if necesaary
-                        header('Location: https://localhost/~davanedavis/EHCRS-Prototype/index.php');
-
-                    } else {
-                        $error['unknown-error'] = "An unknown-error Occured";
-                    }
+// # Access Contol File
+// define('PAGE_ACCESS_LEVEL', 2);
+// require_once 'core/access_control.php';
 
 
-                } else  {
-                    #echo 'Invalid Code';
-                	$error['invalid_code'] = 'Invalid Code';
+$error = array();
+$info = array();
+# Starting session
+is_session_started();
+
+# check if patient seesion was set
+if(get_user_id_from_session() != null) {
+
+    $user_id = get_user_id_from_session() ;
+
+    if (isset($_POST['code'])) {
+        if(!empty($_POST['code'])){
+
+            $code = trim($_POST['code']);
+            # read from session to get ID;
+            if(confirm_verification($user_id, $code)) {
+
+                set_session(USER_VERIFIED, 'true');
+
+                #check if patient of physician
+                if(get_current_user_type() != null && get_current_user_type() == 'Patient') {
+
+                    header('Location: patient-info.php');
+
+                } else if (get_current_user_type() != null && get_current_user_type() == 'Medical') {
+
+                    # check if clerk of doctor or nurse and
+                    # present them with a different page if necesaary
+                    header('Location: https://localhost/~davanedavis/EHCRS-Prototype/index.php');
+
+                } else {
+                    $error['unknown-error'] = "An unknown-error Occured";
                 }
-            } else {
-                $error['field_empty'] = 'Field Cannot Be Empty';
+
+
+            } else  {
+                #echo 'Invalid Code';
+            	$error['invalid_code'] = 'Invalid Code';
             }
-
-        } else if (isset($_GET['send'])) {
-
-                # send email again
-                #echo 'send again';
-                unset($_GET['send']);
-
-                if(generate_and_send_verification_code_by_email(get_user_id_from_session())) {
-                    $info['sent_again'] = 'Sent';
-                }
-
         } else {
-            #echo 'Not Set';
-
+            $error['field_empty'] = 'Field Cannot Be Empty';
         }
 
+    } else if (isset($_GET['send'])) {
+
+            # send email again
+            #echo 'send again';
+            unset($_GET['send']);
+
+            if(generate_and_send_verification_code_by_email(get_user_id_from_session())) {
+                $info['sent_again'] = 'Sent';
+            }
+
     } else {
-        echo " Session Not Set";
-        header('Location: sign-up.php');
+        #echo 'Not Set';
+
     }
-    # 5. create seesions with encrypted id
+
+} else {
+    echo " Session Not Set";
+    header('Location: sign-up.php');
+}
+# 5. create seesions with encrypted id
 
 ?>
 

@@ -1,4 +1,5 @@
 <?php
+define('APP_RAN', 'APP_RAN');
 
 if (!isset($_POST['access']) || $_POST['access'] != '1') {
     die();

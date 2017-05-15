@@ -1,4 +1,7 @@
 <?php
+
+define('APP_RAN', 'APP_RAN');
+
 // require 'header-styles.php';
 require_once 'core/init.php';
 require_once 'core/patient/patient.inc.php';

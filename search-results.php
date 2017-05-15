@@ -1,10 +1,11 @@
 <?php
 
+define('APP_RAN', 'APP_RAN');
 
 require_once 'core/physician/physician.inc.php';
 
 
- is_session_started();
+// is_session_started();
 
 #echo 'SEARCH RESULTS ';
 // var_dump($_SESSION);
@@ -23,24 +24,29 @@ if(!empty($_POST)) {
         switch ($action) {
             case 'view':
                     echo "view";
+                    header('location: patient-record.php');
+
                     break;
             case 'edit':
                     echo 'edit';
                     header('location: edit-medical-history.php');
                     break;
-            case 'transfer':
-                    echo 'transfer';
-                break;
-            case 'admit':
+            case 'add':
                     echo 'add';
                     header('location: add-medical-history.php');
                 break;
+            // case 'transfer':
+            //         echo 'transfer';
+            //     break;
+
             default:
                 # code...
                 break;
         }
 
     } else if(!empty($_POST['query'])){
+
+        log_user_sign(get_user_id_from_session(), 'A search was done for ' . $_POST['query']);
 
         $search_query = gen_strip_tags_for_display($_POST['query']);
 
@@ -120,8 +126,8 @@ include './header.php';
                           <li><button class="btn btn-link" type="submit" name="submit" value='view'>View Record</button></li>
                           <li>&#0149;</li>
                           <li><button class="btn btn-link" type="submit" name="submit" value='add'>Add Condition Patient</button></li>
-                          <li>&#0149;</li>
-                          <li><button class="btn btn-link" type="submit" name="submit" value='transfer'>Tranfer Record</button></li>
+                          <!-- <li>&#0149;</li>
+                          <li><button class="btn btn-link" type="submit" name="submit" value='transfer'>Tranfer Record</button></li> -->
                          <!-- <li><a href="#">Admit Patient</a></li> -->
                         </ul>
                    </div>

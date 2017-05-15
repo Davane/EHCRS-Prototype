@@ -1,5 +1,18 @@
 <?php
+
+define('APP_RAN', 'APP_RAN');
+
 include_once 'core/patient/patient.inc.php';
+
+# user and session validation file
+require_once 'session-validation.php';
+
+# Access Contol File
+define('PAGE_ACCESS_LEVEL', 3);
+require_once 'core/access_control.php';
+
+
+
 // <script>alert('test');</script>
 $nameSet = null;
 $status = null;
@@ -18,7 +31,7 @@ if($id = get_value_from_session('key')) {
 
 	if(!empty($_POST)) {
 
-		 var_dump($_POST);
+		//  var_dump($_POST);
 
 		$items = array(
 				'TEXT-firstName-26-required'  => $_POST['firstName'],
@@ -29,7 +42,7 @@ if($id = get_value_from_session('key')) {
 				'TEXT-trn-15'        => $_POST['trn'],
 				'TEXT-dob-26'        => $_POST['dob'],
 				'INT-age-26'         => $_POST['age'],
-				'TEXT-gender-5'       => $_POST['gender'],
+				'TEXT-gender-6'       => $_POST['gender'],
 				'TEXT-tel_no-15'  => $_POST['tel_no'],
 				'TEXT-street-64' => $_POST['street'],
 				'TEXT-parish-16'      => $_POST['parish'],
@@ -50,17 +63,25 @@ if($id = get_value_from_session('key')) {
 
 		if (empty($error)) {
 			# update personal info
-			$status = update_personal_info($id, $_POST['firstName'], $_POST['middleName'],
-										  $_POST['lastName'],   $_POST['maidenName'],
-										  $_POST['email'],      $_POST['trn'],
-			                              $_POST['gender'],     $_POST['dob'],
-										  $_POST['tel_no'],     $_POST['age'],
-										  $_POST['kin'],        $_POST['relationship'], $_POST['union'],
-										  $_POST['street'],     $_POST['parish'], 'ja',
-										  $_POST['employer'],   $_POST['occupation'],
-			                              $_POST['emp_tel_no'], $_POST['policy'],
-										  $_POST['emp_street'], $_POST['emp_parish'], 'ja');
+            // echo
+            date_default_timezone_set('Jamaica');
+            $unformated_date = date_create($_POST['dob']);
+            $date = date_format($unformated_date, "Y-m-d");
 
+            if ($date !== null) {
+                $status = update_personal_info($id, $_POST['firstName'], $_POST['middleName'],
+                                              $_POST['lastName'],   $_POST['maidenName'],
+                                              $_POST['email'],      $_POST['trn'],
+                                              $_POST['gender'],     $date,
+                                              $_POST['tel_no'],     $_POST['age'],
+                                              $_POST['kin'],        $_POST['relationship'], $_POST['union'],
+                                              $_POST['street'],     $_POST['parish'], 'ja',
+                                              $_POST['employer'],   $_POST['occupation'],
+                                              $_POST['emp_tel_no'], $_POST['policy'],
+                                              $_POST['emp_street'], $_POST['emp_parish'], 'ja');
+            } else {
+                $error['error'] = 'Invaild Date format Contact Administrator'; 
+            }
 		}
 
 

@@ -1,4 +1,5 @@
 <?php
+    define('APP_RAN', 'APP_RAN');
 
     include 'core/init.php';
     $reason = get_value_from_session(REASON);

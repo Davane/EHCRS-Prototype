@@ -35,9 +35,7 @@ require 'header-styles.php' ?>
 	                        		<div class="row">
 	                        			<div class="col-xs-12">
 
-	                            			<input style="height: 25px;" type="text" class="form-control" id="ipt"
-											placeholder="Search for Patient..." name="q">
-
+	                            			<a href="https://localhost/~davanedavis/EHCRS-Prototype/set-appointment.php">Set Appoinments</a>
 
 	                        			</div>
 	                        		</div>
@@ -45,9 +43,9 @@ require 'header-styles.php' ?>
 
 	                        </form>
 	                    </li>
-	                    <li>
+	                    <!-- <li>
 	                        <span id="header-search" class="visible-lg"><i class="fa fa-search" aria-hidden="true"></i></span>
-	                    </li>
+	                    </li> -->
 	                    <!--<li class="avatar">
 	                        <div class="circle">
 

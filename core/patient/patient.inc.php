@@ -1,5 +1,8 @@
 <?php
 
+defined('APP_RAN') or header('Location: https://localhost/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
+// define('APP_RAN', 'APP_RAN');
+
 # including 'init.php'
 require_once(dirname(__FILE__) . '/../init.php');
 require_once(dirname(__FILE__) . '/../member.inc.php');
@@ -235,6 +238,15 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
                                         if(generate_activation_code_and_email($connect, $member_id, $email, $firstname, $lastname)){
                                             #echo "REGISTERED";
 
+                                            log_user_sign(get_user_id_from_session(), 'New Patient was Registered with ID ' . $member_id);
+
+                                            // Change the line below to your timezone!
+                                            date_default_timezone_set('Jamaica');
+                                            $date = date('Y-m-d', time());
+                                            $time = date('H:i:s', time());
+
+                                            set_appointment($member_id, $physician_id, $hospital_id, $date, $time, 'wait');
+
                                             $connect->commit();
 
                                             set_session('user', $member_id);
@@ -288,6 +300,7 @@ function pateint_registration_process($firstname, $middleName ='', $lastname,
         }
 
     } else {
+
         // echo "Pateint Address Wrong error:" . $connect->error;
         $error['error'] = 'Pateint Address  Error';
     }
@@ -321,9 +334,10 @@ function generate_activation_code_and_email(&$connect = null, $member_id, $email
 
     if ($activation_code_inserted) {
 
-        gen_send_mail($email,
-                      "Account Activation",
-                      "Hello ". $firstname ." ". $lastname .",\n\nclick the link below to activate your account \n\nhttps://localhost/~davanedavis/EHCRS-Prototype/activate_account.php?x=". $email ."&code=". $activation_code ."
+        $ip = '192.168.43.157';// $_SERVER['SERVER_ADDR'];
+
+        gen_send_mail($email, "Account Activation",
+                      "Hello ". $firstname ." ". $lastname .",\n\nclick the link below to activate your account \n\nhttps://". $ip ."/~davanedavis/EHCRS-Prototype/activate_account.php?x=". $email ."&code=". $activation_code ."
                         \n\n\t- Healthwise Interconnected Health Record System");
         return true;
     } else {

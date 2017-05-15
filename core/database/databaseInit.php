@@ -1,5 +1,7 @@
 <?php
 
+defined('APP_RAN') or header('Location: https://localhost/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
+
 # Author: Davane Davis
 # Date January 20, 2017
 

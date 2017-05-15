@@ -1,5 +1,6 @@
 <?php
 
+define('APP_RAN', 'APP_RAN');
 
 require_once(dirname(__FILE__) . '/../init.php');
 
@@ -7,13 +8,11 @@ $command = isset($_POST['command']) ? $_POST['command'] : "";
 $email   = isset($_POST['email']) ? $_POST['email'] : "";
 $qr      = isset($_POST['qr']) ? $_POST['qr'] : "";
 
+$verified = 'failed';
 
 if($command === 'login_user') {
 
     $verified = changeUserLoginWithQrVerifivationStatus($email, $qr, '1') ? 'success' : 'failed';
-
-} elseif ($command === 'login_user') {
-
 
 }
 
@@ -41,8 +40,7 @@ function changeUserLoginWithQrVerifivationStatus($email, $qr, $status){
     # executing and fetching he rows
     $stmt->execute();
 
-    echo $stmt->error;
-
+    // echo $stmt->error;
 
     $select = $connect->query('SELECT @updated');
     $result = $select->fetch_assoc();

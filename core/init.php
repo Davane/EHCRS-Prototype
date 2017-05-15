@@ -1,4 +1,5 @@
 <?php
+    defined('APP_RAN') or header('Location: https://localhost/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
 
     $ERRORS = array();
 

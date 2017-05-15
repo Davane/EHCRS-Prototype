@@ -1,6 +1,9 @@
 <?php
+    define('APP_RAN', 'APP_RAN');
+
+
     require_once 'session-validation.php';
-    // include_once 'core/init.php';
+    include_once 'core/init.php';
 
     $type = '';
 
@@ -9,9 +12,11 @@
         $type = $_GET['type'];
 
     }
+
     is_session_started();
-    // var_dump($_SESSION);
-    include 'patient-header.php';
+
+
+    include 'header.php';
 ?>
 
      <div id="wrapper">

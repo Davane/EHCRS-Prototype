@@ -1,7 +1,15 @@
 <?php
+define('APP_RAN', 'APP_RAN');
+
 include_once 'core/physician/physician.inc.php';
 
-// var_dump($_POST);
+# user and session validation file
+require_once 'session-validation.php';
+
+# Access Contol File
+define('PAGE_ACCESS_LEVEL', 3);
+require_once 'core/access_control.php';
+
 
 $resultSet = get_all_patient_and_id();
 $state = array();
@@ -21,15 +29,15 @@ if(isset($_POST['medical_id']) && isset($_POST['password'])){
 			if (isset($_POST['patient'])) {
 
 				$patient_id = explode("-", $_POST['patient'])[1];
-				$condition = $_POST['condition'];
-				$signs = $_POST['signs'];
-				$height = $_POST['height'];
-				$weight = $_POST['weight'];
-				$temp = $_POST['bp'];
-				$pulse = $_POST['temp'];
-				$bp = $_POST['pulse'];
-				$resp = $_POST['resp'];
-				$unrine = $_POST['urinalysis'];
+				$condition  = $_POST['condition'];
+				$signs      = $_POST['signs'];
+				$height     = $_POST['height'];
+				$weight     = $_POST['weight'];
+				$temp       = $_POST['bp'];
+				$pulse      = $_POST['temp'];
+				$bp         = $_POST['pulse'];
+				$resp       = $_POST['resp'];
+				$unrine     = $_POST['urinalysis'];
 
 				$hospital_id = get_physician_work_place($phys_id);
 
@@ -48,23 +56,27 @@ if(isset($_POST['medical_id']) && isset($_POST['password'])){
 						$type = 'em';
 					}
 
-					set_appointment($patient_id, $phys_id, $hospital_id, $today, $time, $type);
+					set_appointment($patient_id, $phys_id, $hospital_id, $today, $time, $type, $condition);
+
+					log_user_sign(get_user_id_from_session(), 'Add New Medical History Data for ' . $patient_id);
 
 					# saving all the changes name to the database;
 					$connect->commit();
+
+
 				}
 
 			} else {
-				echo "Select an appropriate patient";
+				// echo "Select an appropriate patient";
 				$state['error'] = "Select an appropriate patient";
 			}
 		} else {
-			echo "Credentials wrong";
+			// echo "Credentials wrong";
 			$state['error'] = "Physician's credentials wrong";
 		}
 
 	} else {
-		echo " Credentials wrong";
+		// echo " Credentials wrong";
 		$state['error'] = "Physician's credentials wrong";
 	}
 }
@@ -199,7 +211,7 @@ include 'header.php';
 
 							  <div class="modal-body">
 								  <p>Enter your account credential before you can continue</p>
-						       	<input type="text" value="<?php echo get_user_id_from_session() == null ? "": get_user_id_from_session() ; ?>" class="form-control" name="medical_id" placeholder='Medial ID' required>
+						       	<input type="text" value="<?php echo get_user_id_from_session() == null ? "": get_user_id_from_session() ; ?>" class="form-control" name="medical_id" placeholder='Medial ID' required readonly>
 								<input type="password" class="form-control" name="password" placeholder='Password' required>
 						      </div>
 

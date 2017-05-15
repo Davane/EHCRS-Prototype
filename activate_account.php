@@ -1,4 +1,7 @@
 <?php
+define('APP_RAN', 'APP_RAN');
+
+
 include_once 'core/patient/patient.inc.php';
 
 

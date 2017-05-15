@@ -1,5 +1,6 @@
 <?php
 
+defined('APP_RAN') or header('Location: https://localhost/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
 # SESSION
 
 function set_sign_in_session($id, $type, $time) {
@@ -91,7 +92,7 @@ function destroy_session_value($key){
 function gen_send_mail($to, $subject, $message){
 
     // In case any of our lines are larger than 70 characters, we should use wordwrap()
-    $message = wordwrap($message, 70, "\r\n");
+    $message = wordwrap($message, 120, "\r\n");
     mail($to, $subject, $message /*, $headers*/);
 }
 
@@ -251,5 +252,11 @@ function get_pro_pic($p_url)
     }
 
     return $url;
+}
+
+
+
+function getFilenameToUpperCase(){
+    return strtoupper(basename($_SERVER['PHP_SELF'], '.php'));
 }
 ?>

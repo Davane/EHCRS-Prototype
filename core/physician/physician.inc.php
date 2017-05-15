@@ -1,7 +1,41 @@
 <?php
 
+defined('APP_RAN') or header('Location: https://localhost/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
+// define('APP_RAN', 'APP_RAN');
+
 require_once(dirname(__FILE__) . '/../init.php');
 require_once(dirname(__FILE__) . '/../member.inc.php');
+
+
+function update_condition($med_id, $condition) {
+
+    if(!is_all_empty($condition))
+
+        global $connect;
+
+        // the prepare for update
+        $stmt = $connect->prepare("CALL proc_update_condition (?, ?);");
+
+        // bind string datatype to varaibles
+        $stmt->bind_param("ss", $med_id, $condition);
+
+        #executing and fetching he rows
+        $stmt->execute();
+
+        #var_dump($connect->error);
+        #var_dump($stmt->affected_rows);
+
+        if($stmt->affected_rows > 0) {
+            log_user_sign(get_user_id_from_session(), 'Update condition to ' . $condition . ' for Medical history of ' . $med_id);
+            $stmt->close();
+            return true;
+        }
+
+        log_user_sign(get_user_id_from_session(), 'Attempt to update condition to ' . $condition . ' for Medical history of ' . $med_id);
+        return false;
+
+}
+
 
 function update_vtials($vitals_id, $height, $weight, $temp, $pulse, $bp, $resp, $urine){
 
@@ -19,10 +53,12 @@ function update_vtials($vitals_id, $height, $weight, $temp, $pulse, $bp, $resp, 
         $update = $stmt->execute();
 
         if($stmt->affected_rows > 0) {
+            log_user_sign(get_user_id_from_session(), 'Update vitals of ID ' . $vitals_id);
             $stmt->close();
             return true;
         }
 
+        log_user_sign(get_user_id_from_session(), 'Attempt vitals update of ID ' . $vitals_id);
         #var_dump($connect->error);
         return false;
 
@@ -48,10 +84,12 @@ function update_sign_and_symtpom($sign_id, $sign){
         $update = $stmt->execute();
 
         if($stmt->affected_rows > 0) {
+            log_user_sign(get_user_id_from_session(), 'Update sign and symptom of ID ' . $sign_id);
             $stmt->close();
             return true;
         }
 
+        log_user_sign(get_user_id_from_session(), 'Attempt sign and symptom update of ID ' . $sign_id);
         #var_dump($connect->error);
         return false;
 
@@ -73,15 +111,18 @@ function update_treatment($treat_id, $treat){
 
         // bind string datatype to varaibles
         $stmt->bind_param("ss", $treat_id, $treat);
+        $stmt->execute();
 
-        #executing and fetching he rows
-        $update = $stmt->execute();
+        // var_dump($connect->error);
+        // die();
 
         if($stmt->affected_rows > 0) {
+            log_user_sign(get_user_id_from_session(), 'Treatment update of ID ' . $treat_id);
             $stmt->close();
             return true;
         }
 
+        log_user_sign(get_user_id_from_session(), 'Attempt Treatment update of ID ' . $treat_id);
         #var_dump($connect->error);
         return false;
 
@@ -108,10 +149,13 @@ function update_medication($med_id, $med, $dosage, $type, $cat){
         $update = $stmt->execute();
 
         if($stmt->affected_rows > 0) {
+            log_user_sign(get_user_id_from_session(), 'medication update of ID ' . $med_id);
+
             $stmt->close();
             return true;
         }
 
+        log_user_sign(get_user_id_from_session(), 'Attempt medication update of ID ' . $med_id);
         // var_dump($connect->error);
         return false;
 
@@ -310,11 +354,13 @@ function update_personal_info($patient_id, $firstname, $middlename, $lastname,
     // die();
 
     if($update) {
+        log_user_sign(get_user_id_from_session(), 'Update patient info of ID ' . $patient_id);
         $connect->commit();
         $stmt->close();
         return true;
     }
 
+    log_user_sign(get_user_id_from_session(), 'Attempt to update patient info of ID ' . $patient_id);
     return false;
 }
 
@@ -365,14 +411,15 @@ function search_for_patient($search_query){
     $select = $stmt->execute();
 
     if (!$select) {
-        echo 'Not selected';
+        return null;
     }
 
     $resultSet = $stmt->get_result();
 
     if ($resultSet == null) {
 		/*  Handle error */
-		echo "ResultSet == null" ;
+		// echo "ResultSet == null" ;
+        return null;
 
 	 }
 
@@ -605,12 +652,12 @@ function add_new_sign_and_sympton($med_id, $physician_id, $sign){
         // die();
 
         if($stmt->affected_rows > 0) {
-            #echo "string";
+            log_user_sign(get_user_id_from_session(), 'Added new Sign and Symptom');
             $stmt->close();
             return true;
         }
 
-        #echo "2222";
+        log_user_sign(get_user_id_from_session(), 'Attempt to added new Sign and Symptom');
         return false;
 
     } else {
@@ -626,7 +673,7 @@ function add_new_treatment($med_id, $physician_id, $treat){
     if(!is_all_empty($med_id, $physician_id, $treat)) {
 
         // the prepare for update
-        $stmt = $connect->prepare("CALL proc_enter_new_sign_and_symptom (?, ?, ?);");
+        $stmt = $connect->prepare("CALL proc_enter_new_treatment (?, ?, ?);");
 
         // bind string datatype to varaibles
         $stmt->bind_param("sss", $med_id, $physician_id, $treat);
@@ -639,10 +686,12 @@ function add_new_treatment($med_id, $physician_id, $treat){
         // die();
 
         if($stmt->affected_rows > 0) {
+            log_user_sign(get_user_id_from_session(), 'Added new Treatment');
             $stmt->close();
             return true;
         }
 
+        log_user_sign(get_user_id_from_session(), 'Attempt to add new Treatment');
         return false;
 
     } else {
@@ -657,7 +706,7 @@ function add_new_medication($med_id, $physician_id, $med, $dosage, $type, $categ
     if(!is_all_empty($med_id, $physician_id, $med, $dosage, $type, $category)) {
 
         // the prepare for update
-        $stmt = $connect->prepare("CALL proc_enter_new_sign_and_symptom (?, ?, ?, ?, ?, ?);");
+        $stmt = $connect->prepare("CALL proc_enter_new_medication (?, ?, ?, ?, ?, ?);");
 
         // bind string datatype to varaibles
         $stmt->bind_param("ssssss", $med_id, $physician_id, $med, $dosage, $type, $category);
@@ -670,10 +719,12 @@ function add_new_medication($med_id, $physician_id, $med, $dosage, $type, $categ
         // die();
 
         if($stmt->affected_rows > 0) {
+            log_user_sign(get_user_id_from_session(), 'Added new Medication');
             $stmt->close();
             return true;
         }
 
+        log_user_sign(get_user_id_from_session(), 'Added new Medication');
         return false;
 
     } else {
@@ -697,7 +748,8 @@ function create_new_medical_record(&$connect = null, $pateint_id, $hospital_id, 
 
     $stmt->execute();
 
-    // echo $connect->error;
+    // var_dump('medical history: '.$connect->error);
+    // die();
 
     if($stmt->affected_rows > 0) {
         $stmt->close();
@@ -729,9 +781,10 @@ function enter_new_pateint(&$connect = null,$member_id, $emp_info_id, $pet_name,
                             $relationship, $religion, $father_name, $mother_name, $birth_place,
                     $birth_parish, $union);
 
-    $patient_insert = $stmt->execute();
+    $stmt->execute();
 
-    // var_dump($connect->error);
+    // var_dump('new patient: ' . $connect->error);
+    // die();
 
     if($stmt->affected_rows > 0) {
         $stmt->close();
@@ -755,11 +808,12 @@ function register_pateint(&$connect = null, $pateint_id, $clerk_id, $hospital_id
     // bind string datatype to varaibles
     $stmt->bind_param("iiii", $pateint_id, $clerk_id, $hospital_id, $physician_id);
 
-    $register_insert = $stmt->execute();
-    //
-    // var_dump($connect->error);
+    $stmt->execute();
+
+
+    // var_dump('Register: ' . $connect->error);
     // die();
-    // return $register_insert;
+
     if($stmt->affected_rows > 0) {
         $stmt->close();
         return true;
@@ -783,17 +837,20 @@ function enter_new_vitals(&$connect = null, $medical_id, $who_recorded, $height 
 
         // bind string datatype to varaibles
         $stmt->bind_param("sssssssss", $medical_id, $who_recorded, $height, $weight, $temp, $pulse, $resp, $bp, $urinalysis);
+        $stmt->execute();
 
-        $vitals_insert = $stmt->execute();
 
-        // echo $connect->error;
+        // var_dump('Vitals: ' . $connect->error);
+        // die();
 
-        // return $vitals_insert;
 
         if($stmt->affected_rows > 0) {
+            log_user_sign(get_user_id_from_session(), 'Added new vitals');
             $stmt->close();
             return true;
         }
+
+        log_user_sign(get_user_id_from_session(), 'Attempt to add new vitals');
         return false;
 
     } else {
@@ -817,10 +874,11 @@ function enter_new_conditions(&$connect = null, $condition, $medical_id) {
         // bind string datatype to varaibles
         $stmt->bind_param("ss", $condition, $medical_id);
 
-        $emp_insert = $stmt->execute();
+        $stmt->execute();
 
+        // var_dump('condition: ' . $stmt->error);
+        // die();
 
-        // return $emp_insert;
         if($stmt->affected_rows > 0) {
             $stmt->close();
             return true;
@@ -860,10 +918,11 @@ function enter_new_employee_info(&$connect = null, $address_id = null, $insuranc
         // bind string datatype to varaibles
         $stmt->bind_param("ssssss", $address_id, $insurance_id, $emp_name, $occupation, $tel_no, $policy);
 
-        $emp_insert = $stmt->execute();
+        $stmt->execute();
 
-        #echo $connect->error;
-        // return $emp_insert;
+        // var_dump('Emp: ' . $connect->error);
+        // die();
+
         if($stmt->affected_rows > 0) {
             $stmt->close();
             return true;
@@ -897,6 +956,9 @@ function enter_new_address(&$connect = null, $street_name = '', $parish = '', $c
         $stmt->bind_param("sss", $street_name, $parish, $country);
 
         $address_insert = $stmt->execute();
+
+        // var_dump('New Address: ' . $connect->error);
+        // die();
 
         if($stmt->affected_rows > 0) {
             $stmt->close();

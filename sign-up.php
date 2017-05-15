@@ -1,5 +1,7 @@
 <?php
-
+define('APP_RAN', 'APP_RAN');
+// var_dump(dirname(__FILE__).'/unauthorized_access.php');
+// die();|
 # checking to see whether the user is a patient or a physician
 	$type_filter = array(
 			'Patient' => 'Patient',

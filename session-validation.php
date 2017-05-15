@@ -1,12 +1,14 @@
 <?php
 
+    defined('APP_RAN') or header('Location: https://localhost/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
+
     require_once 'core/init.php';
     require_once 'core/member.inc.php';
 
     $error = array();
 
     if (get_user_id_from_session() !== null) {
-
+    
         if(validate_user_from_session(get_user_id_from_session(), get_current_user_type(), get_session_id())) {
 
             if (!is_user_verified() && !is_user_qr_verified()) {
@@ -41,7 +43,6 @@
         // echo 'Session not set';
         set_session(REASON, 'no-user');
         header('Location: login-redirect.php');
-
     }
 
 

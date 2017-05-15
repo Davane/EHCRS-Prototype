@@ -28,14 +28,12 @@
                 <div class="collapse navbar-collapse" id="nav-bar-mobile-menu">
                     <ul class="nav navbar-nav navbar-right navbar-header">
                         <li>
-                            <form class="navbar-form" role="search">
+                            <form action="https://localhost/~davanedavis/EHCRS-Prototype/search-results.php" method="POST" class="navbar-form" role="search">
                             	<div class="form-group">
                             		<div class="row">
                             			<div class="col-xs-12">
 
-                                			<input type="text" class="form-control" id="ipt"
-											placeholder="Search for Patient..." name="q">
-
+                                			<input type="text" name="query" class="form-control" id="ipt" placeholder="Search for Patient...">
 
                             			</div>
                             		</div>
@@ -104,8 +102,8 @@
                     <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/patient-registration.php">Register Patient</a></li>
                     <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/search-results.php">Find Patient</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/edit-personal-info.php">Update Patient Personal Info</a></li>
-                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/edit-medical-history.php">Update Patient Condtion</a></li>
+                    <!-- <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/edit-personal-info.php">Update Patient Personal Info</a></li> -->
+                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/add-medical-history.php">Add Patient Condtion</a></li>
                   </ul>
                 </li>
                 <li class="divider-vertical"></li>
