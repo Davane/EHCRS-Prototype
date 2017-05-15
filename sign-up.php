@@ -1,41 +1,78 @@
 <?php
-
-
-	#var_dump($_POST);
-	#var_dump($_GET);
-	
-	# checking to see whether the user is a patient or a physician
+define('APP_RAN', 'APP_RAN');
+// var_dump(dirname(__FILE__).'/unauthorized_access.php');
+// die();|
+# checking to see whether the user is a patient or a physician
 	$type_filter = array(
 			'Patient' => 'Patient',
 			'Medical' => 'Medical');
 
 	$type = '';
+	$error = array();
 
+	# checking if the type of login was set
 	if (!empty($_GET['type'])) {
 
+		# checking if the type is appropriate
 		if (in_array($_GET['type'], $type_filter)){
 
 			$type = $_GET['type'];
 
-
-
 			if (isset($_POST) && !empty($_POST)) {
 
-				echo "Form Submitted";
+				include_once 'core/patient/patient.inc.php';
 
-				if ($type_filter['Patient'] == $type) {
+				# 1. validate inputs (check if empty and if correct values)
+				$items = array(
+						'INT-medical_id-2147483648' => $_POST['medical_id'],
+						'EMAIL-email-64'            => $_POST['email'],
+						'PASSWORD-password-255'     => $_POST['password'] );
 
+				$error = gen_validate_inputs($items);
 
-					# perform patient sign in
+				if (empty($error)){
 
+					# 2. check if user exist
+					if (is_member_exist($_POST['medical_id'])){
 
+						# 3. is user active
+						if (is_member_active($_POST['medical_id'])) {
 
-				} else if ($type_filter['Medical'] == $type){
+							$sign_in = false;
 
-					# perform medical sign in
+							if ($type_filter['Patient'] == $type) {
+								# 4. sign in patient and log
+								$sign_in = sign_in_member($_POST['medical_id'], $_POST['email'], $_POST['password'], $type);
+							} else if ($type_filter['Medical'] == $type) {
+								# perform medical sign in
+								$sign_in = sign_in_member($_POST['medical_id'], $_POST['email'], $_POST['password'], $type);;
+							}
+							if ($sign_in) {
+								if(generate_and_send_verification_code_by_email($_POST['medical_id'],  $_POST['email'])) {
+									# 5. create seesions with encrypted id
+									set_sign_in_session($_POST['medical_id'], $type, (string)time() /*timestamp*/);
 
+									if(update_user_session($_POST['medical_id'], get_value_from_session(SESSION_ID))){
+										header('Location: https://172.20.10.2/~davanedavis/EHCRS-Prototype/login-verification.php');
+									}
+								}
+							} else {
+								$error['sign_failed'] = 'Incorrect Credentials';
+							}
+						} else {
+								# Account isnt Active
+								$error['account_status'] = 'Your account is not active,
+															please contact adminsitrator';
+						}
+					} else {
+						# Account doesnt Exist
+						$error['account_exist'] = 'Your account wasn\'t found,
+						 						  please contact adminsitrator';
+					}
+				} else {
+					#var_dump($error);
+					#Errors
 				}
-
 			}
 		}
 	}
@@ -192,7 +229,7 @@
 						?>
 						 </h4>
 					Hello there, sign in and start managing your <a href="sign-up.php?type=<?php echo $type_filter['Patient']; ?>">Patient</a>
-					or <a href="sign-up.php?type=<?php echo $type_filter['Medical']; ?>">Physicain</a>
+					or <a href="sign-up.php?type=<?php echo $type_filter['Medical']; ?>">Physician</a>
 				</p>
 			</center>
 
@@ -204,17 +241,56 @@
 
 				<div class="row">
 					<div class="col-md-12">
-						<small class="login-fade">login</small><br>
-						<input type="text" name="medical_id" id="medical_id" placeholder="<?php echo $type ?> ID" class="form-control" required>
+
+						<?php
+
+							# printing if the account is not active error
+							if(array_key_exists('account_status',$error)){
+								echo output_error($error['account_status']);
+								echo '<br>';
+							}
+
+							# printing if the account exist error
+							if(array_key_exists('account_exist',$error)){
+								echo output_error($error['account_exist']);
+								echo '<br>';
+							}
+
+							# printing if the account exist error
+							if(array_key_exists('sign_failed',$error)){
+								echo output_error($error['sign_failed']);
+								echo '<br>';
+							}
+
+						?>
+
+						<small class="login-fade">login</small>
+							<?php
+								if(array_key_exists('medical_id',$error)){
+									echo output_error($error['medical_id']);
+								}
+							?><br>
+						<input type="text" name="medical_id" id="medical_id" value="<?php echo isset($_POST['medical_id']) ? $_POST['medical_id'] : ''; ?>" placeholder="<?php echo $type ?> ID" class="form-control" required>
+
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-			  			<input type="email" name="email" id="email" placeholder="Enter email" class="form-control" required>
+						<?php
+							if(array_key_exists('email',$error)){
+								echo output_error($error['email']);
+							}
+						?>
+			  			<input type="email" name="email" id="email"  value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>" placeholder="Enter email" class="form-control" required>
 			  		</div>
 			  	</div>
 			  	<div class="row">
 			  		<div class="col-md-12">
+						<?php
+							if(array_key_exists('password', $error)){
+								echo output_error($error['password']);
+							}
+						?>
 			  			<input type="password" name="password" placeholder="Enter your password" class="form-control" required>
 			  		</div>
 			  	</div>
@@ -223,9 +299,11 @@
 			  			<button type="submit" name="submit" value="submit" class="btn btn-send btn-block">Sign In Now  <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
 			  		</div>
 			  		<br><br><br>
+					<?php #if (isset($_GET['type']) && $_GET['type'] === 'Medical') { ?>
 			  		<center>
-			  			<small>Forgot Password? <a href="">Reset</a></small>
+			  			<small>or <a href="barcode-login.php">QR Code</a>  Sign In</small>
 			  		</center>
+					<?php# } ?>
 			  	</div>
 
 			</form>

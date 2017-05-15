@@ -1,204 +1,485 @@
 <?php
-//Form submitted
-if(isset($_POST['submit'])) {
-  //Error checking
-  if(!$_POST['email']) {
-    $error['email'] = "<p>Please supply your email.</p>\n";
-  }
-  if(!$_POST['password']) {
-    $error['password'] = "<p>Please supply your password.</p>\n";
-  }
 
-  //No errors, process
-  if(!is_array($error)) {
-    //Process your form
+//
+// echo $date;
+// echo $time;
+// die();
 
-  }
+
+define('APP_RAN', 'APP_RAN');
+
+
+require 'core/init.php';
+
+
+// is_session_started();
+// var_dump($_SESSION);
+
+
+
+
+# user and session validation file
+require_once 'session-validation.php';
+
+// # Access Contol File
+define('PAGE_ACCESS_LEVEL', 2);
+require_once 'core/access_control.php';
+
+if (get_current_user_type() == 'Patient') {
+    header('Location: https://172.20.10.2/~davanedavis/EHCRS-Prototype/patient-info.php');
 }
+
+
+
+include 'header.php';
+
 ?>
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content Type" content="text/html"; charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="Garfield Gray">
-		<link rel="icon" href="img/logo.png">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<title>EHR System</title>
-		<link href="https://fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet">
-		<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-		<link href="css/hover.css" rel="stylesheet">
+<!-- Scripts for the chart  -->
+<script type="text/javascript" src="js/fusioncharts.js"></script>
+<script type="text/javascript" src="js/themes/fusioncharts.theme.fint.js"></script>
 
-		<style>
+<!-- Charts -->
+<script type="text/javascript">
+              FusionCharts.ready(function(){
+                var revenueChart = new FusionCharts({
+                    "type": "column2d",
+                    "renderAt": "columnChartContainer",
+                    "width": "750",
+                    "height": "350",
+                    "dataFormat": "json",
+                    "dataSource":  {
+                      "chart": {
+                        "caption": "Fatalies across the island",
+                        "subCaption": "Based on hospital locations",
+                        "xAxisName": "Parishes",
+                        "yAxisName": "Number of deaths",
+                        "theme": "fint"
+                     },
+                     "data": [
+                        {
+                           "label": "Clarendon",
+                           "value": "42"
+                        },
+                        {
+                           "label": "Portland",
+                           "value": "81"
+                        },
+                        {
+                           "label": "Hanover",
+                           "value": "72"
+                        },
+                        {
+                           "label": "Manchester",
+                           "value": "55"
+                        },
+                        {
+                           "label": "St. Thomas",
+                           "value": "91"
+                        },
+                        {
+                           "label": "Trewlawny",
+                           "value": "51"
+                        },
+                        {
+                           "label": "St. Mary",
+                           "value": "68"
+                        },
+                        {
+                           "label": "St. Mary",
+                           "value": "62"
+                        },
+                        {
+                           "label": "St. Ann",
+                           "value": "61"
+                        },
+                        {
+                           "label": "St. Elizabeth",
+                           "value": "49"
+                        },
+                        {
+                           "label": "St. Catherine",
+                           "value": "90"
+                        },
+                        {
+                           "label": "Westmoreland",
+                           "value": "73"
+                        },
+                        {
+                           "label": "St. James",
+                           "value": "73"
+                        },
+                        {
+                           "label": "St. Andrew",
+                           "value": "73"
+                        }
+                      ]
+                  }
 
-		body {
-			background: url(/dev/EHR/img/su-bg.jpg) no-repeat center center fixed; 
-			-webkit-background-size: cover;
-			-moz-background-size: cover;
-			-o-background-size: cover;
-			background-size: cover;
-  		}
+              });
+            revenueChart.render();
+            })
+            </script>
 
-  		input:not([type]), input[type=text], input[type=password], 
-		input[type=email], input[type=url], input[type=time], 
-		input[type=date], input[type=datetime], input[type=datetime-local], 
-		input[type=tel], input[type=number], input[type=search],
-		input[type="telephone"], 
-		textarea.materialize-textarea {
-		    background-color: transparent;
-		    border: none;
-		    border-bottom: 1px solid #00233f;
-		    border-radius: 0;
-		    outline: none;
-		    height: 3rem;
-		    
-		    font-size: 1.3rem;
-		    margin: 0 0 20px 0;
-		    padding: 0;
-		    box-shadow: none;
-		    box-sizing: content-box;
-		    transition: all 0.3s;
-		}
-		input {
-		    line-height: normal;
-		}
 
-		input::-webkit-input-placeholder {
-			color: #14213c !important;
-			opacity: 0.5;
-		}
- 
-		input:-moz-placeholder { /* Firefox 18- */
-			color: #14213c !important;
-			opacity: 0.5;
-		}
-		 
-		input::-moz-placeholder {  /* Firefox 19+ */
-			color: #14213c !important;
-			opacity: 0.5; 
-		}
-		 
-		input:-ms-input-placeholder {  
-			color: #14213c !important;
-			opacity: 0.5;
-		}
+            <script type="text/javascript">
 
-		.btn-send {
-		    background-color: white;
-		    border-style: solid;
-		    border-width: thin;
-		    border-color: #00233f;
-		    border-radius: 100px;
-		    padding: 5px;
-		    color: #14213c;
-		    letter-spacing: 1px;
-		}
 
-		.fa-long-arrow-right {
-			color: #14213c;
-		}
+              FusionCharts.ready(function(){
+                var revenueChart = new FusionCharts({
+                    "type": "doughnut2d",
+                    "renderAt": "donutChartContainer",
+                    "width": "400",
+                    "height": "400",
+                    "dataFormat": "json",
+                    "dataSource":  {
 
-		.center {
-		    margin: 10% auto 0px;
-		    width: 30%;
-		    padding: 10px;
-		}
+                      "chart": {
+                        "caption": "Most Common Illness",
+                        "subCaption": "hospitaln name",
+                        "xAxisName": "Week",
+                        "yAxisName": "Number if illness",
+                        "theme": "fint"
+                     },
+                     "data": [
+                        {
+                            "label": "Sun",
+                            "value": "810000"
+                        },
+                        {
+                           "label": "Mon",
+                           "value": "420000"
+                        },
+                        {
+                           "label": "Tues",
+                           "value": "810000"
+                        },
+                        {
+                           "label": "Wed",
+                           "value": "720000"
+                        },
+                        {
+                           "label": "Thur",
+                           "value": "550000"
+                        },
+                        {
+                           "label": "Fri",
+                           "value": "910000"
+                        },
+                        {
+                           "label": "Sat",
+                           "value": "510000"
+                        }
+                      ]
+                  }
 
-		.header-caption {
-			font-family: 'Roboto', sans-serif;
-			color: #14213c;
-		}
+              });
+            revenueChart.render();
+            })
 
-		.login-fade {
-			color: #14213c;
-			font-size: 11px;
-		}
+            </script>
 
-		footer {
-			position: absolute;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			padding: 1rem;
-			text-align: center;
-		}
 
-		@media screen and (max-width: 480px) {
-		    .center {
-		    	margin: 30% auto 0px;
-		    	padding: 0px;
-		    	width: 90%;
-		  	}
-		}
 
-		@media screen and (max-width: 780px) {
-		    .center {
-		    	margin: 30% auto 0px;
-		    	padding: 0px;
-		    	width: 80%;
-		  	}
-		}
+            <script type="text/javascript">
 
-		
 
-		</style>
-	</head>
-	<body>
-	<div class="container">
-		<div class="container">
-			<div class="center">
-			<!-- logo -->
-			<center>
-				<img src="img/logo.png" class="img-responsive" alt="logo" width="60px" height="60px">
-				<br>
-				<p class="text-center">
-					<h4 class="header-caption">SIGN IN</h4>
-					Hello there, sign in and start managing your patients.
-				</p>
-			</center>
+              FusionCharts.ready(function(){
+                var revenueChart = new FusionCharts({
+                    "type": "pie2D",
+                    "renderAt": "pieChartContainer",
+                    "width": "400",
+                    "height": "400",
+                    "dataFormat": "json",
+                    "dataSource":  {
 
-			<!-- sign up form -->
-			<form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
-			
-				<div class="row">
-					<div class="col-md-12">
-						<small class="login-fade">login</small><br>
-			  			<input type="email" name="email" id="email" placeholder="Enter email" class="form-control" required>
-			  		</div>
-			  	</div>
-			  	<div class="row">
-			  		<div class="col-md-12">	
-			  			<input type="password" name="password" placeholder="Enter your password" class="form-control" required>
-			  		</div>
-			  	</div>
-			  	<div class="row">
-			  		<div class="col-md-12 col-xs-offset-0">
-			  			<button type="button" name="submit" value="submit" class="btn btn-send btn-block">Sign In Now  <i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-			  		</div>
-			  		<br><br><br>
-			  		<center>
-			  			<small>Forgot Password? <a href="">Reset</a></small>
-			  		</center>
-			  	</div>
-			 
-			</form> 
-			</div><!--End Center-->
-		</div>
-		
-		<footer>
-		<div class="container">
-			<center>
-	        		<p>&copy; <?php echo date("Y");?> EHR System</p>
-	       	</center> 
-	       	</div>
-        </footer>
+                      "chart": {
+                        "caption": "Monthly revenue for last year",
+                        "subCaption": "Across All Hospil's",
+                        "xAxisName": "Month",
+                        "yAxisName": "Revenues (In JMD)",
+                        "theme": "fint"
+                     },
+                     "data": [
+                        {
+                           "label": "Jan",
+                           "value": "420000"
+                        },
+                        {
+                           "label": "Feb",
+                           "value": "810000"
+                        },
+                        {
+                           "label": "Mar",
+                           "value": "720000"
+                        },
+                        {
+                           "label": "Apr",
+                           "value": "550000"
+                        },
+                        {
+                           "label": "May",
+                           "value": "910000"
+                        },
+                        {
+                           "label": "Jun",
+                           "value": "510000"
+                        },
+                        {
+                           "label": "Jul",
+                           "value": "680000"
+                        },
+                        {
+                           "label": "Aug",
+                           "value": "620000"
+                        },
+                        {
+                           "label": "Sep",
+                           "value": "610000"
+                        },
+                        {
+                           "label": "Oct",
+                           "value": "490000"
+                        },
+                        {
+                           "label": "Nov",
+                           "value": "900000"
+                        },
+                        {
+                           "label": "Dec",
+                           "value": "730000"
+                        }
+                      ]
+                  }
+
+              });
+            revenueChart.render();
+            })
+
+            </script>
+
+
+              <!-- particles.js container -->
+<div id="particles-js"></div>
+
+<!-- particles.js lib (JavaScript CodePen settings): https://github.com/VincentGarreau/particles.js -->
+<script src='http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js'></script>
+<script src='http://threejs.org/examples/js/libs/stats.min.js'></script>
+
+<script src="js/index.js"></script>
+
+<!-- ************************ Begin View ************************ -->
+
+<div class="container-fluid full">
+  <div class="cover">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="wrapper-for-cover-left">
+          <h1>Welcome to Heath<b>Wise</b></h1>
+            <h4>Get started with Jamaica's First Interconnected Electronic Health Record System</h4>
+            <p>By Jamaicans, for Jamaicans</p>
+            <div class="shown">
+            <p><a class="btn btn-primary btn-lg" href="about.php" role="button">Learn more</a></p>
+            </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 visible-lg">
+        <div class="wrapper-for-cover-right">
+          <br>
+          <center><p>
+            <sm>Electronic Health Record System</sm>
+          </p>
+          </center>
+            <div class="shown">
+              <img src="img/cover-image.jpg" alt="" class="img-responsive hvr-grow">
+            </div>
+        </div>
+      </div>
     </div>
-        
+  </div>
+  </div>
 
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-	</body>
-</html>
+  <div class="tagline hide-on-small">
+    <div class="cards-en-tagline">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card bg-white-card">
+              <div class="card-block">
+                <h4 class="card-title text-center">In Hospital Emergencies</h4>
+                  <p class="card-text"><i class="fa fa-h-square " aria-hidden="true"></i>&nbsp;
+                  this is some text</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+          <div class="bg-white-card-hidden">
+            <div class="card">
+              <div class="card-block">
+                <h4 class="card-title text-center">Incomming Emergencies</h4>
+                  <p class="card-text"><i class="fa fa-h-square" aria-hidden="true"></i>&nbsp;
+                  this is some text</p>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="goto-appoint">
+        <h5>Go to <a href="appointment.php">Emergencies and Appointments
+        <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </h5>
+      </div>
+  </div>
+
+  <!--Shown on small screens-->
+  <div class="row hide-on-large">
+  <br>
+    <div class="col-sm-6">
+      <div class="card sm-card">
+              <div class="card-block">
+                <h4 class="card-title text-center">In Hospital Emergencies</h4>
+                  <p class="card-text text-center"><i class="fa fa-h-square " aria-hidden="true"></i>&nbsp;
+                  this is some text</p>
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="col-sm-6">
+      <div class="card sm-card">
+              <div class="card-block">
+                <h4 class="card-title text-center">Incomming Emergencies</h4>
+                  <p class="card-text text-center"><i class="fa fa-h-square" aria-hidden="true"></i>&nbsp;
+                  this is some text</p>
+              </div>
+            </div>
+    </div>
+  </div>
+  <br>
+  <div class="hide-on-large" align="center">
+  <hr style="color: #d4d5d5; width: 40%;">
+        <h5>Go to <a href="appointment.php">Emergencies and Appointments
+        <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </h5>
+      </div>
+
+</div>
+
+<!-- Begin messy code by dav -->
+
+
+<div class="container">
+<h3><b>Statistics</b></h3>
+            <br>
+
+              <div class="row">
+              <div class="col-sm-12 col-xs-12">
+                <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
+                  <div class="card-block">
+                      <center>
+                          <h3 class="card-title">Fatalities across all hospitals in the last week</h3>
+                          <div id="columnChartContainer">FusionCharts XT will load here!</div>
+                      </center>
+                  </div>
+                </div>
+              </div>
+            </div>
+			<br>
+            <div class="row">
+              <div class="col-sm-6">
+                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
+                    <div class="card-block">
+                       <center>
+                           <h3 class="card-title"><strong>Hospital name</strong> most popular illnesses in the last week</h3>
+                           <div id="donutChartContainer">FusionCharts XT will load here!</div>
+                        </center>
+                    </div>
+                 </div>
+               </div>
+
+
+               <div class="col-sm-6">
+                  <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
+                    <div class="card-block">
+                        <center>
+                            <h3 class="card-title">View More Stats</h3>
+                            <div id="pieChartContainer">FusionCharts XT will load here!</div>
+                       </center><br>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <br>
+            <h3><b>Patient Actions</b></h3>
+            <br>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
+                  <div class="card-block">
+                    <h3 class="card-title">New Illness For Patient</h3>
+                    <p class="card-text">Update pateint medical information by adding new sickness.</p>
+                    <a href="add-medical-history.php" class="btn btn-primary">New Illness</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+			<br>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
+                  <div class="card-block">
+                    <h3 class="card-title">Register New Patient</h3>
+                    <p class="card-text">Register a patient in the system if they are have never been registered before.</p>
+                    <a href="patient-registration.php" class="btn btn-primary">Register</a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-sm-6">
+                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
+                   <div class="card-block">
+                     <h3 class="card-title">Find Patient</h3>
+                     <p class="card-text">You can search for a specific pateint by first name, Last name, id and email address</p>
+                     <a href="search-results.php" class="btn btn-primary">Search</a>
+                   </div>
+                 </div>
+               </div>
+            </div>
+
+
+            <h3><b>Appointments</b></h3>
+            <br>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
+                  <div class="card-block">
+                    <h3 class="card-title">View Appointments</h3>
+                    <p class="card-text">Monitor all the appointments that are schedule for the day at the hospital you are working.</p>
+                    <a href="appointment.php" class="btn btn-primary">View Appointment</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                 <div class="card" style="border: 0.5px solid lightgrey; border-radius: 5px; padding-bottom: 20px; padding-left: 20px; padding-right: 15px">
+                   <div class="card-block">
+                     <h3 class="card-title">Add appointment</h3>
+                     <p class="card-text">Create new Appointments</p><br>
+                     <a href="set-appointment.php" class="btn btn-primary">Add Appointment</a>
+                   </div>
+                 </div>
+               </div>
+
+            </div>
+  </div>
+
+
+
+
+<?php include 'footer.php' ?>
