@@ -35,7 +35,7 @@ require 'header-styles.php' ?>
 	                        		<div class="row">
 	                        			<div class="col-xs-12">
 
-	                            			<a href="https://localhost/~davanedavis/EHCRS-Prototype/set-appointment.php">Set Appoinments</a>
+	                            			<a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/set-appointment.php">Set Appoinments</a>
 
 	                        			</div>
 	                        		</div>
@@ -58,7 +58,7 @@ require 'header-styles.php' ?>
 	                                </span>
 	                            </a>
 	                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="signout-on-small">
-	                              <li role="presentation"><a role="menuitem" tabindex="-1" href="https://localhost/~davanedavis/EHCRS-Prototype/sign-out.php">
+	                              <li role="presentation"><a role="menuitem" tabindex="-1" href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/sign-out.php">
 	                              <span style="color:#e7604a;">Sign Out
 	                              </span></a></li>
 	                            </ul>

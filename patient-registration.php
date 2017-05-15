@@ -9,7 +9,7 @@ require_once 'core/physician/physician.inc.php';
 require_once 'session-validation.php';
 
 # Access Contol File
-define('PAGE_ACCESS_LEVEL', 4);
+define('PAGE_ACCESS_LEVEL', 2);
 require_once 'core/access_control.php';
 
 

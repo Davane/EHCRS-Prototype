@@ -44,7 +44,7 @@ if($work_id = get_physician_work_place(get_user_id_from_session())){
 include 'header.php';
 
  ?>
-<div class="container content">
+<div class="container content hei">
 
 
 			  <div class="row">

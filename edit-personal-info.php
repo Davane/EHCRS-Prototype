@@ -13,7 +13,8 @@ require_once 'core/access_control.php';
 
 
 
-// <script>alert('test');</script>
+//  <script>alert('You Have Been Hacked');</script>
+// <script>alert(document.cookie);</script> - Display user curent session id 
 $nameSet = null;
 $status = null;
 $error = array();
@@ -80,7 +81,7 @@ if($id = get_value_from_session('key')) {
                                               $_POST['emp_tel_no'], $_POST['policy'],
                                               $_POST['emp_street'], $_POST['emp_parish'], 'ja');
             } else {
-                $error['error'] = 'Invaild Date format Contact Administrator'; 
+                $error['error'] = 'Invaild Date format Contact Administrator';
             }
 		}
 
@@ -201,8 +202,13 @@ include 'header.php';
                             </div>
 
                             <div class="col-md-6">
-                                <label>Street Name</label>
-                                <input type="text" value="<?php echo isset($patient_infoSet['street']) ? $patient_infoSet['street'] : '' ;?>" class="form-control" name="street" placeholder="Street Name">
+                                <div class="form-group has-warning">
+                                    <label class="control-label" for="inputError1">Street Name</label>
+                                    <input type="text" value="<?php echo isset($patient_infoSet['street']) ? $patient_infoSet['street'] : '' ;?>"  class="form-control" id="inputWarning1" name="street" placeholder="Street Name">
+                                    <small class="help-block">This input field is not Protected against XSS Attacks</small>
+                                    <!-- <p class="help-block">Example block-level help text here.</p> -->
+                                </div>
+
                             </div>
                             <div class="col-md-6">
                                 <label>Parish</label>

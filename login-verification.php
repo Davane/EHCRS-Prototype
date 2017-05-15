@@ -6,10 +6,6 @@ require_once 'core/patient/patient.inc.php';
 # user and session validation file
 require_once 'session-validation.php';
 
-// # Access Contol File
-// define('PAGE_ACCESS_LEVEL', 2);
-// require_once 'core/access_control.php';
-
 
 $error = array();
 $info = array();
@@ -39,7 +35,7 @@ if(get_user_id_from_session() != null) {
 
                     # check if clerk of doctor or nurse and
                     # present them with a different page if necesaary
-                    header('Location: https://localhost/~davanedavis/EHCRS-Prototype/index.php');
+                    header('Location: https://172.20.10.2/~davanedavis/EHCRS-Prototype/index.php');
 
                 } else {
                     $error['unknown-error'] = "An unknown-error Occured";

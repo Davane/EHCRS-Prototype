@@ -7,7 +7,7 @@ include_once 'core/patient/patient.inc.php';
 require_once 'session-validation.php';
 
 # Access Contol File
-define('PAGE_ACCESS_LEVEL', 3);
+define('PAGE_ACCESS_LEVEL', 4);
 require_once 'core/access_control.php';
 
 

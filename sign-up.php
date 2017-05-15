@@ -53,7 +53,7 @@ define('APP_RAN', 'APP_RAN');
 									set_sign_in_session($_POST['medical_id'], $type, (string)time() /*timestamp*/);
 
 									if(update_user_session($_POST['medical_id'], get_value_from_session(SESSION_ID))){
-										header('Location: https://localhost/~davanedavis/EHCRS-Prototype/login-verification.php');
+										header('Location: https://172.20.10.2/~davanedavis/EHCRS-Prototype/login-verification.php');
 									}
 								}
 							} else {

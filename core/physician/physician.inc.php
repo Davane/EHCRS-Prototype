@@ -1,6 +1,6 @@
 <?php
 
-defined('APP_RAN') or header('Location: https://localhost/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
+defined('APP_RAN') or header('Location: https://172.20.10.2/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
 // define('APP_RAN', 'APP_RAN');
 
 require_once(dirname(__FILE__) . '/../init.php');
@@ -320,7 +320,7 @@ function update_personal_info($patient_id, $firstname, $middlename, $lastname,
     $gender     = gen_sanitize_for_datebase($gender);
     $tel     = gen_sanitize_for_datebase($tel);
     $age        = gen_sanitize_for_datebase($age);
-    $street     = gen_sanitize_for_datebase($street);
+    //$street     = gen_sanitize_for_datebase($street);
     $parish     = gen_sanitize_for_datebase($parish);
     $country    = gen_sanitize_for_datebase($country);
     $employer   = gen_sanitize_for_datebase($employer);

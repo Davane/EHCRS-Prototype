@@ -29,7 +29,7 @@
                        $reason = 'Sign in before you can continue';
                 }?>
                 <p><?php echo $reason ?></p>
-                <p>Go to <a href="https://localhost/~davanedavis/EHCRS-Prototype/sign-out.php">Sign In</a> page</p>
+                <p>Go to <a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/sign-out.php">Sign In</a> page</p>
             </div>
           </div>
         </div>

@@ -26,7 +26,7 @@ define('PAGE_ACCESS_LEVEL', 2);
 require_once 'core/access_control.php';
 
 if (get_current_user_type() == 'Patient') {
-    header('Location: https://localhost/~davanedavis/EHCRS-Prototype/patient-info.php');
+    header('Location: https://172.20.10.2/~davanedavis/EHCRS-Prototype/patient-info.php');
 }
 
 

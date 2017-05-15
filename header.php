@@ -28,7 +28,7 @@
                 <div class="collapse navbar-collapse" id="nav-bar-mobile-menu">
                     <ul class="nav navbar-nav navbar-right navbar-header">
                         <li>
-                            <form action="https://localhost/~davanedavis/EHCRS-Prototype/search-results.php" method="POST" class="navbar-form" role="search">
+                            <form action="https://172.20.10.2/~davanedavis/EHCRS-Prototype/search-results.php" method="POST" class="navbar-form" role="search">
                             	<div class="form-group">
                             		<div class="row">
                             			<div class="col-xs-12">
@@ -41,22 +41,16 @@
 
                             </form>
                         </li>
-                        <li>
-                            <span id="header-search" class="visible-lg"><i class="fa fa-search" aria-hidden="true"></i></span>
-                        </li>
-                        <!--<li class="avatar">
-                            <div class="circle">
-
-                                <img class="img-cirlce" src="img/avatar.png" alt="user-avatar" height="20px">-->
                                 <li>
                                 <a href="#" class="dropdown-toggle" id="menu1" data-toggle="dropdown">
                                     <span id="dp-style">
-                                    Dr. Davis
+                                    user
                                         <span class="caret"></span>
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="signout-on-small">
-                                  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://localhost/~davanedavis/EHCRS-Prototype/sign-out.php">
+                                  <li><a href="about.php">About</a></li>
+                                  <li role="presentation"><a role="menuitem" tabindex="-1" href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/sign-out.php">
                                   <span style="color:#e7604a;">Sign Out
                                   </span></a></li>
                                 </ul>
@@ -81,29 +75,29 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav ">
-                <li class="hvr-overline-reveal-blue"><a href="https://localhost/~davanedavis/EHCRS-Prototype/index.php">DashBoard</a></li>
+                <li class="hvr-overline-reveal-blue"><a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/index.php">DashBoard</a></li>
                 <li class="divider-vertical"></li>
-                <!-- <li class="hvr-overline-reveal-blue"><a href="https://localhost/~davanedavis/EHCRS-Prototype/patient-registration.php">Register Pateint</a></li> -->
+                <!-- <li class="hvr-overline-reveal-blue"><a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/patient-registration.php">Register Pateint</a></li> -->
                 <li class="divider-vertical"></li>
-                <!-- <li class="hvr-overline-reveal-blue"><a href="https://localhost/~davanedavis/EHCRS-Prototype/appointment.php">Appointments</a></li> -->
+                <!-- <li class="hvr-overline-reveal-blue"><a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/appointment.php">Appointments</a></li> -->
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Appoinments <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/appointment.php">View Appoinments</a></li>
-                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/set-appointment.php">Set Appointment</a></li>
+                    <li><a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/appointment.php">View Appoinments</a></li>
+                    <li><a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/set-appointment.php">Set Appointment</a></li>
                   </ul>
                 </li>
 
                 <li class="divider-vertical"></li>
-                <!-- <li class="hvr-overline-reveal-blue"><a href="https://localhost/~davanedavis/EHCRS-Prototype/Patient">Menu-Item4</a></li> -->
+                <!-- <li class="hvr-overline-reveal-blue"><a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/Patient">Menu-Item4</a></li> -->
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Patient <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/patient-registration.php">Register Patient</a></li>
-                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/search-results.php">Find Patient</a></li>
+                    <li><a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/patient-registration.php">Register Patient</a></li>
+                    <li><a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/search-results.php">Find Patient</a></li>
                     <li role="separator" class="divider"></li>
-                    <!-- <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/edit-personal-info.php">Update Patient Personal Info</a></li> -->
-                    <li><a href="https://localhost/~davanedavis/EHCRS-Prototype/add-medical-history.php">Add Patient Condtion</a></li>
+                    <!-- <li><a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/edit-personal-info.php">Update Patient Personal Info</a></li> -->
+                    <li><a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/add-medical-history.php">Add Patient Condtion</a></li>
                   </ul>
                 </li>
                 <li class="divider-vertical"></li>

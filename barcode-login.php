@@ -59,9 +59,9 @@ if(!isset($_POST['submit-apt'])) {
                 set_session(USER_QR_VERIFIED, 'true');
 
                 if ($type == 'Patient') {
-                    header('Location: https://localhost/~davanedavis/EHCRS-Prototype/patient-info.php');
+                    header('Location: https://172.20.10.2/~davanedavis/EHCRS-Prototype/patient-info.php');
                 } else {
-                    header('Location: https://localhost/~davanedavis/EHCRS-Prototype/index.php');
+                    header('Location: https://172.20.10.2/~davanedavis/EHCRS-Prototype/index.php');
                 }
             } else {
                 $error['error'] = "Session Error, contacting system adminsitrator for more information.";
@@ -314,7 +314,7 @@ function signInUsingQRCode($id) {
 
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <a href="https://localhost/~davanedavis/EHCRS-Prototype/sign-up.php"> < Back to regular Sign In </a>
+                                        <a href="https://172.20.10.2/~davanedavis/EHCRS-Prototype/sign-up.php"> < Back to regular Sign In </a>
                                     </div>
 
 

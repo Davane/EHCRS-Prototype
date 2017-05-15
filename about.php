@@ -5,6 +5,7 @@
   </head>
 <body>
 
+<div id="particles-js"></div>
   <div class="about-cover">
       <h3><b>OUR MISSION IS TO IMPROVE JAMAICA'S <br>HEALTH CARE SYSTEM THROUGH TECHNOLOGY.</b></h3>
   </div>

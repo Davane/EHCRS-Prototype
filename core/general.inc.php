@@ -1,6 +1,6 @@
 <?php
 
-defined('APP_RAN') or header('Location: https://localhost/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
+defined('APP_RAN') or header('Location: https://172.20.10.2/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
 # SESSION
 
 function set_sign_in_session($id, $type, $time) {
@@ -248,7 +248,7 @@ function get_pro_pic($p_url)
 {
     $url = 'http://www.freeiconspng.com/uploads/profile-icon-9.png';
     if  ($p_url['pic_url'] !== null) {
-        $url = replace_url("/Users/davanedavis/Sites/", "https://localhost/~davanedavis/", $p_url['pic_url']);
+        $url = replace_url("/Users/davanedavis/Sites/", "https://172.20.10.2/~davanedavis/", $p_url['pic_url']);
     }
 
     return $url;

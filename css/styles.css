@@ -359,10 +359,11 @@ footer {
 
 #search-result-image {
   display: block;
-  max-width:100;
-  max-height:100px;
+  max-width:90;
+  max-height:90px;
   width: auto;
   height: auto;
+  padding: 5px;
 }
 
 /* Overline Reveal */
@@ -424,7 +425,7 @@ footer {
     height: 365px;
     width: 100%;
     margin-top: -55px;
-    background-image: url('/dev/EHR/img/background.jpg');
+    background-image: url('https://localhost/~davanedavis/EHCRS-Prototype/img/background.jpg');
     background-repeat: none;
     background-size: cover;
     background-position: center;
@@ -477,18 +478,6 @@ footer {
 }
 
 .bg-white-card-hidden{
-    margin-top: -6px;
-    height: 70px;
-    max-height: 90px;
-    padding-bottom: 0px;
-    padding-left: 5px;
-    padding-right: 5px;
-    background: transparent;
-}
-
-.bg-white-card-hidden:hover,
-.bg-white-card-hidden:focus
-{
     color:white;
     margin-top: -8px;
     height: 75px;
@@ -500,7 +489,8 @@ footer {
     border-radius: 4px;
     box-shadow: 0 0 4px rgba(0,0,0,.05), 0 6px 10px rgba(0,0,0,.08);
     -webkit-transform: scale(1.2,1.2);
-    transform: scale(1.2,1.2);
+    transform: scale(1.18,1.2);
+    opacity: 0.91;
 }
 
 .goto-appoint {
@@ -534,6 +524,8 @@ canvas {
 
 /* ---- particles.js container ---- */
 
+/* ---- particles.js container ---- */
+
 #particles-js {
   position: absolute;
   width: 100%;
@@ -562,15 +554,12 @@ canvas {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
-<<<<<<< HEAD
-=======
-
 /* ----------------- ABOUT PAGE SYLES ------------------*/
 /* DO NOT touch */
 
 .about-cover {
   position: relative;
-  background-image: url('/dev/EHR/img/abtbg.jpg');
+  background-image: url('https://localhost/~davanedavis/EHCRS-Prototype/img/abtbg.jpg');
   width: 100%;
   height: 375px;
   background-repeat: none;
@@ -623,9 +612,16 @@ canvas {
   padding: 15px 40px 0;
 }
 
+.content2 {
+    margin: 50px 15% 0px;
+}
+
 .full-height {
   height: 60%;
   min-height: 60%;
 }
 
->>>>>>> thegarfieldgray/master
+.hei {
+    min-height: 80%;
+    height: 80%;
+}

@@ -1,17 +1,10 @@
 <?php
 define('APP_RAN', 'APP_RAN');
 
-
-
 include_once 'core/patient/patient.inc.php';
 require_once 'session-validation.php';
 
-
 // is_session_started();
-// var_dump($_SESSION);
-// die();
-
-
 
 $user_id = null;
 

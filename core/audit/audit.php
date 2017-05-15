@@ -1,6 +1,6 @@
 <?php
 
-    defined('APP_RAN') or header('Location: https://localhost/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
+    defined('APP_RAN') or header('Location: https://172.20.10.2/~davanedavis/EHCRS-Prototype/unauthorized_access.php');
 
     include_once(dirname(__FILE__) . '/../physician/physician.inc.php');
 

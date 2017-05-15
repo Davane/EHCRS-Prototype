@@ -6,12 +6,6 @@ require_once 'core/physician/physician.inc.php';
 # user and session validation file
 require_once 'session-validation.php';
 
-# Access Contol File
-// define('PAGE_ACCESS_LEVEL', 2);
-// require_once 'core/access_control.php';
-
-
-
 
 $appointmentTime = ['24:00', '23:00', '22:00', '21:00', '20:00', '19:00', '18:00',
 	     		   	'17:00', '16:00', '15:00', '14:00', '13:00', '12:00', '11:00',

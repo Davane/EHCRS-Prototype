@@ -4,6 +4,8 @@ define('APP_RAN', 'APP_RAN');
 
 require_once 'core/physician/physician.inc.php';
 
+# user and session validation file
+require_once 'session-validation.php';
 
 // is_session_started();
 
@@ -69,32 +71,7 @@ include './header.php';
 ?>
 
 <div id="container content">
-  <div class="container">
-             <div id='sidebar-list-group' class="list-group">
-                 <div class="list-group-item active">
-                     <h4 class="list-group-item-heading"><b>Filters</b></h4>
-                 </div>
-                 <div class="list-group-item">
-                     <h4 class="list-group-item-heading">Address</h4>
-                     <p class="list-group-item-text">Filter search results by the person's address</p>
-                     <input type="text" class="form-control" name="filter-address" placeholder="Enter a place ..." style='margin-right: 10px'>
-                 </div>
-
-                 <div class="list-group-item">
-                     <h4 class="list-group-item-heading">Gender</h4>
-                     <div class="btn-group" data-toggle="buttons">
-                          <label class="btn btn-primary active">
-                            <input type="radio" name="options" id="option1" autocomplete="off" checked> Male
-                          </label>
-                          <label class="btn btn-primary">
-                            <input type="radio" name="options" id="option2" autocomplete="off"> Female
-                          </label>
-
-                    </div>
-                 </div>
-
-         </div>
-  </div>
+    <div class="content2">
 
 
         <?php
@@ -107,10 +84,10 @@ include './header.php';
                 while ($row = $resultSet->fetch_assoc()):?>
                 <form action="<?php $_SERVER['PHP_SELF'];?>" method="post">
 
-                <div class="media" style="border: 0.5px solid lightgrey; border-radius: 5px">
+                <div class="media" style="border: 0.5px solid lightgrey; border-radius: 5px; margin: 5px auto;">
                    <div class="media-left">
                        <a href="#">
-                         <img id="search-result-image" style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;" class="media-object" src="img/avatar.png" alt="patient-image">
+                         <img id="search-result-image" style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px;" class="media-object" src="img/man.png" alt="patient-image">
                        </a>
                    </div>
                    <div class="media-body">
@@ -164,4 +141,5 @@ include './header.php';
            </div>
         </div>
     </div>
+</div>
 </div>

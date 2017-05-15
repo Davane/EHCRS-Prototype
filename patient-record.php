@@ -39,6 +39,7 @@ include 'header.php'
 
 <div class="container content">
 
+
 			  <div class="row">
 
 				<?php if($patient_info_result !== null && !empty($patient_info_result)) { ?>
@@ -256,5 +257,6 @@ include 'header.php'
 					</div>
 	</div>
 </div>
+<br><br><br><br><br>
 
 <?php include 'footer.php' ?>

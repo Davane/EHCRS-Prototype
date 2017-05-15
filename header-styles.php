@@ -1,4 +1,4 @@
-<?php header( "Set-Cookie: name=value; httpOnly" ); ?>
+<?php  header("Set-Cookie: name=value; httpOnly"); ?>
 	<head>
 		<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,7 +22,7 @@
             input#ipt {
             color:lightgrey;
             width: 100%;
-            background-color: #3a4b5e;
+            background-color: white;
             border-color: #66afe9;
             /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);*/
             box-shadow:  inset 0 1px 1px rgba(0,0,0,.075);
@@ -30,6 +30,8 @@
 
         input#ipt: hover,
         input#ipt: focus {
+			background-color: white;
+			color: black;
             -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
         }
